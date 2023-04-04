@@ -1,12 +1,49 @@
+/* CSS variables */
+:root {
+  --background-color-dark: #061827;
+}
+
 *,
 html,
 body {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  /* background-color: var(--background-color-dark); */
+  background: url('https://media.houseandgarden.co.uk/photos/6399de0ae0932254736e7830/3:2/w_2579,h_1719,c_limit/Mark%20Fox%20X%20Charlotte%20Boundy-44.jpg');
+}
+
+.app {
+  position: relative;
+}
+
+/* flex utility classes */
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-spaceAround {
+  justify-content: space-around;
+}
+
+.justify-spaceBetween {
+  justify-content: space-between;
+}
+
+.justify-spaceEvenly {
+  justify-content: space-evenly;
 }

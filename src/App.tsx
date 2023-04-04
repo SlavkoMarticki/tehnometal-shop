@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
+import { Navigation } from './components';
 
 function App(): ReactElement {
   return (
     <div className='app'>
-      Hello world
+      <Navigation />
     </div>
   );
 }
