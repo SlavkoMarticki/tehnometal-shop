@@ -14,7 +14,6 @@ import {
   RiSearchFill
 } from 'react-icons/ri';
 import { Logo } from '.';
-import { IoMdArrowDropdown } from 'react-icons/io';
 import { HoverableIcon } from '../../hoverable-icon';
 
 interface IProps {
