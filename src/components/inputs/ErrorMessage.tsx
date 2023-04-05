@@ -1,7 +1,10 @@
+import { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { IErrorMessage } from '../../types';
 
-export default function ErrorMessage(props: IErrorMessage) {
+export default function ErrorMessage(
+  props: IErrorMessage
+): ReactElement | null {
   const { name } = props;
   const {
     formState: { errors }

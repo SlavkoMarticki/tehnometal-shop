@@ -1,0 +1,35 @@
+.user-icon {
+  background: url('../../common/assets/input-icons/user.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.input-group {
+  position: relative;
+}
+
+.form--icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.pass-icon {
+  background: url('../../common/assets/input-icons/pass-icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.calendar-icon {
+  background: url('../../common/assets/input-icons/calendar-icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.email-icon {
+  background: url('../../common/assets/input-icons/email-icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -1,0 +1,4 @@
+.register--container {
+  height: calc(100vh + 56px);
+  background-color: var(--background-color-dark);
+}

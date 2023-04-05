@@ -8,7 +8,7 @@ function App(): ReactElement {
       <header>
         <Navigation />
       </header>
-      <main>
+      <main className='main'>
         <MainRouteLayout />
       </main>
     </div>
