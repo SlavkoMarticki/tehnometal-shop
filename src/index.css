@@ -17,8 +17,8 @@ body {
 }
 
 body {
-  /* background-color: var(--background-color-dark); */
-  background: url('https://media.houseandgarden.co.uk/photos/6399de0ae0932254736e7830/3:2/w_2579,h_1719,c_limit/Mark%20Fox%20X%20Charlotte%20Boundy-44.jpg');
+  /*  background-color: var(--background-color-dark); */
+  /*   background: url('https://media.houseandgarden.co.uk/photos/6399de0ae0932254736e7830/3:2/w_2579,h_1719,c_limit/Mark%20Fox%20X%20Charlotte%20Boundy-44.jpg'); */
 }
 
 .app {
@@ -39,6 +39,11 @@ body {
   justify-content: space-around;
 }
 
+header {
+  background-color: var(--background-color-dark);
+  position: relative;
+}
+
 .justify-spaceBetween {
   justify-content: space-between;
 }
@@ -55,4 +60,23 @@ a {
 .active {
   font-weight: 500;
   border-bottom: 1px solid white;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+}
+
+.underline {
+  text-decoration: underline;
+  letter-spacing: 0.7px;
+}
+.form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 2rem;
+  align-items: center;
 }

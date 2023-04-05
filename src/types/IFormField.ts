@@ -3,11 +3,12 @@ export interface IFormInputFieldProps {
   type?: string,
   value?: any,
   placeholder: string,
-  label: string,
+  label?: string,
   rest?: any,
   validate?: any
   defaultValue?: any,
   className?: string,
+  icon?: string;
 }
 
 export interface IErrorMessage {
