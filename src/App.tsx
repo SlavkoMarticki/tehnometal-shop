@@ -1,10 +1,16 @@
 import { ReactElement } from 'react';
 import { Navigation } from './components';
+import { MainRouteLayout } from './layouts';
 
 function App(): ReactElement {
   return (
     <div className='app'>
-      <Navigation />
+      <header>
+        <Navigation />
+      </header>
+      <main>
+        <MainRouteLayout />
+      </main>
     </div>
   );
 }

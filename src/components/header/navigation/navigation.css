@@ -67,6 +67,10 @@
 .nav--item:hover {
   border-bottom: 1px solid white;
 }
+
+.nav--item > .active:hover {
+  border-bottom: none;
+}
 .nav--item__i:hover {
   border-bottom: none;
 }

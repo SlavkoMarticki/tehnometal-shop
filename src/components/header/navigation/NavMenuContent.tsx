@@ -1,21 +1,15 @@
 import React from 'react';
 import { CiSearch } from 'react-icons/ci';
-import {
-  AiOutlineHeart,
-  AiFillHeart
-} from 'react-icons/ai';
-import {
-  BsPerson,
-  BsPersonFill
-} from 'react-icons/bs';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { BsPerson, BsPersonFill } from 'react-icons/bs';
 import {
   RiShoppingCart2Line,
   RiShoppingCart2Fill,
   RiSearchFill
 } from 'react-icons/ri';
 import { Logo } from '.';
-import { IoMdArrowDropdown } from 'react-icons/io';
 import { HoverableIcon } from '../../hoverable-icon';
+import { NavLink } from 'react-router-dom';
 
 interface IProps {
   isNavActive: boolean;
@@ -30,22 +24,49 @@ export default function NavMenuContent(
   if (isNavActive) {
     return (
       <>
-        <Logo
-          isNavActive={isNavActive}
-          isNavMenuOpen={isNavMenuOpen}
-        />
+        <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} />
         <div className='nav--group'>
           <ul className='nav--list flex'>
-            <li className='nav--item'>Home</li>
-            <li className='nav--item '>
-              Products
-            </li>
-            <li className='nav--item'>News</li>
             <li className='nav--item'>
-              About Us
+              <NavLink
+                to='/'
+                className={({ isActive }) => (isActive ? 'active' : '')}
+              >
+                {' '}
+                Home
+              </NavLink>
             </li>
             <li className='nav--item'>
-              Contact Us
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/categories'
+              >
+                Products
+              </NavLink>
+            </li>
+            <li className='nav--item'>
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/news'
+              >
+                News
+              </NavLink>
+            </li>
+            <li className='nav--item'>
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/about-us'
+              >
+                About Us
+              </NavLink>
+            </li>
+            <li className='nav--item'>
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/contact-us'
+              >
+                Contact Us
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -61,22 +82,21 @@ export default function NavMenuContent(
               <HoverableIcon
                 regularIcon={<AiOutlineHeart />}
                 hoverIcon={<AiFillHeart />}
+                path='/favorites'
               />
             </li>
             <li className='nav--item nav--item__i'>
               <HoverableIcon
                 regularIcon={<BsPerson />}
                 hoverIcon={<BsPersonFill />}
+                path='/profile'
               />
             </li>
             <li className='nav--item nav--item__i'>
               <HoverableIcon
-                regularIcon={
-                  <RiShoppingCart2Line />
-                }
-                hoverIcon={
-                  <RiShoppingCart2Fill />
-                }
+                regularIcon={<RiShoppingCart2Line />}
+                hoverIcon={<RiShoppingCart2Fill />}
+                path='/cart'
               />
             </li>
           </ul>
@@ -93,34 +113,58 @@ export default function NavMenuContent(
               <HoverableIcon
                 regularIcon={<BsPerson />}
                 hoverIcon={<BsPersonFill />}
+                path='/profile'
               />
             </li>
             <li className='nav--item nav--item__i'>
               <HoverableIcon
-                regularIcon={
-                  <RiShoppingCart2Line />
-                }
-                hoverIcon={
-                  <RiShoppingCart2Fill />
-                }
+                regularIcon={<RiShoppingCart2Line />}
+                hoverIcon={<RiShoppingCart2Fill />}
+                path='/cart'
               />
             </li>
           </ul>
           <ul className='nav--list flex flex-column'>
             <li className='nav--item'>
-              <span>Home</span>
-            </li>
-            <li className='nav--item '>
-              <span> Products </span>
-            </li>
-            <li className='nav--item'>
-              <span>News</span>
-            </li>
-            <li className='nav--item'>
-              <span>About Us</span>
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/'
+              >
+                {' '}
+                <span>Home</span>
+              </NavLink>
             </li>
             <li className='nav--item'>
-              <span>Contact Us</span>
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/categories'
+              >
+                <span>Products</span>
+              </NavLink>
+            </li>
+            <li className='nav--item'>
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/news'
+              >
+                <span>News</span>
+              </NavLink>
+            </li>
+            <li className='nav--item'>
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/about-us'
+              >
+                <span>About Us</span>
+              </NavLink>
+            </li>
+            <li className='nav--item'>
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/contact-us'
+              >
+                <span>Contact Us</span>
+              </NavLink>
             </li>
           </ul>
 
@@ -138,10 +182,7 @@ export default function NavMenuContent(
               />
             </li>
           </ul>
-          <Logo
-            isNavActive={isNavActive}
-            isNavMenuOpen={isNavMenuOpen}
-          />
+          <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} />
         </div>
       </>
     );
