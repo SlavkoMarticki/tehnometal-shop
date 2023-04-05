@@ -1,16 +1,10 @@
 import { useState } from 'react';
 import './navigation.css';
-import {
-  RxHamburgerMenu,
-  RxCross2
-} from 'react-icons/rx';
+import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx';
 import { useMediaQuery } from '../../../hooks';
 import classNames from 'classnames';
 import { Logo, NavMenuContent } from '.';
-import {
-  RiShoppingCart2Fill,
-  RiShoppingCart2Line
-} from 'react-icons/ri';
+import { RiShoppingCart2Fill, RiShoppingCart2Line } from 'react-icons/ri';
 import { HoverableIcon } from '../../hoverable-icon';
 
 interface IMobileNavIcon {
@@ -20,16 +14,12 @@ interface IMobileNavIcon {
 }
 
 export default function Navigation(): React.ReactElement {
-  const [isNavMenuOpen, setIsNavMenuOpen] =
-    useState<boolean>(false);
+  const [isNavMenuOpen, setIsNavMenuOpen] = useState<boolean>(false);
 
-  const isNavActive = useMediaQuery(
-    '(min-width: 700px)'
-  );
+  const isNavActive = useMediaQuery('(min-width: 700px)');
 
   const navMenuClassName = classNames({
-    'nav--menu justify-spaceBetween flex':
-      isNavActive,
+    'nav--menu justify-spaceBetween flex': isNavActive,
     'nav--menu__m': !isNavActive && isNavMenuOpen
   });
 
@@ -50,29 +40,17 @@ export default function Navigation(): React.ReactElement {
   );
 }
 
-const MobileNavIcon = (
-  props: IMobileNavIcon
-): React.ReactElement => {
-  const {
-    isOpen,
-    setIsNavMenuOpen,
-    isNavActive
-  } = props;
+const MobileNavIcon = (props: IMobileNavIcon): React.ReactElement => {
+  const { isOpen, setIsNavMenuOpen, isNavActive } = props;
 
   if (!isNavActive && !isOpen) {
     return (
       <>
-        <Logo
-          isNavActive={isNavActive}
-          isNavMenuOpen={isOpen}
-        />
+        <Logo isNavActive={isNavActive} isNavMenuOpen={isOpen} />
         <HoverableIcon
-          regularIcon={
-            <RiShoppingCart2Line className='nav--cart' />
-          }
-          hoverIcon={
-            <RiShoppingCart2Fill className='nav--cart' />
-          }
+          path='/cart'
+          regularIcon={<RiShoppingCart2Line className='nav--cart' />}
+          hoverIcon={<RiShoppingCart2Fill className='nav--cart' />}
         />
 
         <RxHamburgerMenu

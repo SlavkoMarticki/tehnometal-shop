@@ -1,2 +1,2 @@
-export * from "./header";
+export { Navigation } from "./header";
 export * from "./hoverable-icon";
