@@ -2,6 +2,7 @@ import React from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { BsPerson, BsPersonFill } from 'react-icons/bs';
+import { FaSignOutAlt } from 'react-icons/fa';
 import {
   RiShoppingCart2Line,
   RiShoppingCart2Fill,
@@ -78,6 +79,14 @@ export default function NavMenuContent(
                 hoverIcon={<RiSearchFill />}
               />
             </li>
+            <li className='nav--item'>
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/auth/login'
+              >
+                Sign In
+              </NavLink>
+            </li>
             <li className='nav--item nav--item__i'>
               <HoverableIcon
                 regularIcon={<AiOutlineHeart />}
@@ -98,6 +107,9 @@ export default function NavMenuContent(
                 hoverIcon={<RiShoppingCart2Fill />}
                 path='/cart'
               />
+            </li>
+            <li className='nav--item nav--item__i'>
+              <FaSignOutAlt />
             </li>
           </ul>
         </div>
@@ -166,9 +178,19 @@ export default function NavMenuContent(
                 <span>Contact Us</span>
               </NavLink>
             </li>
+            <li className='nav--item'>
+              <NavLink
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                to='/auth/login'
+              >
+                <span>Sign In</span>
+              </NavLink>
+            </li>
           </ul>
-
           <ul className='nav--list flex flex-column'>
+            <li className='nav--item nav--item__i'>
+              <FaSignOutAlt />
+            </li>
             <li className='nav--item nav--item__i'>
               <HoverableIcon
                 regularIcon={<CiSearch />}
