@@ -4,14 +4,19 @@ import { Button, FormInputField, Datepicker } from '../../../components';
 import './register.css';
 import GoogleIcon from '../../../common/assets/google-icon.png';
 import CartIcon from '../../../common/assets/cart-form-icon.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { serverTimestamp } from '../../../common/firebase/firebase';
 import { ISignUpFormData } from '../../../types';
 import { registerServiceInstance } from '../../../services';
+import { usePageTitle } from '../../../hooks';
 
 export default function RegisterPage(): React.ReactElement {
+  usePageTitle('Sign Up');
+
   const methods = useForm<ISignUpFormData>({ mode: 'onChange' });
   const { handleSubmit } = methods;
+
+  const navigate = useNavigate();
 
   const handleSignUpForm = async (data: ISignUpFormData): Promise<any> => {
     const { username, password, email, dateOfBirth } = data;
@@ -23,6 +28,7 @@ export default function RegisterPage(): React.ReactElement {
       timeStamp: serverTimestamp()
     };
     await registerServiceInstance.registerUser(modifiedData);
+    navigate('/');
   };
 
   return (
