@@ -6,7 +6,6 @@ export default function FavoritesRouteLayout(): React.ReactElement {
   return (
     <Routes>
       <Route path='/' element={<FavoritesPage />} />
-      <Route path='/favorites' element={<FavoritesPage />} />
       <Route path='/favorites/:favoriteId' element={<FavoriteProductPage />} />
     </Routes>
   );
