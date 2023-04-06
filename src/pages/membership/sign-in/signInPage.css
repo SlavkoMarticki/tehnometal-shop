@@ -31,7 +31,7 @@
 
 .membership--wrapper {
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: clamp(300px, 100%, 500px);
@@ -86,7 +86,7 @@
   color: white;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 750px) {
   .login--container {
     height: 100vh;
   }

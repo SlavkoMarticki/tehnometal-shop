@@ -1,4 +1,10 @@
 .register--container {
-  height: calc(100vh + 56px);
+  height: calc(100vh - 56px);
   background-color: var(--background-color-dark);
+}
+
+@media only screen and (max-width: 750px) {
+  .register--container {
+    height: 100vh;
+  }
 }

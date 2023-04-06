@@ -16,7 +16,7 @@ interface IMobileNavIcon {
 export default function Navigation(): React.ReactElement {
   const [isNavMenuOpen, setIsNavMenuOpen] = useState<boolean>(false);
 
-  const isNavActive = useMediaQuery('(min-width: 700px)');
+  const isNavActive = useMediaQuery('(min-width: 750px)');
 
   const navMenuClassName = classNames({
     'nav--menu justify-spaceBetween flex': isNavActive,
@@ -34,6 +34,7 @@ export default function Navigation(): React.ReactElement {
         <NavMenuContent
           isNavActive={isNavActive}
           isNavMenuOpen={isNavMenuOpen}
+          setIsNavMenuOpen={setIsNavMenuOpen}
         />
       </section>
     </nav>

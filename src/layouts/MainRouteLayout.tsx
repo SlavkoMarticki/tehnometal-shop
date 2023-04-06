@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router';
 import {
   CartRouteLayout,
   CategoriesRouteLayout,
@@ -8,6 +8,8 @@ import {
   ProductsRouteLayout,
   SearchRouteLayout
 } from '.';
+import { PrivateRoute, PublicRoute } from '../components/routes';
+import { useAuthUser } from '../hooks';
 import { AboutUsPage, ContactUsPage, HomePage, NewsPage } from '../pages';
 import { ProfilePage } from '../pages/user';
 
@@ -19,15 +21,36 @@ export default function MainRouteLayout(): React.ReactElement {
       <Route path='/about-us' element={<AboutUsPage />} />
       <Route path='/contact-us' element={<ContactUsPage />} />
       <Route path='/news' element={<NewsPage />} />
-      <Route path='/profile' element={<ProfilePage />} />
+      <Route
+        path='/profile'
+        element={
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        }
+      />
 
       {/* layout routes outlets */}
-      <Route path='/auth/*' element={<MembershipRouteLayout />} />
+      <Route
+        path='/auth/*'
+        element={
+          <PublicRoute>
+            <MembershipRouteLayout />
+          </PublicRoute>
+        }
+      />
       <Route path='/products/*' element={<ProductsRouteLayout />} />
       <Route path='/search/*' element={<SearchRouteLayout />} />
       <Route path='/cart/*' element={<CartRouteLayout />} />
       <Route path='/categories/*' element={<CategoriesRouteLayout />} />
-      <Route path='/favorites/*' element={<FavoritesRouteLayout />} />
+      <Route
+        path='/favorites/*'
+        element={
+          <PrivateRoute>
+            <FavoritesRouteLayout />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }

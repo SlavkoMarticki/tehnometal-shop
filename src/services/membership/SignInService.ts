@@ -4,6 +4,7 @@ import { ISignInFormData } from '../../types';
 
 class SignInService {
   googleProvider;
+
   constructor() {
     this.googleProvider = new GoogleAuthProvider().setCustomParameters({
       prompt: 'select_account'
