@@ -31,15 +31,8 @@ export default function RegisterPage(): React.ReactElement {
       <div className='vector--btm-left-bg'></div>
       <div className='membership--wrapper'>
         <FormProvider {...methods}>
-          <form
-            className='form'
-            onSubmit={handleSubmit(handleSignUpForm)}
-          >
-            <img
-              src={CartIcon}
-              className='form--cart-icon'
-              alt='cart-icon'
-            />
+          <form className='form' onSubmit={handleSubmit(handleSignUpForm)}>
+            <img src={CartIcon} className='form--cart-icon' alt='cart-icon' />
             <FormInputField
               name='username'
               className='form--input'
@@ -79,10 +72,7 @@ export default function RegisterPage(): React.ReactElement {
               placeholder='REPEAT EMAIL'
               icon='form--icon email-icon'
             />
-            <Button
-              className='btn login--btn'
-              type='submit'
-            >
+            <Button className='btn login--btn' type='submit'>
               Register
             </Button>
             <SignUpWithGoogleOption />
@@ -98,23 +88,10 @@ const SignUpWithGoogleOption = (): React.ReactElement => {
     <>
       <span className='link--label'>
         You already have an account?{' '}
-        <Link
-          to='/auth/login'
-          className='underline'
-        >
+        <Link to='/auth/login' className='underline'>
           Login here
         </Link>
       </span>
-
-      <span className='or--opt'>OR</span>
-      <div className='google--sign-in flex '>
-        <Button className='btn google--opt'>Sign up with g-mail</Button>
-        <img
-          src={GoogleIcon}
-          className='form--google-icon'
-          alt='google icon'
-        />
-      </div>
     </>
   );
 };

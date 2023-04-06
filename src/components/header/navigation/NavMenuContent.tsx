@@ -8,25 +8,29 @@ import {
   RiShoppingCart2Fill,
   RiSearchFill
 } from 'react-icons/ri';
-import { Logo } from '.';
+import { AuthNavItem, Logo } from '.';
 import { HoverableIcon } from '../../hoverable-icon';
 import { NavLink } from 'react-router-dom';
+import { signInServiceInstance } from '../../../services';
+import NonAuthNavItem from './NonAuthNavItem';
 
 interface IProps {
   isNavActive: boolean;
   isNavMenuOpen: boolean;
+  setIsNavMenuOpen: (value: boolean) => void;
 }
 
 export default function NavMenuContent(
   props: IProps
 ): React.ReactElement | null {
-  const { isNavActive, isNavMenuOpen } = props;
+  const { isNavActive, isNavMenuOpen, setIsNavMenuOpen } = props;
+  const { signOut } = signInServiceInstance;
 
   if (isNavActive) {
     return (
       <>
         <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} />
-        <div className='nav--group'>
+        <div className='nav--group nav-center-top'>
           <ul className='nav--list flex'>
             <li className='nav--item'>
               <NavLink
@@ -79,27 +83,24 @@ export default function NavMenuContent(
                 hoverIcon={<RiSearchFill />}
               />
             </li>
-            <li className='nav--item'>
-              <NavLink
-                className={({ isActive }) => (isActive ? 'active' : '')}
-                to='/auth/login'
-              >
-                Sign In
-              </NavLink>
+
+            <li className='nav--item nav--item__i'>
+              <AuthNavItem>
+                <HoverableIcon
+                  regularIcon={<AiOutlineHeart />}
+                  hoverIcon={<AiFillHeart />}
+                  path='/favorites'
+                />
+              </AuthNavItem>
             </li>
             <li className='nav--item nav--item__i'>
-              <HoverableIcon
-                regularIcon={<AiOutlineHeart />}
-                hoverIcon={<AiFillHeart />}
-                path='/favorites'
-              />
-            </li>
-            <li className='nav--item nav--item__i'>
-              <HoverableIcon
-                regularIcon={<BsPerson />}
-                hoverIcon={<BsPersonFill />}
-                path='/profile'
-              />
+              <AuthNavItem>
+                <HoverableIcon
+                  regularIcon={<BsPerson />}
+                  hoverIcon={<BsPersonFill />}
+                  path='/profile'
+                />
+              </AuthNavItem>
             </li>
             <li className='nav--item nav--item__i'>
               <HoverableIcon
@@ -108,8 +109,20 @@ export default function NavMenuContent(
                 path='/cart'
               />
             </li>
-            <li className='nav--item nav--item__i'>
-              <FaSignOutAlt />
+            <li className='nav--item'>
+              <NonAuthNavItem>
+                <NavLink
+                  className={({ isActive }) => (isActive ? 'active' : '')}
+                  to='/auth/login'
+                >
+                  Sign In
+                </NavLink>
+              </NonAuthNavItem>
+            </li>
+            <li className='nav--item nav--item__i' onClick={signOut}>
+              <AuthNavItem>
+                <FaSignOutAlt />
+              </AuthNavItem>
             </li>
           </ul>
         </div>
@@ -121,14 +134,26 @@ export default function NavMenuContent(
       <>
         <div className='nav--group'>
           <ul className='nav--list flex nav--list__icons'>
-            <li className='nav--item nav--item__i'>
-              <HoverableIcon
-                regularIcon={<BsPerson />}
-                hoverIcon={<BsPersonFill />}
-                path='/profile'
-              />
+            <li
+              className='nav--item nav--item__i'
+              onClick={() => {
+                setIsNavMenuOpen(false);
+              }}
+            >
+              <AuthNavItem>
+                <HoverableIcon
+                  regularIcon={<BsPerson />}
+                  hoverIcon={<BsPersonFill />}
+                  path='/profile'
+                />
+              </AuthNavItem>
             </li>
-            <li className='nav--item nav--item__i'>
+            <li
+              className='nav--item nav--item__i'
+              onClick={() => {
+                setIsNavMenuOpen(false);
+              }}
+            >
               <HoverableIcon
                 regularIcon={<RiShoppingCart2Line />}
                 hoverIcon={<RiShoppingCart2Fill />}
@@ -137,7 +162,12 @@ export default function NavMenuContent(
             </li>
           </ul>
           <ul className='nav--list flex flex-column'>
-            <li className='nav--item'>
+            <li
+              className='nav--item'
+              onClick={() => {
+                setIsNavMenuOpen(false);
+              }}
+            >
               <NavLink
                 className={({ isActive }) => (isActive ? 'active' : '')}
                 to='/'
@@ -146,7 +176,12 @@ export default function NavMenuContent(
                 <span>Home</span>
               </NavLink>
             </li>
-            <li className='nav--item'>
+            <li
+              className='nav--item'
+              onClick={() => {
+                setIsNavMenuOpen(false);
+              }}
+            >
               <NavLink
                 className={({ isActive }) => (isActive ? 'active' : '')}
                 to='/categories'
@@ -154,7 +189,12 @@ export default function NavMenuContent(
                 <span>Products</span>
               </NavLink>
             </li>
-            <li className='nav--item'>
+            <li
+              className='nav--item'
+              onClick={() => {
+                setIsNavMenuOpen(false);
+              }}
+            >
               <NavLink
                 className={({ isActive }) => (isActive ? 'active' : '')}
                 to='/news'
@@ -162,7 +202,12 @@ export default function NavMenuContent(
                 <span>News</span>
               </NavLink>
             </li>
-            <li className='nav--item'>
+            <li
+              className='nav--item'
+              onClick={() => {
+                setIsNavMenuOpen(false);
+              }}
+            >
               <NavLink
                 className={({ isActive }) => (isActive ? 'active' : '')}
                 to='/about-us'
@@ -170,7 +215,12 @@ export default function NavMenuContent(
                 <span>About Us</span>
               </NavLink>
             </li>
-            <li className='nav--item'>
+            <li
+              className='nav--item'
+              onClick={() => {
+                setIsNavMenuOpen(false);
+              }}
+            >
               <NavLink
                 className={({ isActive }) => (isActive ? 'active' : '')}
                 to='/contact-us'
@@ -178,30 +228,56 @@ export default function NavMenuContent(
                 <span>Contact Us</span>
               </NavLink>
             </li>
-            <li className='nav--item'>
-              <NavLink
-                className={({ isActive }) => (isActive ? 'active' : '')}
-                to='/auth/login'
-              >
-                <span>Sign In</span>
-              </NavLink>
+            <li
+              className='nav--item'
+              onClick={() => {
+                setIsNavMenuOpen(false);
+              }}
+            >
+              <NonAuthNavItem>
+                <NavLink
+                  className={({ isActive }) => (isActive ? 'active' : '')}
+                  to='/auth/login'
+                >
+                  <span>Sign In</span>
+                </NavLink>
+              </NonAuthNavItem>
             </li>
           </ul>
           <ul className='nav--list flex flex-column'>
             <li className='nav--item nav--item__i'>
-              <FaSignOutAlt />
+              <AuthNavItem>
+                <FaSignOutAlt
+                  onClick={() => {
+                    signOut();
+                    setIsNavMenuOpen(false);
+                  }}
+                />
+              </AuthNavItem>
             </li>
-            <li className='nav--item nav--item__i'>
+            <li
+              className='nav--item nav--item__i'
+              onClick={() => {
+                setIsNavMenuOpen(false);
+              }}
+            >
               <HoverableIcon
                 regularIcon={<CiSearch />}
                 hoverIcon={<RiSearchFill />}
               />
             </li>
-            <li className='nav--item nav--item__i'>
-              <HoverableIcon
-                regularIcon={<AiOutlineHeart />}
-                hoverIcon={<AiFillHeart />}
-              />
+            <li
+              className='nav--item nav--item__i'
+              onClick={() => {
+                setIsNavMenuOpen(false);
+              }}
+            >
+              <AuthNavItem>
+                <HoverableIcon
+                  regularIcon={<AiOutlineHeart />}
+                  hoverIcon={<AiFillHeart />}
+                />
+              </AuthNavItem>
             </li>
           </ul>
           <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
+import { PublicRoute } from '../components/routes';
 import { RegisterPage, SignInPage } from '../pages';
 
 export default function MembershipRouteLayout(): React.ReactElement {
