@@ -5,17 +5,41 @@ import './register.css';
 import GoogleIcon from '../../../common/assets/google-icon.png';
 import CartIcon from '../../../common/assets/cart-form-icon.png';
 import { Link } from 'react-router-dom';
+import { serverTimestamp } from '../../../common/firebase/firebase';
+import { ISignUpFormData } from '../../../types';
+import { registerServiceInstance } from '../../../services';
 
 export default function RegisterPage(): React.ReactElement {
-  const methods = useForm({ mode: 'onChange' });
+  const methods = useForm<ISignUpFormData>({ mode: 'onChange' });
+  const { handleSubmit } = methods;
+
+  const handleSignUpForm = async (data: ISignUpFormData): Promise<any> => {
+    const { username, password, email, dateOfBirth } = data;
+    const modifiedData = {
+      username,
+      password,
+      email,
+      dateOfBirth,
+      timeStamp: serverTimestamp()
+    };
+    await registerServiceInstance.registerUser(modifiedData);
+  };
+
   return (
     <section className='register--container'>
       <div className='vector--top-right-bg'></div>
       <div className='vector--btm-left-bg'></div>
       <div className='membership--wrapper'>
         <FormProvider {...methods}>
-          <form className='form'>
-            <img src={CartIcon} className='form--cart-icon' alt='cart-icon' />
+          <form
+            className='form'
+            onSubmit={handleSubmit(handleSignUpForm)}
+          >
+            <img
+              src={CartIcon}
+              className='form--cart-icon'
+              alt='cart-icon'
+            />
             <FormInputField
               name='username'
               className='form--input'
@@ -55,7 +79,10 @@ export default function RegisterPage(): React.ReactElement {
               placeholder='REPEAT EMAIL'
               icon='form--icon email-icon'
             />
-            <Button className='btn login--btn' type='submit'>
+            <Button
+              className='btn login--btn'
+              type='submit'
+            >
               Register
             </Button>
             <SignUpWithGoogleOption />
@@ -71,7 +98,10 @@ const SignUpWithGoogleOption = (): React.ReactElement => {
     <>
       <span className='link--label'>
         You already have an account?{' '}
-        <Link to='/auth/login' className='underline'>
+        <Link
+          to='/auth/login'
+          className='underline'
+        >
           Login here
         </Link>
       </span>
@@ -79,7 +109,11 @@ const SignUpWithGoogleOption = (): React.ReactElement => {
       <span className='or--opt'>OR</span>
       <div className='google--sign-in flex '>
         <Button className='btn google--opt'>Sign up with g-mail</Button>
-        <img src={GoogleIcon} className='form--google-icon' alt='google icon' />
+        <img
+          src={GoogleIcon}
+          className='form--google-icon'
+          alt='google icon'
+        />
       </div>
     </>
   );
