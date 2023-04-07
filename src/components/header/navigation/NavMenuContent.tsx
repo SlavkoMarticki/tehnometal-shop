@@ -26,6 +26,7 @@ export default function NavMenuContent(
   const { isNavActive, isNavMenuOpen, setIsNavMenuOpen } = props;
   const { signOut } = signInServiceInstance;
 
+  /* Dekstop Nav Menu Group */
   if (isNavActive) {
     return (
       <>
@@ -84,24 +85,24 @@ export default function NavMenuContent(
               />
             </li>
 
-            <li className='nav--item nav--item__i'>
-              <AuthNavItem>
+            <AuthNavItem>
+              <li className='nav--item nav--item__i'>
                 <HoverableIcon
                   regularIcon={<AiOutlineHeart />}
                   hoverIcon={<AiFillHeart />}
                   path='/favorites'
                 />
-              </AuthNavItem>
-            </li>
-            <li className='nav--item nav--item__i'>
-              <AuthNavItem>
+              </li>
+            </AuthNavItem>
+            <AuthNavItem>
+              <li className='nav--item nav--item__i'>
                 <HoverableIcon
                   regularIcon={<BsPerson />}
                   hoverIcon={<BsPersonFill />}
                   path='/profile'
                 />
-              </AuthNavItem>
-            </li>
+              </li>
+            </AuthNavItem>
             <li className='nav--item nav--item__i'>
               <HoverableIcon
                 regularIcon={<RiShoppingCart2Line />}
@@ -109,26 +110,28 @@ export default function NavMenuContent(
                 path='/cart'
               />
             </li>
-            <li className='nav--item'>
-              <NonAuthNavItem>
+            <NonAuthNavItem>
+              <li className='nav--item'>
                 <NavLink
                   className={({ isActive }) => (isActive ? 'active' : '')}
                   to='/auth/login'
                 >
                   Sign In
                 </NavLink>
-              </NonAuthNavItem>
-            </li>
-            <li className='nav--item nav--item__i' onClick={signOut}>
-              <AuthNavItem>
+              </li>
+            </NonAuthNavItem>
+            <AuthNavItem>
+              <li className='nav--item nav--item__i' onClick={signOut}>
                 <FaSignOutAlt />
-              </AuthNavItem>
-            </li>
+              </li>
+            </AuthNavItem>
           </ul>
         </div>
       </>
     );
   }
+
+  /* Mobile Nav Menu Group */
   if (!isNavActive && isNavMenuOpen) {
     return (
       <>

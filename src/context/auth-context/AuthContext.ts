@@ -1,11 +1,6 @@
 import { User } from "@firebase/auth";
 import { createContext } from "react";
-
-export interface IAuthContextValues {
-  user: User | null;
-  setUser: (value: User | null) => void
-}
-
+import { IAuthContextValues } from "../../types";
 
 export const AuthContext = createContext<IAuthContextValues>({
   user: null,
