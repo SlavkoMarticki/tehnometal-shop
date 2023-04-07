@@ -1,0 +1,141 @@
+.homepage {
+  height: 100%;
+  width: 100%;
+}
+
+.homepage--hero {
+  height: calc(100vh - 56px);
+  background-color: var(--background-color-dark);
+}
+
+/* components styling */
+
+/* SLIDESHOW */
+.slideshow {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slideshow--img {
+  width: 100%;
+  height: 100vh;
+  display: inline-block;
+  object-fit: cover;
+}
+.slideshow--dots {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  height: 20px;
+  display: flex;
+  gap: 10px;
+}
+.slideshow--dot {
+  display: inline-block;
+  height: 4px;
+  width: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #4d4f58;
+}
+
+.slideshow--dot-active {
+  background-color: #ffffff;
+}
+
+.slideshow--slider {
+  white-space: nowrap;
+  transition: ease 1000ms;
+}
+
+.overlay {
+  position: absolute;
+  background-color: rgba(6, 24, 39, 0.55);
+
+  /* center overlay text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay_1 {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slideshow--info {
+  position: absolute;
+  bottom: 15%;
+  left: 5%;
+  gap: 1.3rem;
+}
+
+.slideshow--info > h1 {
+  color: white;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 53px;
+  letter-spacing: 1px;
+}
+
+.btn--slideshow {
+  border: 1px solid #fefefe;
+  border-radius: 7px;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 29px;
+  color: white;
+  background: transparent;
+  padding: 10px;
+}
+
+.slideshow--info > p {
+  color: white;
+  font-size: 34px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.slideshow--info > p > span {
+  padding-top: 10px;
+}
+
+@media only screen and (max-width: 750px) {
+  .homepage--hero {
+    height: 100vh;
+  }
+
+  .slideshow--dot {
+    display: inline-block;
+    height: 4px;
+    width: 75px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #4d4f58;
+  }
+
+  .slideshow--dot-active {
+    background-color: #ffffff;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .slideshow--dot {
+    width: 40px;
+  }
+
+  .slideshow--info {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    gap: 1.3rem;
+  }
+}
