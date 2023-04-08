@@ -154,7 +154,7 @@
 
 .homepage--specials {
   padding: 5rem 0rem;
-  max-width: 80%;
+  max-width: 75%;
   margin: auto;
 }
 
@@ -165,7 +165,7 @@
     'a d c';
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem;
-  height: 600px;
+  height: 700px;
 }
 
 .specials--item-one {
@@ -245,13 +245,13 @@
       'c d';
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    height: 1000px;
+    height: 1300px;
   }
 }
 
 /* Homepage recommendation products */
 .homepage--recommendation-products {
-  max-width: 90%;
+  max-width: 80%;
   margin: auto;
   padding: 5rem 0rem;
 }
@@ -261,7 +261,6 @@
   gap: 1rem;
   flex-wrap: wrap;
   padding-bottom: 5rem;
-  justify-content: space-evenly;
 }
 
 .card {
@@ -380,7 +379,7 @@
   position: relative;
 }
 .homepage--discount-container {
-  max-width: 90%;
+  max-width: 70%;
   width: 100%;
   border-radius: 10px;
   height: 150px;
@@ -423,9 +422,33 @@
 .widget--content > p > span {
   padding-top: 10px;
 }
+
+.sml--title {
+  font-size: 24px;
+}
 @media only screen and (max-width: 750px) {
+  .card--container {
+    justify-content: center;
+  }
   .homepage--hero {
     height: 100vh;
+  }
+
+  .widget--content > p,
+  .widget--content > h1 {
+    font-size: 24px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .widget--content {
+    align-items: center;
+  }
+  .homepage--discount-container {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+    height: 300px;
   }
 
   .slideshow--dot {
@@ -439,6 +462,7 @@
   .slider--title {
     text-align: center;
     padding-left: unset;
+    word-break: break-word;
   }
   .homepage--slider {
     padding: 10px;

@@ -30,11 +30,14 @@
 }
 
 .membership--wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(300px, 100%, 500px);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  z-index: 111;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 .form--google-icon {

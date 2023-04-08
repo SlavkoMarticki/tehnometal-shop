@@ -1,7 +1,13 @@
 import React from 'react';
-import CardsContainer from '../../components/card/CartContainer';
+import CardsContainer from '../../components/card/CardContainer';
 import { usePageTitle } from '../../hooks';
-import { DiscountWidget, ReactCarouselSlick, SlideShow, Specials } from './components';
+import {
+  DiscountWidget,
+  FindUsSection,
+  ReactCarouselSlick,
+  SlideShow,
+  Specials
+} from './components';
 import './homepage.css';
 
 export default function HomePage(): React.ReactElement {
@@ -32,10 +38,13 @@ export default function HomePage(): React.ReactElement {
         <Specials />
       </section>
       <section className="homepage--recommendation-products">
-        <h2 className='slider--title'>Our recommendation for you...</h2>
+        <h2 className='slider--title sml--title'>Our recommendation for you...</h2>
         <CardsContainer cardsData={cardsData} cardClassName="card--wrap" />
       </section>
       <DiscountWidget />
+      <section className="homepage--find-us">
+        <FindUsSection />
+      </section>
     </div>
   );
 }
