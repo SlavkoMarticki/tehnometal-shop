@@ -1,6 +1,10 @@
+@import '~slick-carousel/slick/slick.css';
+@import '~slick-carousel/slick/slick-theme.css';
+
 .homepage {
   height: 100%;
   width: 100%;
+  background-color: var(--background-color-dark);
 }
 
 .homepage--hero {
@@ -107,6 +111,144 @@
   padding-top: 10px;
 }
 
+/* carousel component styling */
+
+.homepage--carousel-categories {
+  width: 80%;
+  height: auto;
+  margin: 3rem auto 0 auto;
+  padding: 5rem 0;
+}
+
+.slick-list {
+  background: #0c2338;
+  border-radius: 7px;
+}
+
+.slick-next,
+.slick-prev {
+  width: 2rem;
+  height: 2rem;
+  z-index: 10;
+}
+.slider--title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 36px;
+  color: #ffffff;
+  padding-bottom: 2rem;
+  padding-left: 2.2rem;
+  letter-spacing: 2px;
+}
+
+.slider--img {
+  width: clamp(200px, 100%, 300px);
+  aspect-ratio: 1;
+  padding: 1rem;
+  border-radius: 50px;
+  margin: auto;
+}
+
+/* Home page specials  */
+
+.homepage--specials {
+  padding: 5rem 0rem;
+  max-width: 80%;
+  margin: auto;
+}
+
+.specials--container {
+  display: grid;
+  grid-template-areas:
+    'a b c'
+    'a d c';
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  height: 600px;
+}
+
+.specials--item-one {
+  grid-area: a;
+}
+
+.specials--item-two {
+  grid-area: b;
+}
+
+.specials--item-three {
+  grid-area: c;
+}
+
+.specials--item-four {
+  grid-area: d;
+}
+
+.txt-sml {
+  font-size: 24px;
+}
+
+.specials--card {
+  background: #092238;
+  border-radius: 7px;
+  position: relative;
+}
+
+.specials--card-item {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.specials--item-content {
+  height: 40%;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 29px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.specials--vector-up {
+  position: absolute;
+  top: 0;
+  height: 50%;
+  width: 100%;
+  background: #113f67;
+  border-radius: 10px 10px 140px 140px;
+  z-index: 1;
+}
+
+.specials--vector-down {
+  position: absolute;
+  bottom: 0;
+  height: 50%;
+  width: 100%;
+  background: #113f67;
+  border-radius: 10px 10px 125px 125px;
+  transform: rotate(180deg);
+  z-index: 1;
+}
+
+@media only screen and (min-width: 750px) and (max-width: 1424px) {
+  .specials--container {
+    display: grid;
+    grid-template-areas:
+      'a b'
+      'c d';
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    height: 1000px;
+  }
+}
+
 @media only screen and (max-width: 750px) {
   .homepage--hero {
     height: 100vh;
@@ -120,6 +262,25 @@
     cursor: pointer;
     background-color: #4d4f58;
   }
+  .slider--title {
+    text-align: center;
+    padding-left: unset;
+  }
+  .homepage--slider {
+    padding: 10px;
+  }
+
+  .specials--container {
+    display: grid;
+    grid-template-areas:
+      'a'
+      'b'
+      'c'
+      'd';
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+    height: 2000px;
+  }
 
   .slideshow--dot-active {
     background-color: #ffffff;
@@ -131,11 +292,19 @@
     width: 40px;
   }
 
+  .slick-list {
+    margin-left: unset;
+  }
+
   .slideshow--info {
     position: absolute;
     bottom: 20%;
     left: 50%;
     transform: translate(-50%, 0%);
     gap: 1.3rem;
+  }
+
+  .homepage--specials {
+    max-width: 95%;
   }
 }
