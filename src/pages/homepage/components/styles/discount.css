@@ -1,9 +1,9 @@
 .homepage--discount-widget {
-  padding-bottom: 5rem;
+  padding-bottom: 10rem;
   position: relative;
 }
 .homepage--discount-container {
-  max-width: 70%;
+  max-width: 85%;
   width: 100%;
   border-radius: 10px;
   height: 150px;

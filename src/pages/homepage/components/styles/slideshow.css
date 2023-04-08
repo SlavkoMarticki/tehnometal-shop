@@ -65,6 +65,11 @@
   padding: 10px;
 }
 
+.btn--slideshow:hover {
+  background-color: white;
+  color: var(--background-color-dark);
+}
+
 .slideshow--info > p {
   color: white;
   font-size: 34px;

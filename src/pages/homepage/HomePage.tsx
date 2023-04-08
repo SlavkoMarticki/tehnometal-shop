@@ -97,16 +97,21 @@ export default function HomePage(): React.ReactElement {
 
   return (
     <div className='homepage'>
+      <div className='vector--btm-left-bg'></div>
+
       <section className='homepage--hero'>
         <SlideShow />
       </section>
       <section className='homepage--carousel-categories'>
         <ReactCarouselSlick />
       </section>
-      <section className='homepage--specials'>
-        <Specials />
-      </section>
+      <div className='full'>
+        <section className='homepage--specials'>
+          <Specials />
+        </section>
+      </div>
       <section className='homepage--recommendation-products'>
+
         <h2 className='slider--title sml--title'>
           Our recommendation for you...
         </h2>

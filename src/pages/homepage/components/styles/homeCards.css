@@ -2,11 +2,12 @@
   max-width: 80%;
   margin: auto;
   padding: 5rem 0rem;
+  position: relative;
 }
 .card--container {
   position: relative;
   display: flex;
-  gap: 1rem;
+  gap: 2rem 1.5rem;
   flex-wrap: wrap;
   padding-bottom: 5rem;
 }
@@ -118,4 +119,26 @@
   bottom: 10px;
   font-size: 35px;
   color: white;
+}
+
+/* media queris for centering products */
+
+@media screen and (min-width: 1300px) and (max-width: 1600px) {
+  .card--container {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 1282px) {
+  .card--container {
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 1630px) {
+  .card--container {
+    justify-content: center;
+    align-items: center;
+  }
 }
