@@ -61,7 +61,7 @@ export default function Specials(): React.ReactElement {
           <div className={specialsVerticalClassNames}>
             <div className='specials--item-content'>
               <p className={smlTextClassName}>
-                Our Partners will give you only the best cement on the market!!
+                Start your handyman journey right now!!
               </p>
             </div>
             <div className='specials--item-img'>
