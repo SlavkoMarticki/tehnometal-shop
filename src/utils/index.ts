@@ -1,1 +1,1 @@
-export * from ".";
+export { formatPriceNum } from "./priceFormatter";
