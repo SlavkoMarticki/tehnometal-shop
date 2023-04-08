@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { Button } from '../../../components';
 import { CiPercent } from 'react-icons/ci';
+import "./styles/slideshow.css";
 
 const images = [
   'https://images.unsplash.com/photo-1564540586988-aa4e53c3d799?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -74,9 +75,8 @@ function Slideshow(): React.ReactElement {
         {images.map((_, idx) => (
           <div
             key={idx}
-            className={`slideshow--dot${
-              index === idx ? ' slideshow--dot-active' : ''
-            }`}
+            className={`slideshow--dot${index === idx ? ' slideshow--dot-active' : ''
+              }`}
             onClick={() => {
               setIndex(idx);
             }}

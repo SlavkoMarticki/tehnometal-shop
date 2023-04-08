@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 import { CiPercent } from "react-icons/ci";
+import "./styles/discount.css";
 
 export default function DiscountWidget(): ReactElement {
   return <div className="homepage--discount-widget">

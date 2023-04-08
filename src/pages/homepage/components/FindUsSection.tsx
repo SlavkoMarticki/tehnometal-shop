@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../../components";
-import "./findUsSection.css";
+import "./styles/findUsSection.css";
 import { IoIosArrowForward } from "react-icons/io"
 export default function FindUsSection(): ReactElement {
 

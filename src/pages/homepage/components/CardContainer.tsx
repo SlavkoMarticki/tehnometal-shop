@@ -1,9 +1,9 @@
 import React from 'react';
-import Card from './Card';
-import './card.css';
+import Card from '../../../components/card/Card';
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 import { BiCartAdd } from "react-icons/bi";
-import { formatPriceNum } from '../../utils';
+import { formatPriceNum } from '../../../utils';
+import "./styles/homeCards.css";
 
 interface ICardData { id: number; title: string, imgUrl: string, stars: number, price: number }
 
@@ -40,7 +40,6 @@ export default CardsContainer;
 
 const StarsDisplay = ({ starsNum }: { starsNum: number }): React.ReactElement => {
   const data = new Array(starsNum).fill(starsNum);
-  console.log(data)
   return <div className="flex card--stars-wrap">
     {data.map((star, idx) => (
       <div key={idx} className="card--star">

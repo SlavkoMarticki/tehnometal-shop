@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 import Slider from 'react-slick';
 import { FiArrowLeftCircle, FiArrowRightCircle } from 'react-icons/fi';
+import "./styles/slider.css";
+
 export default function ReactCarouselSlick(): ReactElement {
   const settings = {
     infinite: true,

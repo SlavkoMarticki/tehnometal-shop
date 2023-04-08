@@ -4,6 +4,7 @@ import CementImg from '../../../common/assets/specials/specials-cement.png';
 import SpecialsToolsBox from '../../../common/assets/specials/specials-tools-box.png';
 import { useMediaQuery } from '../../../hooks';
 import classNames from 'classnames';
+import "./styles/specials.css";
 
 export default function Specials(): React.ReactElement {
   const isTabletViewActive = useMediaQuery('(min-width: 1424px)');
