@@ -8,6 +8,7 @@ import "./styles/specials.css";
 
 export default function Specials(): React.ReactElement {
   const isTabletViewActive = useMediaQuery('(min-width: 1424px)');
+
   const specialsVerticalClassNames = classNames('flex specials--card-item', {
     'flex-column': !isTabletViewActive
   });
@@ -15,6 +16,7 @@ export default function Specials(): React.ReactElement {
   const smlTextClassName = classNames('', {
     'txt-sml': isTabletViewActive
   });
+
   return (
     <>
       <h2 className='slider--title'>Specials this week...</h2>

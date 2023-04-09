@@ -9,96 +9,14 @@ import {
   Specials
 } from './components';
 import './homepage.css';
+import { cardsData } from '../../common';
 
 export default function HomePage(): React.ReactElement {
   usePageTitle('Home');
-  const cardsData = [
-    {
-      id: 1,
-      title: 'MS 271 FARM BOSS®',
-      stars: 4,
-      price: 48523,
-      imgUrl:
-        'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
-    },
-    {
-      id: 2,
-      title: 'MS 271 FARM BOSS®',
-      stars: 3,
-      price: 48523,
-      imgUrl:
-        'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
-    },
-    {
-      id: 3,
-      title: 'MS 271 FARM BOSS®',
-      stars: 2,
-      price: 48523,
-      imgUrl:
-        'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
-    },
-    {
-      id: 4,
-      title: 'MS 271 FARM BOSS®',
-      stars: 3,
-      price: 48523,
-      imgUrl:
-        'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
-    },
-    {
-      id: 5,
-      title: 'MS 271 FARM BOSS®',
-      stars: 1,
-      price: 48523,
-      imgUrl:
-        'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
-    },
-    {
-      id: 6,
-      title: 'MS 271 FARM BOSS®',
-      stars: 5,
-      price: 48523,
-      imgUrl:
-        'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
-    },
-    {
-      id: 7,
-      title: 'MS 271 FARM BOSS®',
-      stars: 3,
-      price: 48523,
-      imgUrl:
-        'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
-    },
-    {
-      id: 8,
-      title: 'MS 271 FARM BOSS®',
-      stars: 4,
-      price: 48523,
-      imgUrl:
-        'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
-    },
-    {
-      id: 9,
-      title: 'MS 271 FARM BOSS®',
-      stars: 3,
-      price: 48523,
-      imgUrl:
-        'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
-    },
-    {
-      id: 10,
-      title: 'MS 271 FARM BOSS®',
-      stars: 5,
-      price: 48523,
-      imgUrl:
-        'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
-    }
-  ];
 
   return (
     <div className='homepage'>
       <div className='vector--btm-left-bg'></div>
-
       <section className='homepage--hero'>
         <SlideShow />
       </section>
@@ -111,7 +29,6 @@ export default function HomePage(): React.ReactElement {
         </section>
       </div>
       <section className='homepage--recommendation-products'>
-
         <h2 className='slider--title sml--title'>
           Our recommendation for you...
         </h2>
@@ -127,7 +44,7 @@ export default function HomePage(): React.ReactElement {
       <section className='homepage--map'>
         <div className='homepage--title'><h1>WHERE TO FIND US</h1></div>
         <div className='homepage--map-container'>
-          <Map className='' />
+          <Map />
         </div>
       </section>
     </div>

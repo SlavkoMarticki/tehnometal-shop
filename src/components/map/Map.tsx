@@ -4,7 +4,7 @@ import Marker from '../../common/assets/map-marker.png';
 import 'leaflet/dist/leaflet.css';
 import './map.css';
 
-const Map = ({ className }: { className: string }): React.ReactElement => {
+const Map = ({ className }: { className?: string }): React.ReactElement => {
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,9 +21,10 @@ const Map = ({ className }: { className: string }): React.ReactElement => {
       iconUrl: Marker
       // ...
     });
-    // Add marker to map
+
+    // Add marker on the map
     L.marker(center, { icon: myIcon, bubblingMouseEvents: true }).addTo(map);
-    // Cleanup function
+
     return () => {
       map.remove();
     };
