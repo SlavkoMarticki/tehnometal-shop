@@ -1,2 +1,2 @@
-export * from "./cardsData";
-export * from "./slideImages";
+export { cardsData } from "./cardsData";
+export { images } from "./slideImages";

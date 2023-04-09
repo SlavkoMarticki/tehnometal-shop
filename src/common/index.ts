@@ -1,2 +1,2 @@
 export * from './firebase';
-export * from "./constants";
+export { cardsData, images } from "./constants";
