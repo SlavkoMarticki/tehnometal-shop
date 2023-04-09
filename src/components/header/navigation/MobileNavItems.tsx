@@ -14,15 +14,14 @@ interface IMobileNavItemsProps {
   setIsNavMenuOpen: (value: boolean) => void;
   isNavActive: boolean;
   isNavMenuOpen: boolean;
-  isStickyActive: boolean;
+  isStickyActive?: boolean;
 }
 
 export default function MobileNavItems(props: IMobileNavItemsProps): React.ReactElement {
   const {
     setIsNavMenuOpen,
     isNavActive,
-    isNavMenuOpen,
-    isStickyActive
+    isNavMenuOpen
   } = props;
 
   const { signOut } = signInServiceInstance;
@@ -177,7 +176,7 @@ export default function MobileNavItems(props: IMobileNavItemsProps): React.React
             </AuthNavItem>
           </li>
         </ul>
-        <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} isStickyActive={isStickyActive} />
+        <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} />
       </div>
     </>
   );

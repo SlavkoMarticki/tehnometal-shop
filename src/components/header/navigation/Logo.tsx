@@ -5,7 +5,7 @@ import classNames from 'classnames';
 interface IProps {
   isNavActive?: boolean;
   isNavMenuOpen?: boolean;
-  isStickyActive: boolean;
+  isStickyActive?: boolean;
 }
 
 export default function Logo(

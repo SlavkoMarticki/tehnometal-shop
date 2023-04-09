@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { Logo, NavMenuContent } from '.';
 import { RiShoppingCart2Fill, RiShoppingCart2Line } from 'react-icons/ri';
 import { HoverableIcon } from '../../hoverable-icon';
+import { useLocation } from "react-router-dom";
 
 interface IMobileNavIcon {
   isOpen: boolean;
@@ -20,10 +21,12 @@ export default function Navigation(): React.ReactElement {
 
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const isNavActive = useMediaQuery('(min-width: 840px)');
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const handleScroll = (): void => {
-      if (window.pageYOffset > 0) {
+      const unabledScrollHeader = pathname.includes("login") || pathname.includes("register")
+      if (window.pageYOffset > 56 && !unabledScrollHeader) {
         setIsSticky(true);
       } else {
         setIsSticky(false);
@@ -34,7 +37,7 @@ export default function Navigation(): React.ReactElement {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [pathname]);
 
   const navClassName = classNames(
     "nav",
@@ -71,18 +74,33 @@ export default function Navigation(): React.ReactElement {
 const MobileNavIcon = (props: IMobileNavIcon): React.ReactElement => {
   const { isOpen, setIsNavMenuOpen, isNavActive, isStickyActive } = props;
 
+  const navItemIconClassName = classNames(
+    "nav--mobile",
+    {
+      "nav--item-is-sticky": isStickyActive
+    }
+  )
+
+  const navCartIconClassName = classNames(
+    "nav--cart",
+    {
+      "nav--item-is-sticky": isStickyActive
+    }
+  )
+
   if (!isNavActive && !isOpen) {
     return (
       <>
         <Logo isNavActive={isNavActive} isNavMenuOpen={isOpen} isStickyActive={isStickyActive} />
-        <HoverableIcon
-          path='/cart'
-          regularIcon={<RiShoppingCart2Line className='nav--cart' />}
-          hoverIcon={<RiShoppingCart2Fill className='nav--cart' />}
-        />
+        <div >
+          <HoverableIcon
+            path='/cart'
+            regularIcon={<RiShoppingCart2Line className={navCartIconClassName} />}
+            hoverIcon={<RiShoppingCart2Fill className={navCartIconClassName} />}
+          /></div>
 
         <RxHamburgerMenu
-          className='nav--mobile'
+          className={navItemIconClassName}
           onClick={() => {
             setIsNavMenuOpen(true);
           }}
