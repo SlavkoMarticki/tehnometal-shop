@@ -3,7 +3,6 @@ import { IFormInputFieldProps } from '../../types';
 import { ErrorMessage } from '.';
 import { ReactElement } from 'react';
 import './inputs.css';
-import classNames from 'classnames';
 
 export default function FormInputField(
   props: IFormInputFieldProps

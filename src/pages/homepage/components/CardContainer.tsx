@@ -7,7 +7,6 @@ import "./styles/homeCards.css";
 
 interface ICardData { id: number; title: string, imgUrl: string, stars: number, price: number }
 
-
 interface CardsContainerProps {
   cardsData: ICardData[];
   cardClassName?: string;
@@ -16,11 +15,11 @@ interface CardsContainerProps {
 const CardsContainer: React.FC<CardsContainerProps> = ({ cardsData, cardClassName }) => {
   return (
     <div className="card--container">
-      {cardsData.map((cardItem) => (
+      {cardsData.map((cardItem, index) => (
         <Card key={cardItem.id} className={cardClassName}>
           <div className="card--favorite"><AiOutlineHeart /></div>
           <div className="card--img-wrap">
-            <img className="card--img" src={cardItem.imgUrl} />
+            <img className="card--img" src={cardItem.imgUrl} alt={`cardImg${index}`} />
           </div>
           <div className="card--title-wrap">
             <h1 className="card--title">{cardItem.title}</h1>

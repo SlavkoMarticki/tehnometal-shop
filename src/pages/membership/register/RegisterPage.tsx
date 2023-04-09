@@ -2,7 +2,6 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Button, FormInputField, Datepicker } from '../../../components';
 import './register.css';
-import GoogleIcon from '../../../common/assets/google-icon.png';
 import CartIcon from '../../../common/assets/cart-form-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { serverTimestamp } from '../../../common/firebase/firebase';

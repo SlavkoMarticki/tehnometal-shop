@@ -5,12 +5,13 @@ import classNames from 'classnames';
 interface IProps {
   isNavActive?: boolean;
   isNavMenuOpen?: boolean;
+  isStickyActive: boolean;
 }
 
 export default function Logo(
   props: IProps
 ): React.ReactElement {
-  const { isNavActive, isNavMenuOpen } = props;
+  const { isNavActive, isNavMenuOpen, isStickyActive } = props;
 
   const logoClassName = classNames('nav--logo', {
     'nav--logo__closed-menu':
@@ -19,11 +20,20 @@ export default function Logo(
 
   return (
     <div className={logoClassName}>
-      <img
-        src={logoDark}
-        alt='logo'
-        className='nav--logo__img'
-      />
+      {isStickyActive ?
+        <img
+          src={logoWhite}
+          alt='logo'
+          className='nav--logo__img'
+        />
+        :
+        <img
+          src={logoDark}
+          alt='logo'
+          className='nav--logo__img'
+        />
+      }
+
     </div>
   );
 }

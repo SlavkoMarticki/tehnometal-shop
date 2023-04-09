@@ -84,8 +84,8 @@ a {
 }
 
 .active {
-  font-weight: 500;
-  border-bottom: 1px solid white;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .main {
