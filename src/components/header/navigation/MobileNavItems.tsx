@@ -9,6 +9,9 @@ import { signInServiceInstance } from "../../../services";
 import { CiSearch } from "react-icons/ci";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Logo from "./Logo";
+import { useState } from "react";
+import { Modal } from "../../../portals";
+import { SearchModal } from "../../modals";
 
 interface IMobileNavItemsProps {
   setIsNavMenuOpen: (value: boolean) => void;
@@ -18,6 +21,7 @@ interface IMobileNavItemsProps {
 }
 
 export default function MobileNavItems(props: IMobileNavItemsProps): React.ReactElement {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const {
     setIsNavMenuOpen,
     isNavActive,
@@ -154,7 +158,7 @@ export default function MobileNavItems(props: IMobileNavItemsProps): React.React
           <li
             className='nav--item nav--item__i'
             onClick={() => {
-              setIsNavMenuOpen(false);
+              setIsModalOpen(true)
             }}
           >
             <HoverableIcon
@@ -177,6 +181,12 @@ export default function MobileNavItems(props: IMobileNavItemsProps): React.React
           </li>
         </ul>
         <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} />
+        <Modal
+          onClose={() => { setIsModalOpen(false) }}
+          isOpen={isModalOpen}
+        >
+          <SearchModal />
+        </Modal>
       </div>
     </>
   );

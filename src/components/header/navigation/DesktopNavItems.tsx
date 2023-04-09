@@ -40,7 +40,6 @@ export default function DesktopNavItems(props: IDesktopNavItemsProps): React.Rea
       "nav--item-is-sticky": isStickyActive
     }
   )
-  console.log(isModalOpen)
   return (
     <>
       <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} isStickyActive={isStickyActive} />
@@ -145,8 +144,7 @@ export default function DesktopNavItems(props: IDesktopNavItemsProps): React.Rea
           onClose={() => { setIsModalOpen(false) }}
           isOpen={isModalOpen}
         >
-          {/* <SearchModal /> */}
-          hello world
+          <SearchModal />
         </Modal>
       </div>
     </>

@@ -27,20 +27,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     }
   };
 
-  const modalContent = (
-    <div
-      style={{
-        backgroundColor: "white",
-        padding: "1rem",
-        borderRadius: "0.25rem",
-        zIndex: 10000
-      }}
-      onClick={(e) => { e.stopPropagation() }}
-    >
-      {children}
-    </div>
-  );
-
   return showModal
     ? ReactDOM.createPortal(
       <>
@@ -52,17 +38,19 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backgroundColor: "rgba(6, 24, 39, 0.9)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             zIndex: 9999,
-            backdropFilter: " blur(4px)"
+            backdropFilter: "blur(4px)"
           }}
           onClick={handleOverlayClick}
           ref={modalRef}
         >
-          {modalContent}
+          <div onClick={(e) => { e.stopPropagation() }} style={{ zIndex: 10000 }}>
+            {children}
+          </div>
         </div >
       </>,
       document.body
