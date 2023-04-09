@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router';
 import { CartPage, FinishCartPage } from '../pages';
 
 export default function CartRouteLayout(): React.ReactElement {

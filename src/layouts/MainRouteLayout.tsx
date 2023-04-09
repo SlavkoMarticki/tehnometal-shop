@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router';
 import {
   CartRouteLayout,
   CategoriesRouteLayout,
@@ -9,7 +9,6 @@ import {
   SearchRouteLayout
 } from '.';
 import { PrivateRoute, PublicRoute } from '../components/routes';
-import { useAuthUser } from '../hooks';
 import { AboutUsPage, ContactUsPage, HomePage, NewsPage } from '../pages';
 import { ProfilePage } from '../pages/user';
 

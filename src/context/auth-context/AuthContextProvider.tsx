@@ -8,7 +8,6 @@ export const AuthContextProvider = ({ children }: any): React.ReactElement => {
 
   useEffect(() => {
     auth.onAuthStateChanged((firebaseUser: any) => {
-      console.log(firebaseUser);
       setUser(firebaseUser);
     });
   }, []);

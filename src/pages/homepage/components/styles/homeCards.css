@@ -1,0 +1,144 @@
+.homepage--recommendation-products {
+  max-width: 80%;
+  margin: auto;
+  padding: 5rem 0rem;
+  position: relative;
+}
+.card--container {
+  position: relative;
+  display: flex;
+  gap: 2rem 1.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 5rem;
+}
+
+.card {
+  position: relative;
+}
+.card--wrap {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 240px;
+  height: calc(342px + 2rem);
+  background: #0a2339;
+  border-radius: 10px;
+  transition: 1s ease;
+}
+
+.card--wrap:hover {
+  background: #124068;
+  transition: 1s ease;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.card--img-wrap {
+  width: 85%;
+  height: 100%;
+  max-height: 150px;
+  margin: 0 auto;
+  margin-top: 2rem;
+  max-width: 200px;
+}
+
+.card--favorite {
+  position: absolute;
+  top: 10px;
+  right: 7.5%;
+  font-size: 20px;
+  color: white;
+}
+
+.card--title-wrap {
+  width: 85%;
+  max-height: fit-content;
+  margin: 0.5rem auto;
+  padding: 5px;
+}
+.card--title {
+  width: 100%;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #ffffff;
+}
+
+.card--stars-wrap {
+  width: 85%;
+  margin: 0 auto;
+  padding-bottom: 5px;
+}
+
+.card--img {
+  width: 100%;
+}
+
+.card--overlay {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background-color: #06070c;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  filter: blur(10px);
+  z-index: -1;
+  /* filter: blur(2px); */
+}
+
+.card--price {
+  max-width: 85%;
+  width: 100%;
+  position: absolute;
+  bottom: 25px;
+  left: 7.5%;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 1px;
+}
+
+.card--price > span {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.card--star {
+  font-size: 18px;
+  color: white;
+}
+
+.card--cart {
+  position: absolute;
+  right: 7.5%;
+  bottom: 10px;
+  font-size: 35px;
+  color: white;
+}
+
+/* media queris for centering products */
+
+@media screen and (min-width: 1300px) and (max-width: 1600px) {
+  .card--container {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 1282px) {
+  .card--container {
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 1630px) {
+  .card--container {
+    justify-content: center;
+    align-items: center;
+  }
+}

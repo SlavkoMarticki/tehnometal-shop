@@ -21,5 +21,4 @@ export default function useAuthUser(): RootStore | null {
     userStore,
     favoritesStore
   };
-
 }

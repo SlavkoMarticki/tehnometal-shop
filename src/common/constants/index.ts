@@ -1,1 +1,2 @@
-export * from "."
+export * from "./cardsData";
+export * from "./slideImages";
