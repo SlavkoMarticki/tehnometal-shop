@@ -4,6 +4,7 @@ import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 import { BiCartAdd } from "react-icons/bi";
 import { formatPriceNum } from '../../../utils';
 import "./styles/homeCards.css";
+import { useAuthUser } from '../../../hooks';
 
 interface ICardData { id: number; title: string, imgUrl: string, stars: number, price: number }
 
@@ -13,11 +14,14 @@ interface CardsContainerProps {
 }
 
 const CardsContainer: React.FC<CardsContainerProps> = ({ cardsData, cardClassName }) => {
+
+  const { user } = useAuthUser();
+
   return (
     <div className="card--container">
       {cardsData.map((cardItem, index) => (
         <Card key={cardItem.id} className={cardClassName}>
-          <div className="card--favorite"><AiOutlineHeart /></div>
+          {user != null ? <div className="card--favorite"><AiOutlineHeart /></div> : null}
           <div className="card--img-wrap">
             <img className="card--img" src={cardItem.imgUrl} alt={`cardImg${index}`} />
           </div>
