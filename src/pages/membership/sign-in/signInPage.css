@@ -1,5 +1,5 @@
 .login--container {
-  height: calc(100vh - 56px);
+  min-height: calc(100vh - 55px);
   background-color: var(--background-color-dark);
 }
 .vector--top-right-bg {
@@ -91,6 +91,6 @@
 
 @media only screen and (max-width: 750px) {
   .login--container {
-    height: 100vh;
+    min-height: 100vh;
   }
 }

@@ -1,3 +1,5 @@
+/* eslint-disable */
+import { useState } from "react";
 import classNames from "classnames";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsPerson, BsPersonFill } from "react-icons/bs";
@@ -9,6 +11,8 @@ import { AuthNavItem, NonAuthNavItem } from ".";
 import { signInServiceInstance } from "../../../services";
 import { HoverableIcon } from "../../hoverable-icon";
 import Logo from "./Logo";
+import { SearchModal } from "../../modals";
+import { Modal } from "../../../portals";
 
 interface IDesktopNavItemsProps {
   isNavActive: boolean;
@@ -17,6 +21,9 @@ interface IDesktopNavItemsProps {
 }
 
 export default function DesktopNavItems(props: IDesktopNavItemsProps): React.ReactElement {
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const { signOut } = signInServiceInstance;
   const { isNavActive, isNavMenuOpen, isStickyActive } = props;
 
@@ -33,7 +40,6 @@ export default function DesktopNavItems(props: IDesktopNavItemsProps): React.Rea
       "nav--item-is-sticky": isStickyActive
     }
   )
-
   return (
     <>
       <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} isStickyActive={isStickyActive} />
@@ -84,11 +90,13 @@ export default function DesktopNavItems(props: IDesktopNavItemsProps): React.Rea
       </div>
       <div className='nav--group'>
         <ul className='nav--list flex nav--list__icons'>
-          <li className={navItemIconClassName}>
+          <li className={navItemIconClassName} >
             <HoverableIcon
+              onClick={() => setIsModalOpen(true)}
               regularIcon={<CiSearch />}
               hoverIcon={<RiSearchFill />}
             />
+
           </li>
 
           <AuthNavItem>
@@ -132,6 +140,12 @@ export default function DesktopNavItems(props: IDesktopNavItemsProps): React.Rea
             </li>
           </AuthNavItem>
         </ul>
+        <Modal
+          onClose={() => { setIsModalOpen(false) }}
+          isOpen={isModalOpen}
+        >
+          <SearchModal />
+        </Modal>
       </div>
     </>
   );
