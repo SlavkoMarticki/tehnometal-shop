@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { RootStoreContext } from "../context"
 import { RootStore } from "../store";
 
-export default function useAuthUser(): RootStore | null {
+export default function useStore(): RootStore | null {
   const rootStore = useContext(RootStoreContext);
   if (rootStore == null) return null;
 
