@@ -20,7 +20,7 @@
   width: clamp(200px, 100%, 300px);
   aspect-ratio: 1;
   padding: 1rem;
-  border-radius: 50px;
+  border-radius: 30px;
   margin: auto;
   transition: 1s ease;
   cursor: pointer;
@@ -47,6 +47,7 @@
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   text-align: center;
+
 }
 .slider--middle::after {
   content: '';
@@ -73,7 +74,9 @@
   font-size: 18px;
   padding: 8px 32px 8px 32px;
 }
-
+.slider--content{
+  position: relative;
+}
 @media screen and (max-width: 900px) {
   .slider--content img {
     opacity: 0.45;
@@ -83,3 +86,11 @@
     opacity: 1;
   }
 }
+
+@media screen and (max-width: 800px) {
+  .slider--middle::after,.slider--middle::before {
+    all: unset;
+  }
+  
+}
+
