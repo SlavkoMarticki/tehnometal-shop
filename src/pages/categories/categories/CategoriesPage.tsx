@@ -4,6 +4,8 @@ import './categories.css';
 export default function CategoriesPage(): React.ReactElement {
   return (
     <div className='categories full'>
+      <div className='vector--top-right-bg'></div>
+      <div className='vector--btm-left-bg'></div>
       <div className='categories--container'>
         <div className='flex flex-column categories-wrap'>
           <h1 className='categories--title'>Choose one of our categories:</h1>

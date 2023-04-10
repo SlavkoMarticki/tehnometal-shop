@@ -43,6 +43,7 @@
   line-height: 22px;
   text-align: center;
   color: #ffffff;
+  position: relative;
 }
 
 @media screen and (max-width: 1180px) {
