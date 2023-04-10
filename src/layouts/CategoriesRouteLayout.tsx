@@ -10,9 +10,10 @@ export default function CategoriesRouteLayout(): React.ReactElement {
   return (
     <Routes>
       <Route path='/' element={<CategoriesPage />} />
-      <Route path='/category/:subCategoryId' element={<SubCategoriesPage />} />
+      <Route path='/:categoryId' element={<SubCategoriesPage />} />
+
       <Route
-        path='/category/:subCategoryId/:categoryProductId'
+        path='/:categoryId/:subCategoryId'
         element={<CategoryProductsPage />}
       />
     </Routes>

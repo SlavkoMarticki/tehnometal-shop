@@ -1,0 +1,17 @@
+.s-cat--title {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 34px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.s-cat--sub__title {
+  position: relative;
+  padding: 2rem 10px 0 10px;
+  color: white;
+  font-weight: 400;
+  letter-spacing: 0.6px;
+  font-size: 18px;
+  text-align: center;
+}

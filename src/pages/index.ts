@@ -11,5 +11,4 @@ export {
   CategoryProductsPage
 } from "./categories";
 export { FavoritesPage, FavoriteProductPage } from "./favorites";
-export { ProductsPage } from "./products";
 export { SearchResultsPage } from "./search-results";
