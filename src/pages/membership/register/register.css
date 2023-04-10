@@ -1,6 +1,4 @@
 .register--container {
-  min-height: calc(100vh - 55px);
-  background-color: var(--background-color-dark);
   height: 100%;
 }
 

@@ -22,7 +22,7 @@ export default function SignInPage(): React.ReactElement {
   };
 
   return (
-    <section className='login--container'>
+    <section className='login--container full'>
       <div className='vector--top-right-bg'></div>
       <div className='vector--btm-left-bg'></div>
       <div className='membership--wrapper'>

@@ -31,7 +31,7 @@ export default function RegisterPage(): React.ReactElement {
   };
 
   return (
-    <section className='register--container'>
+    <section className='register--container full'>
       <div className='vector--top-right-bg'></div>
       <div className='vector--btm-left-bg'></div>
       <div className='membership--wrapper'>

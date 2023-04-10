@@ -1,7 +1,4 @@
-.login--container {
-  min-height: calc(100vh - 55px);
-  background-color: var(--background-color-dark);
-}
+
 .vector--top-right-bg {
   position: absolute;
   background-image: url('../../../common/assets/Vector-right-top.png');

@@ -106,3 +106,9 @@ a {
   gap: 2rem;
   align-items: center;
 }
+
+
+.full {
+  min-height: calc(100vh - 55px);
+  background-color: var(--background-color-dark);
+}
