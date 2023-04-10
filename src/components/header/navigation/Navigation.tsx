@@ -25,7 +25,7 @@ export default function Navigation(): React.ReactElement {
 
   useEffect(() => {
     const handleScroll = (): void => {
-      const unabledScrollHeader = pathname.includes("login") || pathname.includes("register")
+      const unabledScrollHeader = pathname.includes("login") || pathname.includes("register") || pathname.includes("categories")
       if (window.pageYOffset > 56 && !unabledScrollHeader) {
         setIsSticky(true);
       } else {
