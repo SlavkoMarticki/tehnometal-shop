@@ -5,7 +5,6 @@ import {
   CategoriesRouteLayout,
   FavoritesRouteLayout,
   MembershipRouteLayout,
-  ProductsRouteLayout,
   SearchRouteLayout
 } from '.';
 import { PrivateRoute, PublicRoute } from '../components/routes';
@@ -38,7 +37,6 @@ export default function MainRouteLayout(): React.ReactElement {
           </PublicRoute>
         }
       />
-      <Route path='/products/*' element={<ProductsRouteLayout />} />
       <Route path='/search/*' element={<SearchRouteLayout />} />
       <Route path='/cart/*' element={<CartRouteLayout />} />
       <Route path='/categories/*' element={<CategoriesRouteLayout />} />
