@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { Navigation } from './components';
 import { MainRouteLayout } from './layouts';
+import Footer from './components/footer/Footer';
 
 function App(): ReactElement {
   return (
@@ -11,6 +12,9 @@ function App(): ReactElement {
       <main className='main'>
         <MainRouteLayout />
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }
