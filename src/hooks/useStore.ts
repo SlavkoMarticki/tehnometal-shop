@@ -1,10 +1,9 @@
-import { useContext } from "react"
-import { RootStoreContext } from "../context"
-import { RootStore } from "../store";
+import { useContext } from 'react';
+import { RootStoreContext } from '../context';
+import { RootStore } from '../store';
 
-export default function useStore(): RootStore | null {
+export default function useStore(): RootStore {
   const rootStore = useContext(RootStoreContext);
-  if (rootStore == null) return null;
 
   const {
     cartStore,

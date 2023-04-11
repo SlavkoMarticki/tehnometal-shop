@@ -1,6 +1,5 @@
 export interface ICategories {
-  id: ICategoriesData
-
+  id: ICategoriesData;
 }
 export interface ICategoriesData {
   id: string;
@@ -8,3 +7,11 @@ export interface ICategoriesData {
   name: string;
 }
 
+export interface ICategory {
+  id: string;
+  data: ICategoriesData;
+}
+export interface ISubCategory {
+  id: string;
+  data: ICategoriesData;
+}
