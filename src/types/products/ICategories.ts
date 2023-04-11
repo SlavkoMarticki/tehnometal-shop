@@ -1,9 +1,10 @@
 export interface ICategories {
-  id: string;
-  data: ICategoriesData;
+  id: ICategoriesData
+
 }
 export interface ICategoriesData {
   id: string;
   imgUrl: string;
   name: string;
 }
+
