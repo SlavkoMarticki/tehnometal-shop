@@ -1,13 +1,12 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .footer--full {
   position: relative;
   width: 100%;
   bottom: 0;
+  background-color: #081c2f;
+  padding-top: 2rem;
+}
+
+.main--color {
   background-color: var(--background-color-dark);
 }
 
@@ -32,13 +31,12 @@
 }
 
 .footer--data-item {
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 19px;
-
   color: #6087a8;
+  padding: 0 10px 10px 0;
 }
 
 .footer--data-icons {
@@ -53,20 +51,18 @@
 
 .footer--copyright {
   padding: 10px;
-  font-family: 'Inter';
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 10px;
   line-height: 12px;
-
+  letter-spacing: 0.8px;
   color: #6087a8;
 }
 
-h4 {
-  font-family: 'Inter';
+.footer--sub-title {
   font-style: normal;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1rem;
   line-height: 22px;
   /* identical to box height */
 
@@ -95,5 +91,7 @@ h4 {
 @media screen and (max-width: 560px) {
   .footer--data {
     grid-template-columns: repeat(1, 1fr);
+    margin: unset;
+    max-width: 100%;
   }
 }

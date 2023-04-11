@@ -80,6 +80,7 @@
 .card--item {
   position: relative;
 }
+
 @media screen and (max-width: 900px) {
   .slider--content img,
   .card--item img {

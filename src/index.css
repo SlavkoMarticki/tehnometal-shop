@@ -115,3 +115,9 @@ a {
   min-height: calc(100vh - 55px);
   background-color: var(--background-color-dark);
 }
+
+@media screen and (max-width: 840px) {
+  .full {
+    min-height: 100vh;
+  }
+}
