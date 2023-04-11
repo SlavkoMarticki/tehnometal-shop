@@ -78,5 +78,45 @@ export const cardsData = [
     price: 48523,
     imgUrl:
       'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
+  },
+  {
+    id: 11,
+    title: 'MS 271 FARM BOSS®',
+    stars: 5,
+    price: 48523,
+    imgUrl:
+      'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
+  },
+  {
+    id: 12,
+    title: 'MS 271 FARM BOSS®',
+    stars: 5,
+    price: 48523,
+    imgUrl:
+      'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
+  },
+  {
+    id: 13,
+    title: 'MS 271 FARM BOSS®',
+    stars: 5,
+    price: 48523,
+    imgUrl:
+      'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
+  },
+  {
+    id: 14,
+    title: 'MS 271 FARM BOSS®',
+    stars: 5,
+    price: 48523,
+    imgUrl:
+      'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
+  },
+  {
+    id: 15,
+    title: 'MS 271 FARM BOSS®',
+    stars: 5,
+    price: 48523,
+    imgUrl:
+      'https://stihlusa-images.imgix.net/Product/938/ms271.png?w=710&h=532&fit=fill&auto=format,compress&fill=solid'
   }
 ];
