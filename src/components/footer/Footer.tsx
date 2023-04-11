@@ -6,7 +6,7 @@ export default function Footer(): JSX.Element {
   return (
     <div className='footer--full'>
       <div className='footer--wrap'>
-        <div className='footer flex flex-column'>
+        <div className='footer'>
           <div className='footer--data'>
             <div>
               <h4>About</h4>
