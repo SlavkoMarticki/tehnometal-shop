@@ -1,9 +1,11 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { Navigation } from './components';
 import { MainRouteLayout } from './layouts';
 import Footer from './components/footer/Footer';
 
 function App(): ReactElement {
+ 
+
   return (
     <div className='app'>
       <header>
@@ -19,4 +21,4 @@ function App(): ReactElement {
   );
 }
 
-export default App;
+export default observer(App);

@@ -1,4 +1,4 @@
-import { createContext } from "react";
-import { RootStore } from "../../store";
+import { createContext } from 'react';
+import { RootStore } from '../../store';
 
-export const RootStoreContext = createContext<RootStore | null>(null);
+export const RootStoreContext = createContext<RootStore>(new RootStore());
