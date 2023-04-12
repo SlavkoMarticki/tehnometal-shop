@@ -257,6 +257,7 @@
     grid-template-columns: 100%;
   }
   .cart--items {
+    padding-top: 1rem;
     grid-template-areas:
       'a b'
       'a c'
@@ -264,10 +265,7 @@
     grid-template-columns: 50% 50%;
   }
 
-  .cart--item-remove {
-    display: none;
-  }
-
+  .cart--item-remove,
   .cart--item-total-price {
     display: none;
   }
