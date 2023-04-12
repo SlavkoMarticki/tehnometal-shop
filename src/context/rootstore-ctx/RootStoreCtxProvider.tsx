@@ -1,5 +1,4 @@
-import React from 'react';
-import { RootStore } from '../../store';
+import React, { useContext } from 'react';
 import { RootStoreContext } from './RootStoreCtx';
 
 interface IRootStoreProps {
@@ -9,8 +8,7 @@ interface IRootStoreProps {
 export const RootStoreCtxProvider = (
   props: IRootStoreProps
 ): React.ReactElement => {
-  const rootStore = new RootStore();
-
+  const rootStore = useContext(RootStoreContext);
   return (
     <RootStoreContext.Provider value={rootStore}>
       {props.children}
