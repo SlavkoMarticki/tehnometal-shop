@@ -7,7 +7,6 @@ import {
   MembershipRouteLayout,
   SearchRouteLayout
 } from '.';
-import { PrivateRoute, PublicRoute } from '../components/routes';
 import { AboutUsPage, ContactUsPage, HomePage, NewsPage } from '../pages';
 import { ProfilePage } from '../pages/user';
 
@@ -22,9 +21,7 @@ export default function MainRouteLayout(): React.ReactElement {
       <Route
         path='/profile'
         element={
-          <PrivateRoute>
-            <ProfilePage />
-          </PrivateRoute>
+          <ProfilePage />
         }
       />
 
@@ -32,9 +29,7 @@ export default function MainRouteLayout(): React.ReactElement {
       <Route
         path='/auth/*'
         element={
-          <PublicRoute>
-            <MembershipRouteLayout />
-          </PublicRoute>
+          <MembershipRouteLayout />
         }
       />
       <Route path='/search/*' element={<SearchRouteLayout />} />
@@ -43,9 +38,7 @@ export default function MainRouteLayout(): React.ReactElement {
       <Route
         path='/favorites/*'
         element={
-          <PrivateRoute>
-            <FavoritesRouteLayout />
-          </PrivateRoute>
+          <FavoritesRouteLayout />
         }
       />
     </Routes>

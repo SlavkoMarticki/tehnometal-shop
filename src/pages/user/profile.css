@@ -1,0 +1,250 @@
+.profile {
+  padding: 3rem 0;
+  position: relative;
+}
+.profile--container {
+  max-width: 85%;
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+}
+
+.profile--group {
+  display: grid;
+  grid-template-areas:
+    'a b'
+    'a c';
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 40% 60%;
+  gap: 20px;
+}
+
+.profile--group-item {
+  border-radius: 10px;
+  background-color: #0a2339;
+}
+
+.profile--group__user {
+  grid-area: a;
+  min-height: calc(100vh - 4rem - 56px - 100px);
+  position: relative;
+}
+
+.profile--user-name {
+  color: white;
+  padding: 0 10px;
+  font-size: 25px;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.profile--user-email {
+  color: white;
+  padding: 0 10px;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  font-weight: 500;
+}
+
+.profile--group__info {
+  grid-area: b;
+  position: relative;
+}
+
+.profile--group__purchases {
+  grid-area: c;
+}
+
+.profile--edit-btn {
+  width: 100px;
+  padding: 10px;
+  border-radius: 40px;
+  color: var(--background-color-dark);
+  border: none;
+  background-color: white;
+}
+
+.profile--user-pic {
+  max-width: 80%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.delete--acc-btn {
+  position: absolute;
+  width: 50%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: transparent;
+  color: #e12525;
+  border: 1px solid #e12525;
+  bottom: 1rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  cursor: pointer;
+}
+
+/* User profile info content */
+
+.profile--group-grid {
+  display: grid;
+  grid-template-columns: calc(50% - 1.25rem) calc(50% - 1.25rem);
+  gap: 1rem;
+}
+
+.profile--user__info,
+.profile--user__purchase-info {
+  padding: 2rem 0 0 1.5rem;
+  color: white;
+}
+
+.profile--user__info > div,
+.profile--user__purchase-info > div {
+  padding: 0.5rem 0;
+  color: white;
+}
+.profile--label {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  color: #6f6f6f;
+}
+
+.profile--value {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 0 10px;
+  color: #ffffff;
+}
+
+.profile--break-line {
+  position: absolute;
+  width: 1px;
+  height: 80%;
+
+  background-color: #b7b7b7;
+  top: 10%;
+  right: 50%;
+}
+
+/* User profile purchases info  */
+
+.profile--purchases-labels {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  justify-items: center;
+  text-align: center;
+  color: white;
+  padding: 1rem 0;
+  background-color: #183a57;
+}
+
+.profile--purchases-label {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.profile--purchases-items {
+  padding: 1.5rem 0;
+}
+
+.profile--purchases-item {
+  display: grid;
+  padding: 2px 0;
+  grid-template-columns: repeat(4, 25%);
+  justify-items: center;
+  text-align: center;
+  color: white;
+}
+
+.profile--purchase-title {
+  color: white;
+  font-weight: 500;
+  font-size: 25px;
+  padding: 2rem 0 2rem 1rem;
+}
+
+.purchase--articals-info {
+  font-size: 1.5rem;
+}
+
+/* grid breakpoint for laptop views */
+@media screen and (max-width: 1120px) {
+  .profile {
+    min-height: calc(100vh + 400px);
+    height: 100%;
+  }
+
+  .profile--group {
+    grid-template-areas:
+      'a b'
+      'c c';
+    grid-template-columns: 40% 60%;
+    grid-template-rows: minmax(450px, 500px) 500px;
+  }
+
+  .profile--group__user {
+    grid-area: a;
+    min-height: unset;
+    position: relative;
+  }
+  .profile--user-pic {
+    max-width: 50%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .profile--group-grid {
+    grid-template-columns: 100%;
+    grid-template-rows: calc(100% - 1.75rem) calc(100% - 1.75rem);
+  }
+  .profile--break-line {
+    height: 1px;
+    width: 80%;
+    top: 50%;
+    right: 10%;
+  }
+
+  .profile--value {
+    padding-right: 2rem;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .profile {
+    min-height: calc(100vh + 800px);
+    height: 100%;
+    padding-top: 6rem;
+  }
+
+  .profile--group {
+    grid-template-areas:
+      'a'
+      'b'
+      'c';
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 400px);
+  }
+
+  .profile--user-pic {
+    max-width: 125px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .profile--container {
+    max-width: 100%;
+  }
+  .profile--value,
+  .profile--purchases-label {
+    font-size: 14px;
+  }
+
+  .profile--group-item {
+    border-radius: 0px;
+  }
+}

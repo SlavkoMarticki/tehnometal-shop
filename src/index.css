@@ -116,8 +116,17 @@ a {
   background-color: var(--background-color-dark);
 }
 
-@media screen and (max-width: 840px) {
-  .full {
-    min-height: 100vh;
-  }
+.justify-center {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+.gap-20 {
+  gap: 20px;
+}
+
+.pad-2 {
+  padding-top: 2rem;
 }
