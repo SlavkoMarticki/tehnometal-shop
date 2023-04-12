@@ -1,6 +1,9 @@
+import { usePageTitle } from "../../../hooks";
 import "./subCategories.css";
 
 export default function SubCategoriesPage(): React.ReactElement {
+  usePageTitle("SubCategories");
+
   return (
     <div className='categories full'>
       <div className='vector--top-right-bg'></div>
