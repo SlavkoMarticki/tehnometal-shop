@@ -4,7 +4,7 @@ import { usePageTitle } from '../../hooks';
 import {
   DiscountWidget,
   FindUsSection,
-  ReactCarouselSlick,
+  HomepageCategories,
   SlideShow,
   Specials
 } from './components';
@@ -21,7 +21,7 @@ export default function HomePage(): React.ReactElement {
         <SlideShow />
       </section>
       <section className='homepage--carousel-categories'>
-        <ReactCarouselSlick />
+        <HomepageCategories />
       </section>
       <div className='full'>
         <section className='homepage--specials'>
@@ -42,7 +42,9 @@ export default function HomePage(): React.ReactElement {
         <FindUsSection />
       </section>
       <section className='homepage--map'>
-        <div className='homepage--title'><h1>WHERE TO FIND US</h1></div>
+        <div className='homepage--title'>
+          <h1>WHERE TO FIND US</h1>
+        </div>
         <div className='homepage--map-container'>
           <Map />
         </div>

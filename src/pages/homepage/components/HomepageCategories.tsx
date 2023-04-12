@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 import Slider from 'react-slick';
 import { FiArrowLeftCircle, FiArrowRightCircle } from 'react-icons/fi';
-import "./styles/slider.css";
+import './styles/slider.css';
 
-export default function ReactCarouselSlick(): ReactElement {
+export default function HomepageCategories(): ReactElement {
   const settings = {
     infinite: true,
     speed: 500,
@@ -64,8 +64,8 @@ export default function ReactCarouselSlick(): ReactElement {
             src='https://images.unsplash.com/photo-1570222094114-d054a817e56b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1505&q=80'
             alt='img'
           />
-          <div className="slider--middle">
-            <div className="slider--middle-txt">Appliances</div>
+          <div className='slider--middle'>
+            <div className='slider--middle-txt'>Appliances</div>
           </div>
         </div>
         <div className='slider--content'>
@@ -74,8 +74,8 @@ export default function ReactCarouselSlick(): ReactElement {
             src='https://images.unsplash.com/photo-1596385574887-f98a9a116927?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80'
             alt='img'
           />
-          <div className="slider--middle">
-            <div className="slider--middle-txt">Construction equipment</div>
+          <div className='slider--middle'>
+            <div className='slider--middle-txt'>Construction equipment</div>
           </div>
         </div>
         <div className='slider--content'>
@@ -84,8 +84,8 @@ export default function ReactCarouselSlick(): ReactElement {
             src='https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
             alt='img'
           />
-          <div className="slider--middle">
-            <div className="slider--middle-txt">Painting</div>
+          <div className='slider--middle'>
+            <div className='slider--middle-txt'>Painting</div>
           </div>
         </div>
         <div className='slider--content'>
@@ -94,8 +94,8 @@ export default function ReactCarouselSlick(): ReactElement {
             src='https://images.unsplash.com/photo-1581783898377-1c85bf937427?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80'
             alt='img'
           />
-          <div className="slider--middle">
-            <div className="slider--middle-txt">Tools</div>
+          <div className='slider--middle'>
+            <div className='slider--middle-txt'>Tools</div>
           </div>
         </div>
         <div className='slider--content'>
@@ -104,8 +104,8 @@ export default function ReactCarouselSlick(): ReactElement {
             src='https://images.unsplash.com/photo-1617571607645-dd7dd3bf7f6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80'
             alt='img'
           />
-          <div className="slider--middle">
-            <div className="slider--middle-txt">Electric tools</div>
+          <div className='slider--middle'>
+            <div className='slider--middle-txt'>Electric tools</div>
           </div>
         </div>
         <div className='slider--content'>
@@ -114,8 +114,8 @@ export default function ReactCarouselSlick(): ReactElement {
             src='https://images.unsplash.com/photo-1571805268214-e9d753350217?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
             alt='img'
           />
-          <div className="slider--middle">
-            <div className="slider--middle-txt">Kitchen equipment</div>
+          <div className='slider--middle'>
+            <div className='slider--middle-txt'>Kitchen equipment</div>
           </div>
         </div>
       </Slider>

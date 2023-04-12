@@ -10,7 +10,8 @@ export default function useStore(): RootStore {
     categoriesStore,
     productStore,
     userStore,
-    favoritesStore
+    favoritesStore,
+    loadingStore
   } = rootStore;
 
   return {
@@ -18,6 +19,7 @@ export default function useStore(): RootStore {
     categoriesStore,
     productStore,
     userStore,
-    favoritesStore
+    favoritesStore,
+    loadingStore
   };
 }
