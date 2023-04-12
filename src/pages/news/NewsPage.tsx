@@ -1,6 +1,9 @@
+import { usePageTitle } from '../../hooks';
 import './news.css';
 
 export default function NewsPage(): React.ReactElement {
+  usePageTitle("News");
+
   return (
     <div className='categories full'>
       <div className='vector--top-right-bg'></div>

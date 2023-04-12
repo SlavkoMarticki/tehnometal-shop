@@ -1,7 +1,9 @@
 import React from 'react';
 import './categories.css';
+import { usePageTitle } from '../../../hooks';
 
 export default function CategoriesPage(): React.ReactElement {
+  usePageTitle("Categories");
   return (
     <div className='categories full'>
       <div className='vector--top-right-bg'></div>
