@@ -6,3 +6,4 @@ export * from './modals';
 export * from './stars';
 export * from './footer';
 export * from './loader';
+export * from './snackbar';
