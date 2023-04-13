@@ -5,6 +5,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthContextProvider, RootStoreCtxProvider } from './context';
 import { LoaderProvider } from './context/loader-ctx';
+import { NotificationProvider } from './context/notification-ctx';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,13 +14,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <RootStoreCtxProvider>
-      <AuthContextProvider>
-        <LoaderProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </LoaderProvider>
-      </AuthContextProvider>
+      <NotificationProvider>
+        <AuthContextProvider>
+          <LoaderProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </LoaderProvider>
+        </AuthContextProvider>
+      </NotificationProvider>
     </RootStoreCtxProvider>
   </React.StrictMode>
 );
