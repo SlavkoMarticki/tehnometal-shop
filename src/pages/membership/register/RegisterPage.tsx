@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { serverTimestamp } from '../../../common/firebase/firebase';
 import { ISignUpFormData } from '../../../types';
 import { registerServiceInstance } from '../../../services';
-import { usePageTitle } from '../../../hooks';
+import { useAuthUser, usePageTitle } from '../../../hooks';
 
 export default function RegisterPage(): React.ReactElement {
   usePageTitle('Sign Up');
@@ -16,18 +16,24 @@ export default function RegisterPage(): React.ReactElement {
   const { handleSubmit } = methods;
 
   const navigate = useNavigate();
+  const { setUser } = useAuthUser();
 
   const handleSignUpForm = async (data: ISignUpFormData): Promise<any> => {
-    const { username, password, email, dateOfBirth } = data;
-    const modifiedData = {
-      username,
-      password,
-      email,
-      dateOfBirth,
-      timeStamp: serverTimestamp()
-    };
-    await registerServiceInstance.registerUser(modifiedData);
-    navigate('/');
+    try {
+      const { username, password, email, dateOfBirth } = data;
+      const modifiedData = {
+        username,
+        password,
+        email,
+        dateOfBirth,
+        timeStamp: serverTimestamp()
+      };
+      const res = await registerServiceInstance.registerUser(modifiedData);
+      setUser(res);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -36,8 +42,15 @@ export default function RegisterPage(): React.ReactElement {
       <div className='vector--btm-left-bg'></div>
       <div className='membership--wrapper'>
         <FormProvider {...methods}>
-          <form className='form' onSubmit={handleSubmit(handleSignUpForm)}>
-            <img src={CartIcon} className='form--cart-icon' alt='cart-icon' />
+          <form
+            className='form'
+            onSubmit={handleSubmit(handleSignUpForm)}
+          >
+            <img
+              src={CartIcon}
+              className='form--cart-icon'
+              alt='cart-icon'
+            />
             <FormInputField
               name='username'
               className='form--input'
@@ -77,7 +90,10 @@ export default function RegisterPage(): React.ReactElement {
               placeholder='REPEAT EMAIL'
               icon='form--icon email-icon'
             />
-            <Button className='btn login--btn' type='submit'>
+            <Button
+              className='btn login--btn'
+              type='submit'
+            >
               Register
             </Button>
             <SignUpWithGoogleOption />
@@ -93,7 +109,10 @@ const SignUpWithGoogleOption = (): React.ReactElement => {
     <>
       <span className='link--label'>
         You already have an account?{' '}
-        <Link to='/auth/login' className='underline'>
+        <Link
+          to='/auth/login'
+          className='underline'
+        >
           Login here
         </Link>
       </span>

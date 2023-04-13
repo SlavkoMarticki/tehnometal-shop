@@ -4,7 +4,12 @@ import { AuthContext } from '.';
 import { User } from '@firebase/auth';
 
 export const AuthContextProvider = ({ children }: any): React.ReactElement => {
-  const [user, setUser] = useState<User | null>(auth.currentUser);
+  const userFromLS = localStorage.getItem('loginUser');
+  let lsUser = '';
+  if (typeof userFromLS === 'string') {
+    lsUser = JSON.parse(userFromLS);
+  }
+  const [user, setUser] = useState<any | null>(lsUser);
 
   useEffect(() => {
     auth.onAuthStateChanged((firebaseUser: any) => {

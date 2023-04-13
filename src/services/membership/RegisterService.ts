@@ -4,15 +4,17 @@ import { auth, db } from '../../common';
 import { ISignUpRequestData } from '../../types';
 
 class RegisterService {
-  async registerUser(data: ISignUpRequestData): Promise<void> {
+  async registerUser(data: ISignUpRequestData): Promise<any> {
     try {
       const { email, password } = data;
-      await createUserWithEmailAndPassword(auth, email, password);
+      const res = await createUserWithEmailAndPassword(auth, email, password);
       const reference = ref(db, 'users/');
 
       push(reference, {
         ...data
       });
+      localStorage.setItem('loginUser', JSON.stringify(res.user));
+      return res.user;
     } catch (error) {
       // TODO: add error handling after toaster implementation
       console.error(error);
