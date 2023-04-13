@@ -13,16 +13,16 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <RootStoreCtxProvider>
-      <NotificationProvider>
-        <AuthContextProvider>
-          <LoaderProvider>
-            <BrowserRouter>
+    <NotificationProvider>
+      <AuthContextProvider>
+        <LoaderProvider>
+          <BrowserRouter>
+            <RootStoreCtxProvider>
               <App />
-            </BrowserRouter>
-          </LoaderProvider>
-        </AuthContextProvider>
-      </NotificationProvider>
-    </RootStoreCtxProvider>
+            </RootStoreCtxProvider>
+          </BrowserRouter>
+        </LoaderProvider>
+      </AuthContextProvider>
+    </NotificationProvider>
   </React.StrictMode>
 );

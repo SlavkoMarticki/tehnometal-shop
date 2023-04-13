@@ -1,6 +1,7 @@
 import React from 'react';
 import './loader.css';
 import { useLoader } from '../../hooks';
+import { observer } from 'mobx-react';
 
 const Loader: React.FC = () => {
   const { isLoading } = useLoader();
@@ -13,4 +14,4 @@ const Loader: React.FC = () => {
   ) : null;
 };
 
-export default Loader;
+export default observer(Loader);

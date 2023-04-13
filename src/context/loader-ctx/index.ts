@@ -1,2 +1,2 @@
 export { LoaderContext } from './LoaderContext';
-export { LoaderProvider } from "./LoaderProvider";
+export { default as LoaderProvider } from './LoaderProvider';

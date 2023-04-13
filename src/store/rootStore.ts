@@ -18,10 +18,10 @@ export class RootStore {
   constructor() {
     this.loadingStore = new LoadingStore();
     this.notificationStore = new NotificationStore();
-    this.productStore = new ProductStore(this);
     this.cartStore = new CartStore(this);
     this.categoriesStore = new CategoriesStore(this);
-    this.favoritesStore = new FavoritesStore(this);
+    this.productStore = new ProductStore(this);
     this.userStore = new UserStore(this);
+    this.favoritesStore = new FavoritesStore(this);
   }
 }

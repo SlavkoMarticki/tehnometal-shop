@@ -15,7 +15,6 @@ export class ProductStore {
     this.product = [];
     makeAutoObservable(this);
     this.setProducts = this.setProducts.bind(this);
-    this.getProducts();
   }
 
   setProducts(products: IProductData[]): void {
@@ -28,9 +27,11 @@ export class ProductStore {
 
   async getProducts(): Promise<void> {
     try {
+      this.rootStore.loadingStore.setIsLoading(true);
       const productData = await productServiceInstance.getAllProducts();
       const data = transferObjectIntoArray(productData);
       this.setProducts(data);
+      this.rootStore.loadingStore.setIsLoading(false);
     } catch (error) {
       throw new Error();
     }

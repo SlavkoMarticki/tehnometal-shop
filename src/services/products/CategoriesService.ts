@@ -31,7 +31,7 @@ class CategoriesService {
   async getAllSubCategories(id: string): Promise<ICategories> {
     try {
       const response = await axios.get(
-        `https://tehnometal-shop-default-rtdb.firebaseio.com/sub-categories/${id}.json`
+        `${this.baseUrl}sub-categories/${id}.json`
       );
       const data = await response.data;
       return data;

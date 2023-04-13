@@ -75,6 +75,7 @@
   color: white;
   font-size: 18px;
   padding: 8px 32px 8px 32px;
+  text-transform: capitalize;
 }
 .slider--content,
 .card--item {
