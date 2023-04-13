@@ -10,6 +10,7 @@ import {
 import { AboutUsPage, ContactUsPage, HomePage, NewsPage } from '../pages';
 import { ProfilePage } from '../pages/user';
 import { Loader } from '../components';
+import { PrivateRoute } from '../components/routes';
 
 export default function MainRouteLayout(): React.ReactElement {
   return (
@@ -33,10 +34,12 @@ export default function MainRouteLayout(): React.ReactElement {
           path='/news'
           element={<NewsPage />}
         />
-        <Route
-          path='/profile'
-          element={<ProfilePage />}
-        />
+        <Route element={<PrivateRoute />}>
+          <Route
+            path='/profile'
+            element={<ProfilePage />}
+          />
+        </Route>
 
         {/* layout routes outlets */}
         <Route

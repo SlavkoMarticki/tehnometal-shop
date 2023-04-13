@@ -24,6 +24,7 @@ class SignInService {
   async signOut(): Promise<void> {
     try {
       await signOut(auth);
+      localStorage.removeItem('loginUser');
     } catch (error) {
       console.error(error);
     }
