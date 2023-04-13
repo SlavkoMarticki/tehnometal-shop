@@ -12,6 +12,7 @@ const theme = unstable_createMuiStrictModeTheme();
 const CustomSnackbar: React.FC<ISnackbarProps> = ({
   open,
   message,
+  type,
   onClose
 }) => {
   const snackbarRef = useRef(null);
@@ -42,7 +43,7 @@ const CustomSnackbar: React.FC<ISnackbarProps> = ({
         }
       >
         <Alert
-          severity='success'
+          severity={type}
           style={{ minWidth: '200px' }}
           variant='filled'
           ref={alertRef}

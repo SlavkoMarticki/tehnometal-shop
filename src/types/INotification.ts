@@ -1,3 +1,5 @@
+import { Color } from '@material-ui/lab';
+
 export interface INotification {
   message: string;
   type?: 'success' | 'error' | 'info' | 'warning';
@@ -13,4 +15,5 @@ export interface ISnackbarProps {
   open: boolean;
   message: string;
   onClose?: () => void;
+  type: Color | undefined;
 }

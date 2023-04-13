@@ -7,7 +7,7 @@ import CartIcon from '../../../common/assets/cart-form-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { ISignInFormData } from '../../../types';
 import { signInServiceInstance } from '../../../services';
-import { useAuthUser, usePageTitle } from '../../../hooks';
+import { useAuthUser, usePageTitle, useNotification } from '../../../hooks';
 
 export default function SignInPage(): React.ReactElement {
   usePageTitle('Sign In');
@@ -15,14 +15,17 @@ export default function SignInPage(): React.ReactElement {
   const { handleSubmit } = methods;
   const { setUser } = useAuthUser();
   const navigate = useNavigate();
+  const { showErrorPopup } = useNotification();
 
   const handleSubmitForm = async (data: ISignInFormData): Promise<any> => {
     try {
       const res = await signInServiceInstance.login(data);
-      setUser(res);
-      navigate('/');
-    } catch (error) {
-      console.log(error);
+      if (res.success) {
+        setUser(res);
+        navigate('/');
+      }
+    } catch (error: any) {
+      showErrorPopup(error.message);
     }
   };
 

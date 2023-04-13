@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { serverTimestamp } from '../../../common/firebase/firebase';
 import { ISignUpFormData } from '../../../types';
 import { registerServiceInstance } from '../../../services';
-import { useAuthUser, usePageTitle } from '../../../hooks';
+import { useAuthUser, useNotification, usePageTitle } from '../../../hooks';
 
 export default function RegisterPage(): React.ReactElement {
   usePageTitle('Sign Up');
@@ -17,6 +17,7 @@ export default function RegisterPage(): React.ReactElement {
 
   const navigate = useNavigate();
   const { setUser } = useAuthUser();
+  const { showErrorPopup } = useNotification();
 
   const handleSignUpForm = async (data: ISignUpFormData): Promise<any> => {
     try {
@@ -29,10 +30,12 @@ export default function RegisterPage(): React.ReactElement {
         timeStamp: serverTimestamp()
       };
       const res = await registerServiceInstance.registerUser(modifiedData);
-      setUser(res);
-      navigate('/');
-    } catch (error) {
-      console.log(error);
+      if (res.success) {
+        setUser(res);
+        navigate('/');
+      }
+    } catch (error: any) {
+      showErrorPopup(error.message);
     }
   };
 

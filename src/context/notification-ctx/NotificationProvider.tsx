@@ -14,7 +14,7 @@ import { observer } from 'mobx-react-lite';
 const initialNotificationState: INotification = {
   isOpen: false,
   message: '',
-  type: 'info'
+  type: undefined
 };
 
 export const NotificationContext = createContext<
@@ -23,9 +23,6 @@ export const NotificationContext = createContext<
   notifications: initialNotificationState,
   addNotification: () => {}
 });
-
-export const useNotification = (): INotificationContextType =>
-  useContext(NotificationContext);
 
 interface NotificationProviderProps {
   children: React.ReactNode;
@@ -44,7 +41,11 @@ export const NotificationProvider: React.FC<NotificationProviderProps> =
         setNotifications(notification);
 
         setTimeout(() => {
-          setNotifications(initialNotificationState);
+          setNotifications({
+            isOpen: false,
+            message: '',
+            type: notification.type
+          });
           notificationStore.removeNotification();
         }, duration);
       },
@@ -63,6 +64,11 @@ export const NotificationProvider: React.FC<NotificationProviderProps> =
       <NotificationContext.Provider value={contextValue}>
         {children}
         <CustomSnackbar
+          type={
+            notificationStore.notifications !== null
+              ? notificationStore.notifications.type!
+              : notifications.type!
+          }
           message={
             notificationStore.notifications !== null
               ? notificationStore.notifications.message

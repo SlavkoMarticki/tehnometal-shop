@@ -1,7 +1,8 @@
 import { signOut, signInWithEmailAndPassword } from '@firebase/auth';
 import { auth, GoogleAuthProvider, signInWithPopup } from '../../common';
 import { ISignInFormData } from '../../types';
-import { UserCredential } from 'firebase/auth';
+import { ApiResponse, ErrorResponse } from '../../utils';
+import { FirebaseError } from 'firebase/app';
 
 class SignInService {
   googleProvider;
@@ -19,9 +20,18 @@ class SignInService {
     try {
       const data = await signInWithEmailAndPassword(auth, email, password);
       localStorage.setItem('loginUser', JSON.stringify(data.user));
-      return data.user;
-    } catch (error) {
-      console.error(error);
+      return new ApiResponse(data.user);
+    } catch (error: any) {
+      switch (error.code) {
+        case 'auth/invalid-email':
+          throw new ErrorResponse({ message: 'Invalid email address.' });
+        case 'auth/wrong-password':
+          throw new ErrorResponse({ message: 'Wrong password.' });
+        case 'auth/user-not-found':
+          throw new ErrorResponse({ message: 'User not found.' });
+        default:
+          throw new ErrorResponse({ message: 'An error occurred.' });
+      }
     }
   };
 
