@@ -9,7 +9,6 @@ export default function ErrorMessage(
   const {
     formState: { errors }
   } = useFormContext();
-
   if (Object.keys(errors).length === 0) {
     return null;
   }

@@ -1,8 +1,9 @@
 .register--container {
   height: 100%;
+  display: flex;
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 840px) {
   .register--container {
     min-height: 100vh;
   }

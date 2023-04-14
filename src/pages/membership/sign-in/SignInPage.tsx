@@ -8,11 +8,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ISignInFormData } from '../../../types';
 import { signInServiceInstance } from '../../../services';
 import { useAuthUser, usePageTitle, useNotification } from '../../../hooks';
+import { emailFieldPatternValidationInfo } from '../../../common';
+import { validatePassword } from '../../../utils/validate';
 
 export default function SignInPage(): React.ReactElement {
   usePageTitle('Sign In');
   const methods = useForm<ISignInFormData>({ mode: 'onChange' });
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
   const { setUser } = useAuthUser();
   const navigate = useNavigate();
   const { showErrorPopup } = useNotification();
@@ -25,6 +27,7 @@ export default function SignInPage(): React.ReactElement {
         navigate('/');
       }
     } catch (error: any) {
+      reset();
       showErrorPopup(error.message);
     }
   };
@@ -47,16 +50,25 @@ export default function SignInPage(): React.ReactElement {
             <FormInputField
               name='email'
               className='form--input'
-              placeholder='EMAIL'
+              placeholder='EMAIL*'
               icon='form--icon email-icon'
               type='email'
+              pattern={{
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
+                message: 'Invalid email address'
+              }}
+              infoMessage={emailFieldPatternValidationInfo}
+              required
             />
+
             <FormInputField
               name='password'
               className='form--input pass-icon'
               type='password'
-              placeholder='PASSWORD'
+              placeholder='PASSWORD*'
               icon='form--icon pass-icon'
+              validate={validatePassword}
+              required
             />
             <Button
               className='btn login--btn'

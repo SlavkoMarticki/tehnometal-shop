@@ -3,7 +3,8 @@ import { IFormInputFieldProps } from '../../types';
 import { ErrorMessage } from '.';
 import { ReactElement } from 'react';
 import './inputs.css';
-
+import classNames from 'classnames';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 export default function FormInputField(
   props: IFormInputFieldProps
 ): ReactElement {
@@ -17,10 +18,22 @@ export default function FormInputField(
     defaultValue,
     className,
     icon,
+    required,
+    pattern,
+    infoMessage,
     ...rest
   } = props;
 
   const { register } = useFormContext();
+  const {
+    formState: { errors }
+  } = useFormContext();
+
+  const error: any = errors[name];
+
+  const inputWithErrorClassName = classNames(className, {
+    'input--has-error': error?.message != null
+  });
 
   return (
     <>
@@ -29,15 +42,31 @@ export default function FormInputField(
 
         {icon != null && <span className={icon}></span>}
         <input
-          className={className}
-          {...register(name, { validate })}
+          className={inputWithErrorClassName}
+          {...register(name, {
+            validate,
+            required: 'This field is required.',
+            pattern
+          })}
           name={name}
           type={type}
           value={value}
           placeholder={placeholder}
           defaultValue={defaultValue}
+          required={required}
           {...rest}
         />
+        {infoMessage != null && (
+          <>
+            <span
+              className='input--info-icon'
+              title={infoMessage}
+            >
+              <AiOutlineInfoCircle />
+            </span>
+          </>
+        )}
+
         <ErrorMessage name={name} />
       </div>
     </>

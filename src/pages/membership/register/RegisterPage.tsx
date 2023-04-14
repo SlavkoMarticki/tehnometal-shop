@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Button, FormInputField, Datepicker } from '../../../components';
 import './register.css';
@@ -8,12 +8,22 @@ import { serverTimestamp } from '../../../common/firebase/firebase';
 import { ISignUpFormData } from '../../../types';
 import { registerServiceInstance } from '../../../services';
 import { useAuthUser, useNotification, usePageTitle } from '../../../hooks';
+import {
+  emailFieldPatternValidationInfo,
+  passwordFieldPatternValidationInfo
+} from '../../../common';
+import { validatePassword } from '../../../utils/validate';
 
 export default function RegisterPage(): React.ReactElement {
   usePageTitle('Sign Up');
 
   const methods = useForm<ISignUpFormData>({ mode: 'onChange' });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch, reset } = methods;
+
+  const password = useRef({});
+  const email = useRef({});
+  password.current = watch('password', '');
+  email.current = watch('email', '');
 
   const navigate = useNavigate();
   const { setUser } = useAuthUser();
@@ -35,6 +45,7 @@ export default function RegisterPage(): React.ReactElement {
         navigate('/');
       }
     } catch (error: any) {
+      reset();
       showErrorPopup(error.message);
     }
   };
@@ -65,7 +76,9 @@ export default function RegisterPage(): React.ReactElement {
               className='form--input'
               type='password'
               placeholder='PASSWORD'
+              validate={validatePassword}
               icon='form--icon pass-icon'
+              infoMessage={passwordFieldPatternValidationInfo}
             />
             <FormInputField
               name='repeatPassword'
@@ -73,6 +86,9 @@ export default function RegisterPage(): React.ReactElement {
               type='password'
               placeholder='REPEAT PASSWORD'
               icon='form--icon pass-icon'
+              validate={(value: string) =>
+                value === password.current || 'The passwords do not match'
+              }
             />
             <Datepicker
               name='dateOfBirth'
@@ -84,6 +100,11 @@ export default function RegisterPage(): React.ReactElement {
               className='form--input'
               type='email'
               placeholder='EMAIL'
+              pattern={{
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
+                message: 'Your address is invalid'
+              }}
+              infoMessage={emailFieldPatternValidationInfo}
               icon='form--icon email-icon'
             />
             <FormInputField
@@ -92,6 +113,9 @@ export default function RegisterPage(): React.ReactElement {
               type='email'
               placeholder='REPEAT EMAIL'
               icon='form--icon email-icon'
+              validate={(value: string) =>
+                value === email.current || 'The passwords do not match'
+              }
             />
             <Button
               className='btn login--btn'

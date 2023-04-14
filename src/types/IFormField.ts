@@ -9,6 +9,9 @@ export interface IFormInputFieldProps {
   defaultValue?: any;
   className?: string;
   icon?: string;
+  required?: boolean;
+  pattern?: any;
+  infoMessage?: string;
 }
 
 export interface IErrorMessage {
