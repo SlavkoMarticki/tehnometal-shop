@@ -4,7 +4,7 @@ import AboutUsCaseImg from '../../common/assets/about-us-case.png';
 import AboutUsDrillImg from '../../common/assets/about-us-drill.png';
 import AboutUsLocationImg from '../../common/assets/about-us-location.png';
 import { Map } from '../../components/map';
-import { useMediaQuery } from '../../hooks';
+import { useMediaQuery, usePageTitle } from '../../hooks';
 
 export default function AboutUsPage(): React.ReactElement {
   const isDesktopActive = useMediaQuery('(min-width:1200px)');
@@ -16,6 +16,8 @@ export default function AboutUsPage(): React.ReactElement {
 }
 
 const AboutUsDesktopView = (): React.ReactElement => {
+  usePageTitle('About Us');
+
   return (
     <div className='full'>
       <div className='vector--top-right-bg'></div>

@@ -18,7 +18,6 @@ export default function FormInputField(
   return (
     <>
       <div className='input-group'>
-
         {icon != null && <span className={icon}></span>}
         <input
           className={className}
