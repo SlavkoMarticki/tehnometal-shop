@@ -25,25 +25,30 @@ export class ProductStore {
     this.product = product;
   }
 
-  async getProducts(): Promise<void> {
+  getAllProducts = async (subCatId: string): Promise<void> => {
     try {
-      this.rootStore.loadingStore.setIsLoading(true);
-      const productData = await productServiceInstance.getAllProducts();
+      // this.rootStore.loadingStore.setIsLoading(true);
+      const productData =
+        await productServiceInstance.getAllProductsBySubCategory(subCatId);
       const data = transferObjectIntoArray(productData);
       this.setProducts(data);
-      this.rootStore.loadingStore.setIsLoading(false);
+      // this.rootStore.loadingStore.setIsLoading(false);
     } catch (error) {
+      console.log(error);
       throw new Error();
     }
-  }
+  };
 
-  async getProductById(id: string): Promise<void> {
+  getProductById = async (subCatId: string, catId: string): Promise<void> => {
     try {
-      const productData = await productServiceInstance.getProductById(id);
+      const productData = await productServiceInstance.getProductById(
+        catId,
+        subCatId
+      );
       const data = transferObjectIntoArray(productData);
       this.setProduct(data);
     } catch (error) {
       throw new Error();
     }
-  }
+  };
 }

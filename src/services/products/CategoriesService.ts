@@ -50,7 +50,6 @@ class CategoriesService {
         `https://tehnometal-shop-default-rtdb.firebaseio.com/sub-categories/${categoryId}/${id}.json`
       );
       const data = await response.data;
-      console.log(data);
       return data;
     } catch (error) {
       // TODO: Add error handler
