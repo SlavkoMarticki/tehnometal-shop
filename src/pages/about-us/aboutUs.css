@@ -1,0 +1,138 @@
+.about-us--container {
+  max-width: 90%;
+  width: 100%;
+  margin: auto;
+}
+
+.about-us--wrap {
+  padding: 5rem;
+  display: grid;
+  grid-template-rows: 40% 40%;
+  gap: 2rem;
+}
+
+.about-us--about,
+.about--us-location {
+  display: grid;
+  grid-template-columns: 400px calc(70% - 3rem);
+  position: relative;
+  gap: 3rem;
+}
+
+.about-us--content-img {
+  position: relative;
+}
+
+.about-us--drill-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+}
+
+.about-us--case-img {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  right: 0;
+}
+
+.about-us--content-txt {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-us--title-main {
+  font-style: normal;
+  font-weight: 200;
+  font-size: 35px;
+  line-height: 48px;
+  color: #ffffff;
+}
+
+.about-us--title-secondary {
+  font-weight: 200;
+  font-size: 30px;
+  line-height: 42px;
+
+  color: #ffffff;
+}
+
+.about-us--content-block {
+  font-weight: 200;
+  font-size: 20px;
+  line-height: 30px;
+  color: #ffffff;
+}
+
+.about-us--location-map-title {
+  font-weight: 200;
+  font-size: 40px;
+  line-height: 48px;
+  color: #ffffff;
+  padding-bottom: 2rem;
+}
+
+.about-us--location-img {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.about--us-marker-img {
+  width: 250px;
+  height: 250px;
+}
+
+@media screen and (max-width: 1200px) {
+  .about-us--content-txt {
+    position: relative;
+  }
+
+  .about-us--container-mobile {
+    max-width: 80%;
+    margin: auto;
+    text-align: center;
+    padding: 5rem 1rem;
+    gap: 2rem;
+  }
+  .about-us--location-img {
+    gap: 10px;
+    justify-content: space-around;
+  }
+  .about-us--case-img,
+  .about-us--drill-img {
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+
+  .about--us-marker-img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .about-us--location-map {
+    padding: 2rem 0;
+  }
+
+  .about-us--location-map-title {
+    padding: 2rem 0;
+  }
+
+  .about-us--location-map {
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .a-img {
+    width: 100px;
+    height: 100px;
+  }
+  .about-us--location-map {
+    padding-top: 0;
+  }
+}

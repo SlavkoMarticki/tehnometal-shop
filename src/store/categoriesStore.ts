@@ -72,11 +72,6 @@ export class CategoriesStore {
 
   getSubCategories = async (id: string): Promise<void> => {
     try {
-      const subCategoriesData =
-        await categoriesServiceInstance.getAllSubCategories(id);
-      const data = transferObjectIntoArray(subCategoriesData);
-      this.setSubCategories(data);
-
       runInAction(() => {
         const activeCategory = this.categories.filter((cat) => {
           // set active category
@@ -84,6 +79,11 @@ export class CategoriesStore {
         });
         this.setActiveCategory(activeCategory);
       });
+      const subCategoriesData =
+        await categoriesServiceInstance.getAllSubCategories(id);
+      const data = transferObjectIntoArray(subCategoriesData);
+      this.setSubCategories(data);
+
     } catch (error: any) {
       console.log(error.message);
       throw new Error();
