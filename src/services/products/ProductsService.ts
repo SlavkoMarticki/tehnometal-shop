@@ -17,10 +17,11 @@ class ProductService {
     }
   }
 
-  async getProductById(catId: string, subCatId: string): Promise<IProduct> {
+  async getProductById(subCatId: string, prodId: string): Promise<IProduct> {
     try {
+      console.log(subCatId, prodId);
       const response = await axios.get(
-        `${this.baseUrl}products/${catId}/${subCatId}.json`
+        `${this.baseUrl}products/${subCatId}/${prodId}.json`
       );
       const data = await response.data;
       return data;

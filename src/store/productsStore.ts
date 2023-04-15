@@ -2,17 +2,16 @@ import { RootStore } from './rootStore';
 import { productServiceInstance } from '../services';
 import { transferObjectIntoArray } from '../utils';
 import { makeAutoObservable } from 'mobx';
-import { IProductData } from '../types';
+import { IProduct, IProductData } from '../types';
 
 export class ProductStore {
-  products: any;
+  products: any = [];
   rootStore: RootStore;
-  product: IProductData[];
+  product: IProduct[] = [];
+  activeProdId: string = '';
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.products = [];
-    this.product = [];
     makeAutoObservable(this);
     this.setProducts = this.setProducts.bind(this);
   }
@@ -21,9 +20,13 @@ export class ProductStore {
     this.products = products;
   }
 
-  setProduct(product: IProductData[]): void {
+  setProduct = (product: IProduct[]): void => {
     this.product = product;
-  }
+  };
+
+  setActiveProdId = (id: string): void => {
+    this.activeProdId = id;
+  };
 
   getAllProducts = async (subCatId: string): Promise<void> => {
     try {
@@ -45,7 +48,8 @@ export class ProductStore {
         catId,
         subCatId
       );
-      const data = transferObjectIntoArray(productData);
+      const data = new Array(productData);
+      console.log(data);
       this.setProduct(data);
     } catch (error) {
       throw new Error();

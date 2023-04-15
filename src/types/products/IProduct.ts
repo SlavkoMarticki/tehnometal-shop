@@ -17,6 +17,7 @@ export interface IProduct {
   images: string[];
   description: string;
   isFavorite: boolean;
+  rating: number;
 }
 export interface IProductData {
   id: string;

@@ -15,9 +15,15 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const { subCategoryId } = useParams();
+  const { subCategoryId, categoryId } = useParams();
   const {
-    productStore: { getAllProducts, products, setProducts }
+    productStore: {
+      getAllProducts,
+      products,
+      setProducts,
+      activeProdId,
+      setActiveProdId
+    }
   } = useStore();
 
   const { setIsLoading } = useLoader();
@@ -51,18 +57,24 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
             <div className='card--group product--group products--grid'>
               {products.map((prod: any) => {
                 return (
-                  <ProductCard
-                    key={prod.id}
-                    imgUrl={prod.data.images[0]}
-                    name={prod.data.productName}
-                    currency={prod.data.currency}
-                    price={prod.data.price}
-                    onModalToggle={() => {
-                      setIsModalOpen(true);
-                    }}
-                  />
+                  <>
+                    <ProductCard
+                      key={prod.id}
+                      imgUrl={prod.data.images[0]}
+                      name={prod.data.productName}
+                      currency={prod.data.currency}
+                      price={prod.data.price}
+                      onProductSelect={() => {
+                        setActiveProdId(prod.id);
+                      }}
+                      onModalToggle={() => {
+                        setIsModalOpen(true);
+                      }}
+                    />
+                  </>
                 );
               })}
+
               <Modal
                 isOpen={isModalOpen}
                 onClose={() => {
@@ -71,6 +83,8 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
               >
                 <div className='modal'>
                   <ProductModal
+                    subCatId={subCategoryId}
+                    prodId={activeProdId}
                     onClose={() => {
                       setIsModalOpen(false);
                     }}
@@ -92,14 +106,26 @@ interface IProductCardProps {
   currency: string;
   price: number;
   onModalToggle: () => void;
+  onProductSelect: () => void;
 }
 
 const ProductCard = (props: IProductCardProps): React.ReactElement => {
-  const { imgUrl, name, numOfStars, price, currency, onModalToggle } = props;
+  const {
+    imgUrl,
+    name,
+    numOfStars,
+    price,
+    currency,
+    onModalToggle,
+    onProductSelect
+  } = props;
   return (
     <div
       className='card--item product--item'
-      onClick={onModalToggle}
+      onClick={() => {
+        onProductSelect();
+        onModalToggle();
+      }}
     >
       <div className='card--favorite r-10'>
         <AiOutlineHeart />
