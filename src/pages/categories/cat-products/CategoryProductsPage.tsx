@@ -6,7 +6,7 @@ import { formatPriceNum } from '../../../utils';
 import { BiCartAdd } from 'react-icons/bi';
 import { useLoader, usePageTitle } from '../../../hooks';
 import useStore from '../../../hooks/useStore';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Modal } from '../../../portals';
 
@@ -14,7 +14,8 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
   usePageTitle('Product ');
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+  const { state } = useLocation();
+  console.log(state);
   const { subCategoryId, categoryId } = useParams();
   const {
     productStore: {
@@ -50,8 +51,8 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
         <div className='vector--top-right-bg'></div>
         <div className='vector--btm-left-bg'></div>
         <div className='categories--container'>
-          <h1 className='categories--title s-cat--title pad-b-2rem'>
-            Products
+          <h1 className='categories--title s-cat--title pad-b-2rem uppercase'>
+            {state}
           </h1>
           <div className='flex flex-column categories-wrap'>
             <div className='card--group product--group products--grid'>

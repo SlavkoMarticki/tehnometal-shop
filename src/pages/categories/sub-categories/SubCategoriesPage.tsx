@@ -87,7 +87,10 @@ const SubCategoryCard = observer(function SubCategoryCard(
   const { imgUrl, id, name, catId } = props;
   return (
     <div className='card--item'>
-      <Link to={`/categories/${catId}/${id}`}>
+      <Link
+        to={`/categories/${catId}/${id}`}
+        state={name}
+      >
         <img
           className='slider--img card--item-img'
           src={imgUrl}

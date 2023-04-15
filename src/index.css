@@ -130,3 +130,7 @@ a {
 .pad-2 {
   padding-top: 2rem;
 }
+
+.uppercase {
+  text-transform: uppercase;
+}

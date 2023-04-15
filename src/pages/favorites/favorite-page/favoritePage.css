@@ -1,11 +1,13 @@
 .product {
   border-radius: 10px;
   background: #0c2a45;
+  height: 160px;
 }
 
 .product--item {
-  width: 330px;
+  width: 350px;
   gap: 10px;
+  line-break: anywhere;
 }
 
 .product--img {
@@ -36,6 +38,10 @@
   color: #ffffff;
   padding-top: 1.3rem;
   padding-right: 10px;
+  width: 191px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }
 
 .product--stars {

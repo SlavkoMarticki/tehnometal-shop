@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 import useStore from '../../../hooks/useStore';
 import { useEffect } from 'react';
 import { useLoader } from '../../../hooks';
+import { formatPriceNum } from '../../../utils';
 
 interface IProductModalProps {
   onClose?: () => void;
@@ -17,9 +18,7 @@ export default observer(function ProductModal(
   props: IProductModalProps
 ): React.ReactElement {
   const { onClose, prodId, subCatId } = props;
-
   const { setIsLoading } = useLoader();
-
   const {
     productStore: { product, getProductById, setProduct, setActiveProdId }
   } = useStore();
@@ -85,21 +84,23 @@ export default observer(function ProductModal(
                   />
                   <div className='product--m-category flex'>
                     <em className='product--m-label'>Category: </em>
-                    <p className='product--m-value'>{prod.category}</p>
+                    <p className='product--m-value uppercase'>
+                      {prod.category}
+                    </p>
                   </div>
                   <div className='product--m-category flex'>
                     <em className='product--m-label'>Brand: </em>
-                    <p className='product--m-value'>{prod.brand}</p>
+                    <p className='product--m-value uppercase'>{prod.brand}</p>
                   </div>
                   <div className='product--m-description flex flex-column'>
-                    <em className='product--m-label'>Description</em>
+                    <em className='product--m-label'>Description: </em>
                     <p className='product--m-desc-content'>
                       {prod.description}
                     </p>
                   </div>
                   <div className='product--m-modal-order flex justify-spaceBetween'>
                     <div className='product--m-modal-price'>
-                      {prod.price} <span>{prod.currency}</span>
+                      {formatPriceNum(prod.price)} <span>{prod.currency}</span>
                     </div>
                     <BiCartAdd className='product--m-cart-icon' />
                   </div>
