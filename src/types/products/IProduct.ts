@@ -18,6 +18,9 @@ export interface IProduct {
   description: string;
   isFavorite: boolean;
   rating: number;
+  inStock: boolean;
+  stockQuantity: number;
+  quantity?: number;
 }
 export interface IProductData {
   id: string;

@@ -1,12 +1,17 @@
-import { Button, StarsDisplay } from '../../../components';
-import { useMediaQuery, usePageTitle } from '../../../hooks';
+import { Button } from '../../../components';
+import { usePageTitle } from '../../../hooks';
 import './cart.css';
-import { HiMinus, HiPlus } from 'react-icons/hi';
-import { TbTrash } from 'react-icons/tb';
+import { observer } from 'mobx-react';
+import useStore from '../../../hooks/useStore';
+import { formatPriceNum } from '../../../utils';
+import CartItem from './CartItem';
 
-export default function CartPage(): React.ReactElement {
+export default observer(function CartPage(): React.ReactElement {
   usePageTitle('Cart');
-  const isDesktopActive = useMediaQuery('(min-width: 840px)');
+
+  const {
+    cartStore: { cart, totalPrice }
+  } = useStore();
 
   return (
     <div className='cart full'>
@@ -27,402 +32,29 @@ export default function CartPage(): React.ReactElement {
             <span className='cart--labels-title-empty'>&nbsp;</span>
           </div>
           <div className='full-height'>
-            <div className='cart--items'>
-              {isDesktopActive ? (
-                <div className='flex cart--items-prod-details'>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <StarsDisplay
-                        product
-                        starsNum={4}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <div className='cart--item-stars'>
-                        <StarsDisplay
-                          product
-                          starsNum={4}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className='cart--item-quantity'>
-                <Button className='cart--reduce-btn'>
-                  <HiMinus />
-                </Button>
-                <span className='cart--quantity-value'>2</span>
-                <Button className='cart--add-btn'>
-                  <HiPlus />
-                </Button>
-              </div>
-              <div className='cart--item-prod-price'>
-                <p className='cart--price'>
-                  29 999 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-total-price'>
-                <p className='cart--price'>
-                  59 998 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-remove'>
-                <Button className='cart--remove-btn'>
-                  <TbTrash />
-                </Button>
-              </div>
-            </div>
-            <div className='cart--items'>
-              {isDesktopActive ? (
-                <div className='flex cart--items-prod-details'>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <StarsDisplay
-                        product
-                        starsNum={4}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <div className='cart--item-stars'>
-                        <StarsDisplay
-                          product
-                          starsNum={4}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className='cart--item-quantity'>
-                <Button className='cart--reduce-btn'>
-                  <HiMinus />
-                </Button>
-                <span className='cart--quantity-value'>2</span>
-                <Button className='cart--add-btn'>
-                  <HiPlus />
-                </Button>
-              </div>
-              <div className='cart--item-prod-price'>
-                <p className='cart--price'>
-                  29 999 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-total-price'>
-                <p className='cart--price'>
-                  59 998 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-remove'>
-                <Button className='cart--remove-btn'>
-                  <TbTrash />
-                </Button>
-              </div>
-            </div>
-            <div className='cart--items'>
-              {isDesktopActive ? (
-                <div className='flex cart--items-prod-details'>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <StarsDisplay
-                        product
-                        starsNum={4}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <div className='cart--item-stars'>
-                        <StarsDisplay
-                          product
-                          starsNum={4}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className='cart--item-quantity'>
-                <Button className='cart--reduce-btn'>
-                  <HiMinus />
-                </Button>
-                <span className='cart--quantity-value'>2</span>
-                <Button className='cart--add-btn'>
-                  <HiPlus />
-                </Button>
-              </div>
-              <div className='cart--item-prod-price'>
-                <p className='cart--price'>
-                  29 999 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-total-price'>
-                <p className='cart--price'>
-                  59 998 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-remove'>
-                <Button className='cart--remove-btn'>
-                  <TbTrash />
-                </Button>
-              </div>
-            </div>
-            <div className='cart--items'>
-              {isDesktopActive ? (
-                <div className='flex cart--items-prod-details'>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <StarsDisplay
-                        product
-                        starsNum={4}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <div className='cart--item-stars'>
-                        <StarsDisplay
-                          product
-                          starsNum={4}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className='cart--item-quantity'>
-                <Button className='cart--reduce-btn'>
-                  <HiMinus />
-                </Button>
-                <span className='cart--quantity-value'>2</span>
-                <Button className='cart--add-btn'>
-                  <HiPlus />
-                </Button>
-              </div>
-              <div className='cart--item-prod-price'>
-                <p className='cart--price'>
-                  29 999 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-total-price'>
-                <p className='cart--price'>
-                  59 998 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-remove'>
-                <Button className='cart--remove-btn'>
-                  <TbTrash />
-                </Button>
-              </div>
-            </div>
-            <div className='cart--items'>
-              {isDesktopActive ? (
-                <div className='flex cart--items-prod-details'>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <StarsDisplay
-                        product
-                        starsNum={4}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <div className='cart--item-stars'>
-                        <StarsDisplay
-                          product
-                          starsNum={4}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className='cart--item-quantity'>
-                <Button className='cart--reduce-btn'>
-                  <HiMinus />
-                </Button>
-                <span className='cart--quantity-value'>2</span>
-                <Button className='cart--add-btn'>
-                  <HiPlus />
-                </Button>
-              </div>
-              <div className='cart--item-prod-price'>
-                <p className='cart--price'>
-                  29 999 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-total-price'>
-                <p className='cart--price'>
-                  59 998 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-remove'>
-                <Button className='cart--remove-btn'>
-                  <TbTrash />
-                </Button>
-              </div>
-            </div>
-            <div className='cart--items'>
-              {isDesktopActive ? (
-                <div className='flex cart--items-prod-details'>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <StarsDisplay
-                        product
-                        starsNum={4}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className='cart--item-img'>
-                    <img
-                      src='https://cdn5.elipso.hr/elipsowebmedia/images/xbig/157291.jpg'
-                      alt='masina'
-                    />
-                  </div>
-                  <div className='cart--item-title'>
-                    <div className='flex flex-column'>
-                      <h1 className='cart--item-title-main'>Washing machine</h1>
-                      <div className='cart--item-stars'>
-                        <StarsDisplay
-                          product
-                          starsNum={4}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className='cart--item-quantity'>
-                <Button className='cart--reduce-btn'>
-                  <HiMinus />
-                </Button>
-                <span className='cart--quantity-value'>2</span>
-                <Button className='cart--add-btn'>
-                  <HiPlus />
-                </Button>
-              </div>
-              <div className='cart--item-prod-price'>
-                <p className='cart--price'>
-                  29 999 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-total-price'>
-                <p className='cart--price'>
-                  59 998 <span>RSD</span>
-                </p>
-              </div>
-              <div className='cart--item-remove'>
-                <Button className='cart--remove-btn'>
-                  <TbTrash />
-                </Button>
-              </div>
-            </div>
+            {cart.map((c: any) => {
+              return (
+                <CartItem
+                  key={c.id}
+                  id={c.id}
+                  imgUrl={c.images[0]}
+                  name={c.productName}
+                  rating={c.rating}
+                  quantity={c.quantity}
+                  price={c.price}
+                  currency={c.currency}
+                  totalPrice={c.prodTotalPrice}
+                  subCatId={c.subCategoryId}
+                  prodId={c.prodId}
+                />
+              );
+            })}
           </div>
           <div className='cart--price-wrap'>
             <div className='cart--price-total'>
               <h1 className='cart--price-total-label'>TOTAL:</h1>
               <p className='cart--price-total-num'>
-                124.996{' '}
+                {formatPriceNum(totalPrice)}{' '}
                 <span>
                   <em>RSD</em>
                 </span>
@@ -434,4 +66,4 @@ export default function CartPage(): React.ReactElement {
       </div>
     </div>
   );
-}
+});

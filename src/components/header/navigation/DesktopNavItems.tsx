@@ -1,18 +1,22 @@
 /* eslint-disable */
-import { useState } from "react";
-import classNames from "classnames";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { BsPerson, BsPersonFill } from "react-icons/bs";
-import { CiSearch } from "react-icons/ci";
-import { FaSignOutAlt } from "react-icons/fa";
-import { RiSearchFill, RiShoppingCart2Fill, RiShoppingCart2Line } from "react-icons/ri";
-import { NavLink } from "react-router-dom";
-import { AuthNavItem, NonAuthNavItem } from ".";
-import { signInServiceInstance } from "../../../services";
-import { HoverableIcon } from "../../hoverable-icon";
-import Logo from "./Logo";
-import { SearchModal } from "../../modals";
-import { Modal } from "../../../portals";
+import { useState } from 'react';
+import classNames from 'classnames';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { BsPerson, BsPersonFill } from 'react-icons/bs';
+import { CiSearch } from 'react-icons/ci';
+import { FaSignOutAlt } from 'react-icons/fa';
+import {
+  RiSearchFill,
+  RiShoppingCart2Fill,
+  RiShoppingCart2Line
+} from 'react-icons/ri';
+import { NavLink } from 'react-router-dom';
+import { AuthNavItem, NavCartItemsDisplay, NonAuthNavItem } from '.';
+import { signInServiceInstance } from '../../../services';
+import { HoverableIcon } from '../../hoverable-icon';
+import Logo from './Logo';
+import { SearchModal } from '../../modals';
+import { Modal } from '../../../portals';
 
 interface IDesktopNavItemsProps {
   isNavActive: boolean;
@@ -20,29 +24,28 @@ interface IDesktopNavItemsProps {
   isStickyActive: boolean;
 }
 
-export default function DesktopNavItems(props: IDesktopNavItemsProps): React.ReactElement {
-
+export default function DesktopNavItems(
+  props: IDesktopNavItemsProps
+): React.ReactElement {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { signOut } = signInServiceInstance;
   const { isNavActive, isNavMenuOpen, isStickyActive } = props;
 
-  const navItemClassName = classNames(
-    "nav--item",
-    {
-      "nav--item-is-sticky": isStickyActive
-    }
-  )
+  const navItemClassName = classNames('nav--item', {
+    'nav--item-is-sticky': isStickyActive
+  });
 
-  const navItemIconClassName = classNames(
-    "nav--item nav--item__i",
-    {
-      "nav--item-is-sticky": isStickyActive
-    }
-  )
+  const navItemIconClassName = classNames('nav--item nav--item__i', {
+    'nav--item-is-sticky': isStickyActive
+  });
   return (
     <>
-      <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} isStickyActive={isStickyActive} />
+      <Logo
+        isNavActive={isNavActive}
+        isNavMenuOpen={isNavMenuOpen}
+        isStickyActive={isStickyActive}
+      />
       <div className='nav--group nav-center-top'>
         <ul className='nav--list flex'>
           <li className={navItemClassName}>
@@ -90,13 +93,12 @@ export default function DesktopNavItems(props: IDesktopNavItemsProps): React.Rea
       </div>
       <div className='nav--group'>
         <ul className='nav--list flex nav--list__icons'>
-          <li className={navItemIconClassName} >
+          <li className={navItemIconClassName}>
             <HoverableIcon
               onClick={() => setIsModalOpen(true)}
               regularIcon={<CiSearch />}
               hoverIcon={<RiSearchFill />}
             />
-
           </li>
 
           <AuthNavItem>
@@ -117,10 +119,23 @@ export default function DesktopNavItems(props: IDesktopNavItemsProps): React.Rea
               />
             </li>
           </AuthNavItem>
-          <li className={navItemIconClassName}>
+          <li
+            className={navItemIconClassName}
+            style={{ position: 'relative' }}
+          >
             <HoverableIcon
-              regularIcon={<RiShoppingCart2Line />}
-              hoverIcon={<RiShoppingCart2Fill />}
+              regularIcon={
+                <>
+                  <RiShoppingCart2Line />
+                  <NavCartItemsDisplay />
+                </>
+              }
+              hoverIcon={
+                <>
+                  <RiShoppingCart2Fill />
+                  <NavCartItemsDisplay />
+                </>
+              }
               path='/cart'
             />
           </li>
@@ -135,13 +150,18 @@ export default function DesktopNavItems(props: IDesktopNavItemsProps): React.Rea
             </li>
           </NonAuthNavItem>
           <AuthNavItem>
-            <li className={navItemIconClassName} onClick={signOut}>
+            <li
+              className={navItemIconClassName}
+              onClick={signOut}
+            >
               <FaSignOutAlt />
             </li>
           </AuthNavItem>
         </ul>
         <Modal
-          onClose={() => { setIsModalOpen(false) }}
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
           isOpen={isModalOpen}
         >
           <SearchModal />

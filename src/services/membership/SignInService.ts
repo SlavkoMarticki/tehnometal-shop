@@ -1,8 +1,7 @@
 import { signOut, signInWithEmailAndPassword } from '@firebase/auth';
 import { auth, GoogleAuthProvider, signInWithPopup } from '../../common';
 import { ISignInFormData } from '../../types';
-import { ApiResponse, ErrorResponse } from '../../utils';
-import { FirebaseError } from 'firebase/app';
+import { ErrorResponse } from '../../utils';
 
 class SignInService {
   googleProvider;
@@ -20,7 +19,6 @@ class SignInService {
     try {
       const data = await signInWithEmailAndPassword(auth, email, password);
       localStorage.setItem('loginUser', JSON.stringify(data.user));
-      return new ApiResponse(data.user);
     } catch (error: any) {
       switch (error.code) {
         case 'auth/invalid-email':

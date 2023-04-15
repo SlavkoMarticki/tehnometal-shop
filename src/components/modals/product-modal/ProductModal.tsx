@@ -20,7 +20,8 @@ export default observer(function ProductModal(
   const { onClose, prodId, subCatId } = props;
   const { setIsLoading } = useLoader();
   const {
-    productStore: { product, getProductById, setProduct, setActiveProdId }
+    productStore: { product, getProductById, setProduct, activeProdId },
+    cartStore: { checkItemAvailability }
   } = useStore();
 
   useEffect(() => {
@@ -38,8 +39,9 @@ export default observer(function ProductModal(
 
     return () => {
       setProduct([]);
-      setActiveProdId('');
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -102,7 +104,13 @@ export default observer(function ProductModal(
                     <div className='product--m-modal-price'>
                       {formatPriceNum(prod.price)} <span>{prod.currency}</span>
                     </div>
-                    <BiCartAdd className='product--m-cart-icon' />
+                    <BiCartAdd
+                      className='product--m-cart-icon'
+                      onClick={(e) => {
+                        e.preventDefault();
+                        checkItemAvailability(subCatId!, activeProdId);
+                      }}
+                    />
                   </div>
                 </div>
               </div>

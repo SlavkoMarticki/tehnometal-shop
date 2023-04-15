@@ -1,17 +1,22 @@
-import { BsPerson, BsPersonFill } from "react-icons/bs";
-import { HoverableIcon } from "../../hoverable-icon";
-import AuthNavItem from "./AuthNavItem";
-import { RiSearchFill, RiShoppingCart2Fill, RiShoppingCart2Line } from "react-icons/ri";
-import { NavLink } from "react-router-dom";
-import NonAuthNavItem from "./NonAuthNavItem";
-import { FaSignOutAlt } from "react-icons/fa";
-import { signInServiceInstance } from "../../../services";
-import { CiSearch } from "react-icons/ci";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import Logo from "./Logo";
-import { useState } from "react";
-import { Modal } from "../../../portals";
-import { SearchModal } from "../../modals";
+import { BsPerson, BsPersonFill } from 'react-icons/bs';
+import { HoverableIcon } from '../../hoverable-icon';
+import AuthNavItem from './AuthNavItem';
+import {
+  RiSearchFill,
+  RiShoppingCart2Fill,
+  RiShoppingCart2Line
+} from 'react-icons/ri';
+import { NavLink } from 'react-router-dom';
+import NonAuthNavItem from './NonAuthNavItem';
+import { FaSignOutAlt } from 'react-icons/fa';
+import { signInServiceInstance } from '../../../services';
+import { CiSearch } from 'react-icons/ci';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import Logo from './Logo';
+import { useState } from 'react';
+import { Modal } from '../../../portals';
+import { SearchModal } from '../../modals';
+import NavCartItemsDisplay from './NavCartItemsDisplay';
 
 interface IMobileNavItemsProps {
   setIsNavMenuOpen: (value: boolean) => void;
@@ -20,13 +25,11 @@ interface IMobileNavItemsProps {
   isStickyActive?: boolean;
 }
 
-export default function MobileNavItems(props: IMobileNavItemsProps): React.ReactElement {
+export default function MobileNavItems(
+  props: IMobileNavItemsProps
+): React.ReactElement {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const {
-    setIsNavMenuOpen,
-    isNavActive,
-    isNavMenuOpen
-  } = props;
+  const { setIsNavMenuOpen, isNavActive, isNavMenuOpen } = props;
 
   const { signOut } = signInServiceInstance;
 
@@ -55,8 +58,18 @@ export default function MobileNavItems(props: IMobileNavItemsProps): React.React
             }}
           >
             <HoverableIcon
-              regularIcon={<RiShoppingCart2Line />}
-              hoverIcon={<RiShoppingCart2Fill />}
+              regularIcon={
+                <>
+                  <RiShoppingCart2Line />
+                  <NavCartItemsDisplay />
+                </>
+              }
+              hoverIcon={
+                <>
+                  <RiShoppingCart2Fill />
+                  <NavCartItemsDisplay />
+                </>
+              }
               path='/cart'
             />
           </li>
@@ -158,7 +171,7 @@ export default function MobileNavItems(props: IMobileNavItemsProps): React.React
           <li
             className='nav--item nav--item__i'
             onClick={() => {
-              setIsModalOpen(true)
+              setIsModalOpen(true);
             }}
           >
             <HoverableIcon
@@ -180,9 +193,14 @@ export default function MobileNavItems(props: IMobileNavItemsProps): React.React
             </AuthNavItem>
           </li>
         </ul>
-        <Logo isNavActive={isNavActive} isNavMenuOpen={isNavMenuOpen} />
+        <Logo
+          isNavActive={isNavActive}
+          isNavMenuOpen={isNavMenuOpen}
+        />
         <Modal
-          onClose={() => { setIsModalOpen(false) }}
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
           isOpen={isModalOpen}
         >
           <SearchModal />

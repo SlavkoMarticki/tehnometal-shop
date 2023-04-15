@@ -15,8 +15,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { state } = useLocation();
-  console.log(state);
-  const { subCategoryId, categoryId } = useParams();
+  const { subCategoryId } = useParams();
   const {
     productStore: {
       getAllProducts,
@@ -45,6 +44,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <>
       <div className='full'>
@@ -65,6 +65,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
                       name={prod.data.productName}
                       currency={prod.data.currency}
                       price={prod.data.price}
+                      prodId={prod.id}
                       onProductSelect={() => {
                         setActiveProdId(prod.id);
                       }}
@@ -108,9 +109,16 @@ interface IProductCardProps {
   price: number;
   onModalToggle: () => void;
   onProductSelect: () => void;
+  prodId: string;
 }
 
-const ProductCard = (props: IProductCardProps): React.ReactElement => {
+const ProductCard = observer(function ProductCard(
+  props: IProductCardProps
+): React.ReactElement {
+  const {
+    productStore: { setActiveProdId }
+  } = useStore();
+
   const {
     imgUrl,
     name,
@@ -118,12 +126,14 @@ const ProductCard = (props: IProductCardProps): React.ReactElement => {
     price,
     currency,
     onModalToggle,
-    onProductSelect
+    onProductSelect,
+    prodId
   } = props;
   return (
     <div
       className='card--item product--item'
       onClick={() => {
+        setActiveProdId(prodId);
         onProductSelect();
         onModalToggle();
       }}
@@ -157,4 +167,4 @@ const ProductCard = (props: IProductCardProps): React.ReactElement => {
       </div>
     </div>
   );
-};
+});
