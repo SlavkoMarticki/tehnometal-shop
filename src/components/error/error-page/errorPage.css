@@ -1,0 +1,95 @@
+.error {
+  background-image: url('../../../common/assets/error-page-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.error--overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(6, 24, 39, 0.8);
+}
+
+.error--wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.error h1 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(1.125rem, 0.5574rem + 2.8378vw, 3.75rem);
+  line-height: clamp(1.5rem, 0.8378rem + 3.3108vw, 4.5625rem);
+  /* identical to box height */
+
+  color: #ffffff;
+}
+
+.error p {
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(0.5rem, 0.2027rem + 1.4865vw, 1.875rem);
+  line-height: clamp(0.625rem, 0.2736rem + 1.7568vw, 2.25rem);
+  text-align: center;
+  padding: 0 2rem;
+  color: #ffffff;
+}
+
+.error--btns {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.error--refresh-btn {
+  width: 177px;
+  height: 45px;
+  background: #b52e2e;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}
+
+.error--home-btn {
+  width: 177px;
+  height: 45px;
+  background: #113f67;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}
+
+@media screen and (max-width: 560px) {
+  .error--btns {
+    flex-direction: column;
+  }
+}

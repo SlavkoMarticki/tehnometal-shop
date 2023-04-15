@@ -7,3 +7,4 @@ export * from './stars';
 export * from './footer';
 export * from './loader';
 export * from './snackbar';
+export * from './error';

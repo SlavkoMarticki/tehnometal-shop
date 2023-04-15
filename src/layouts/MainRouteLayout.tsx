@@ -15,7 +15,7 @@ import {
   CartSuccess
 } from '../pages';
 import { ProfilePage } from '../pages/user';
-import { Loader } from '../components';
+import { Loader, ErrorPage, NotFound } from '../components';
 import { PrivateRoute } from '../components/routes';
 
 export default function MainRouteLayout(): React.ReactElement {
@@ -28,6 +28,17 @@ export default function MainRouteLayout(): React.ReactElement {
           path='/'
           element={<HomePage />}
         />
+        
+        {/* TODO remove this after styling implementation */}
+        
+        <Route
+          path='/error'
+          element={<NotFound />}
+        />
+        
+        <Route
+          path='/error-page'
+          element={<ErrorPage />}
 
         <Route
           path='/cart/successful'
