@@ -6,12 +6,50 @@ import useStore from '../../../hooks/useStore';
 import { formatPriceNum } from '../../../utils';
 import { Button } from '../../../components';
 import { useNavigate } from 'react-router-dom';
-
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
 export default observer(function FinishCartPage(): React.ReactElement {
   usePageTitle('Finish Cart');
   const {
     cartStore: { cart, totalPrice }
   } = useStore();
+
+  const stripePromise = loadStripe(
+    process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!
+  );
+
+  const handleCheckout = async (): Promise<void> => {
+    const lineItems = cart.map((item: any): any => {
+      return {
+        price_data: {
+          currency: 'RSD',
+          product_data: {
+            name: item.productName,
+            images: [item.images[0]]
+          },
+          unit_amount: Math.round(item.price * 100) // price needs to be multiplied by 100
+        },
+        quantity: item.quantity
+      };
+    });
+    lineItems.push({
+      price_data: {
+        currency: 'RSD',
+        product_data: {
+          name: 'Shipping',
+          description: 'Shipping cost (not included in total)'
+        },
+        unit_amount: 1000 * 100 // price needs to be multiplied by 100
+      },
+      quantity: 1
+    });
+    const { data } = await axios.post('http://localhost:5000/checkout', {
+      lineItems
+    });
+
+    const stripe = await stripePromise;
+    await stripe!.redirectToCheckout({ sessionId: data.id });
+  };
 
   return (
     <div className='finish--cart full'>
@@ -49,7 +87,7 @@ export default observer(function FinishCartPage(): React.ReactElement {
           </div>
 
           <div className='finish--cart-form'>
-            <SignInOrContinueOrder />
+            <SignInOrContinueOrder handleCheckout={handleCheckout} />
           </div>
         </div>
       </div>
@@ -79,11 +117,15 @@ const CartItem = (props: ICartItemProps): React.ReactElement => {
   );
 };
 
-const SignInOrContinueOrder = (): React.ReactElement => {
+const SignInOrContinueOrder = ({
+  handleCheckout
+}: {
+  handleCheckout: () => void;
+}): React.ReactElement => {
   const { user } = useAuthUser();
   const navigate = useNavigate();
 
-  if (user === null) {
+  if (user !== null) {
     return (
       <div className='flex flex-column align-center gap-20'>
         <h1 className='uppercase finish-cart-title'>You need more items?</h1>
@@ -96,7 +138,12 @@ const SignInOrContinueOrder = (): React.ReactElement => {
           Go order some more!!
         </Button>
         <span className='color-w uppercase'>or</span>
-        <p className='uppercase  cursor-pointer color-w'>Continue to payment</p>
+        <p
+          className='uppercase  cursor-pointer color-w'
+          onClick={handleCheckout}
+        >
+          Continue to payment
+        </p>
       </div>
     );
   }
@@ -108,13 +155,18 @@ const SignInOrContinueOrder = (): React.ReactElement => {
       <Button
         className='finish--cart-login-btn uppercase cursor-pointer'
         onClick={() => {
-          navigate('/auth/login');
+          navigate('/auth/login?returnUrl=/cart/finish-cart');
         }}
       >
         Login
       </Button>
       <span className='color-w uppercase'>Or</span>
-      <p className='uppercase color-w'>Continue without account </p>
+      <p
+        className='uppercase color-w'
+        onClick={handleCheckout}
+      >
+        Continue without account{' '}
+      </p>
     </div>
   );
 };

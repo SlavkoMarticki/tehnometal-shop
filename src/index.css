@@ -134,3 +134,7 @@ a {
 .uppercase {
   text-transform: uppercase;
 }
+
+.c-success {
+  color: rgb(48, 255, 93);
+}

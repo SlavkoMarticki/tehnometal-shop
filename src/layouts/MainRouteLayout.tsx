@@ -7,7 +7,13 @@ import {
   MembershipRouteLayout,
   SearchRouteLayout
 } from '.';
-import { AboutUsPage, ContactUsPage, HomePage, NewsPage } from '../pages';
+import {
+  AboutUsPage,
+  ContactUsPage,
+  HomePage,
+  NewsPage,
+  CartSuccess
+} from '../pages';
 import { ProfilePage } from '../pages/user';
 import { Loader } from '../components';
 import { PrivateRoute } from '../components/routes';
@@ -21,6 +27,11 @@ export default function MainRouteLayout(): React.ReactElement {
         <Route
           path='/'
           element={<HomePage />}
+        />
+
+        <Route
+          path='/cart/successful'
+          element={<CartSuccess />}
         />
         <Route
           path='/about-us'
