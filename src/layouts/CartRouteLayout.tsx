@@ -1,13 +1,15 @@
+import { observer } from 'mobx-react';
 import React from 'react';
-import { Route, Routes } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router';
+import useStore from '../hooks/useStore';
 import { CartPage, FinishCartPage } from '../pages';
 
-export default function CartRouteLayout(): React.ReactElement {
+export default observer(function CartRouteLayout(): React.ReactElement {
+  const {cartStore:{cart}} = useStore();
   return (
     <Routes>
       <Route path='/' element={<CartPage />} />
-      <Route path='/finish-cart/:id' element={<FinishCartPage />} />{' '}
-      {/* id: finishing cart id */}
+      <Route path='/finish-cart' element={cart.length === 0 ? <Navigate to="/cart"/>:<FinishCartPage />} />{' '}
     </Routes>
   );
-}
+})

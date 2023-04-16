@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import useStore from '../../../hooks/useStore';
 import { formatPriceNum } from '../../../utils';
 import CartItem from './CartItem';
+import { useNavigate } from 'react-router';
 
 export default observer(function CartPage(): React.ReactElement {
   usePageTitle('Cart');
@@ -12,6 +13,8 @@ export default observer(function CartPage(): React.ReactElement {
   const {
     cartStore: { cart, totalPrice }
   } = useStore();
+
+  const navigate = useNavigate();
 
   return (
     <div className='cart full'>
@@ -60,7 +63,7 @@ export default observer(function CartPage(): React.ReactElement {
                 </span>
               </p>
             </div>
-            <Button className='cart--finish-btn'>FINISH PURCHASE</Button>
+            <Button className='cart--finish-btn' onClick={() => {navigate("/cart/finish-cart")}}>FINISH PURCHASE</Button>
           </div>
         </div>
       </div>
