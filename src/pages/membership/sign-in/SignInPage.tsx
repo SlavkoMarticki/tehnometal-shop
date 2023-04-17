@@ -20,9 +20,10 @@ export default function SignInPage(): React.ReactElement {
   const { showErrorPopup } = useNotification();
   const location = useLocation();
 
+  // get return url from search params
   const searchParams = new URLSearchParams(location.search);
   let returnUrl = searchParams.get('returnUrl');
-  console.log(returnUrl);
+
   const handleSubmitForm = async (data: ISignInFormData): Promise<any> => {
     try {
       const res = await signInServiceInstance.login(data);

@@ -6,6 +6,7 @@ export const validatePassword = (value: any): any => {
   const hasUpperCase = /[A-Z]/.test(value);
   const hasLowerCase = /[a-z]/.test(value);
   const hasNumbers = /\d/.test(value);
+  /* eslint-disable-next-line */
   const hasSpecialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value);
 
   if (!value) {

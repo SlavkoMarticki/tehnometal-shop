@@ -36,24 +36,28 @@ export default function Footer(): JSX.Element {
                 <a
                   href='https://sv-se.facebook.com/'
                   target='_blank'
+                  rel='noreferrer'
                 >
                   <BsFacebook />
                 </a>
                 <a
                   href='https://github.com/SlavkoMarticki/tehnometal-shop'
                   target='_blank'
+                  rel='noreferrer'
                 >
                   <BsGithub />
                 </a>
                 <a
                   href='https://www.instagram.com/'
                   target='_blank'
+                  rel='noreferrer'
                 >
                   <BsInstagram />
                 </a>
                 <a
                   href='https://twitter.com/i/flow/login'
                   target='_blank'
+                  rel='noreferrer'
                 >
                   <BsTwitter />
                 </a>

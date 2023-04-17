@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router';
 import { RegisterPage, SignInPage } from '../pages';
-import { PrivateRoute, PublicRoute } from '../components/routes';
+import { PublicRoute } from '../components/routes';
 
 export default function MembershipRouteLayout(): React.ReactElement {
   return (

@@ -7,12 +7,20 @@ interface IProps {
   path?: string;
   onClick?: () => void;
   spanClassName?: string;
+  mobileIconClassName?: string;
 }
 
 export default function HoverableIcon(props: IProps): React.ReactElement {
   const [isIconOnHoverMode, setIsIconOnHoverMode] = useState<boolean>(false);
 
-  const { hoverIcon, regularIcon, path, onClick, spanClassName } = props;
+  const {
+    hoverIcon,
+    regularIcon,
+    path,
+    onClick,
+    spanClassName,
+    mobileIconClassName
+  } = props;
   return (
     <span
       onMouseOver={() => {
@@ -25,7 +33,12 @@ export default function HoverableIcon(props: IProps): React.ReactElement {
       className={spanClassName}
     >
       {path != null ? (
-        <Link to={path}>{isIconOnHoverMode ? hoverIcon : regularIcon}</Link>
+        <Link
+          className={mobileIconClassName != null ? mobileIconClassName : ''}
+          to={path}
+        >
+          {isIconOnHoverMode ? hoverIcon : regularIcon}
+        </Link>
       ) : (
         <>{isIconOnHoverMode ? hoverIcon : regularIcon}</>
       )}

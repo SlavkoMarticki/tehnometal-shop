@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useState,
-  useContext,
-  useMemo,
-  useCallback
-} from 'react';
+import React, { createContext, useState, useMemo, useCallback } from 'react';
 import { INotification, INotificationContextType } from '../../types';
 import { CustomSnackbar } from '../../components/snackbar';
 import { NotificationStore } from '../../store/common/NotificationStore';
