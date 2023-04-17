@@ -3,17 +3,25 @@ import { push, ref } from 'firebase/database';
 import { auth, db } from '../../common';
 import { ISignUpRequestData } from '../../types';
 import { ApiResponse, ErrorResponse } from '../../utils';
-
+import { v4 as uuidv4 } from 'uuid';
 class RegisterService {
   async registerUser(data: ISignUpRequestData): Promise<any> {
     try {
-      const { email, password } = data;
+      const { username, password, email, dateOfBirth, timeStamp } = data;
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const reference = ref(db, 'users/');
 
+      const dbData = {
+        dateOfBirth,
+        email,
+        username,
+        id: uuidv4()
+      };
+
       push(reference, {
-        ...data
+        ...dbData
       });
+
       localStorage.setItem('loginUser', JSON.stringify(res.user));
       return new ApiResponse(res.user);
     } catch (error: any) {
