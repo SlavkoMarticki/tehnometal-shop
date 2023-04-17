@@ -28,18 +28,18 @@ export default function MainRouteLayout(): React.ReactElement {
           path='/'
           element={<HomePage />}
         />
-        
+
         {/* TODO remove this after styling implementation */}
-        
+
         <Route
           path='/error'
           element={<NotFound />}
         />
-        
+
         <Route
           path='/error-page'
           element={<ErrorPage />}
-
+        />
         <Route
           path='/cart/successful'
           element={<CartSuccess />}
