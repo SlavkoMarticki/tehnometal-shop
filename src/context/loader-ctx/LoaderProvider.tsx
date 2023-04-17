@@ -16,6 +16,7 @@ const LoaderProvider = (props: IContainerProps): React.ReactElement => {
   const setIsLoading = useCallback((isLoading: boolean) => {
     clearTimeout(debounceLoadingTimer);
 
+    /* eslint-disable-next-line */
     debounceLoadingTimer = setTimeout(() => {
       setIsLoadingLocal(isLoading);
     }, 300);
@@ -23,6 +24,8 @@ const LoaderProvider = (props: IContainerProps): React.ReactElement => {
 
   const contextValue = useMemo(() => {
     return { isLoading: loadingStore.isLoading, setIsLoading };
+
+    /* eslint-disable-next-line */
   }, [isLoadingLocal, setIsLoading, loadingStore.isLoading]);
 
   return (

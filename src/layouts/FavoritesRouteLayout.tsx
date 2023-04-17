@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import { FavoritesPage, FavoriteProductPage } from '../pages';
-import { PrivateRoute, PublicRoute } from '../components/routes';
+import { PrivateRoute } from '../components/routes';
 
 export default function FavoritesRouteLayout(): React.ReactElement {
   return (

@@ -33,23 +33,17 @@ class RegisterService {
             message:
               'The provided phoneNumber is already in use by an existing user. Each user must have a unique phoneNumber.'
           });
-        case 'auth/user-not-found':
-          throw new ErrorResponse({
-            message:
-              'There is no existing user record corresponding to the provided identifier.'
-          });
         case 'auth/account-exists-with-different-credential':
           throw new ErrorResponse({
             message:
               'An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.'
           });
-
         case 'auth/user-not-found':
           throw new ErrorResponse({
             message:
               'There is no user record corresponding to this identifier. The user may have been deleted.'
           });
-        case 'auth/user-not-found':
+        case 'auth/weak-password':
           throw new ErrorResponse({
             message: 'The password must be 6 characters long or more.'
           });

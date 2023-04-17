@@ -24,9 +24,28 @@ export class CartStore {
       totalPrice: computed,
       totalCount: computed
     });
+    this.onInitialize();
     this.removeFromCart = this.removeFromCart.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
+    window.addEventListener('beforeunload', this.onBeforeLoad);
   }
+
+  onBeforeLoad = (): void => {
+    if (this.cart.length === 0) {
+      return;
+    }
+    // TODO: save cart on user if user is logged in
+    sessionStorage.setItem('cart', JSON.stringify(this.cart));
+  };
+
+  onInitialize = (): void => {
+    const cartFromSessionStorage = sessionStorage.getItem('cart');
+    if (cartFromSessionStorage === null) {
+      return;
+    }
+
+    this.cart = JSON.parse(cartFromSessionStorage);
+  };
 
   setCart = (cartItem: any): void => {
     if (this.cart.length === 0) {
@@ -67,6 +86,9 @@ export class CartStore {
               this.cart[index].quantity * this.cart[index].price;
           });
         }
+        this.rootStore.notificationStore.showSuccessPopup(
+          'Item successfully added to cart!'
+        );
       } else {
         // TODO: add error message for not having in stock
         console.log('No more in stock');

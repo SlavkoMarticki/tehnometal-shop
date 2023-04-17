@@ -9,7 +9,6 @@ export default function TextAreaField(
 ): ReactElement {
   const {
     name,
-    type = 'text',
     value,
     placeholder,
     label,

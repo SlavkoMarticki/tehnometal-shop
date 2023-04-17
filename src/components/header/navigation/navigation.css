@@ -1,7 +1,7 @@
 .nav {
   position: sticky;
   height: max-content;
-  z-index: 9999;
+  z-index: 99;
 }
 .nav--menu {
   align-items: center;
@@ -19,7 +19,7 @@
   color: white;
   position: relative;
   cursor: pointer;
-  z-index: 9999;
+  z-index: 99;
   font-size: 16px;
 }
 
@@ -44,7 +44,8 @@
   font-size: 1.4rem;
 }
 
-.nav--mobile {
+.nav--mobile,
+.nav--mobile-x {
   display: none;
 }
 .nav--overlay {
@@ -58,12 +59,12 @@
   position: fixed;
   right: 0;
   height: 100vh;
-  width: clamp(350px, 100%, 60vw);
+  width: clamp(320px, 100%, 60vw);
   align-items: center;
   justify-content: center;
   background-color: rgba(6, 24, 39, 0.65);
   backdrop-filter: blur(5px);
-  z-index: 9999;
+  z-index: 101;
 }
 
 .nav--item:hover {
@@ -86,12 +87,10 @@
 }
 
 .is--sticky {
-  position: fixed;
   width: 100%;
   top: 0;
-  z-index: 9999;
+  z-index: 99;
   background-color: #e7eaf6;
-  height: 56px;
 }
 
 .is--sticky .nav--item {
@@ -129,9 +128,11 @@
 @media only screen and (max-width: 840px) {
   .is--sticky {
     height: 70px;
+    background-color: #e7eaf6;
   }
 
-  .nav--mobile {
+  .nav--mobile,
+  .nav--mobile-x {
     display: unset;
     position: fixed;
     right: 1.3rem;
@@ -139,8 +140,21 @@
     color: white;
     font-size: 1.5rem;
     font-size: 30px;
-    z-index: 99999;
+    z-index: 102;
     cursor: pointer;
+  }
+
+  .nav--item-is-sticky > a,
+  .nav--item-is-sticky > span > a {
+    color: white;
+  }
+
+  .is--sticky .nav--item {
+    color: white;
+  }
+  .color-dark,
+  .color-dark:hover {
+    color: var(--background-color-dark);
   }
 
   .nav--list__icons {

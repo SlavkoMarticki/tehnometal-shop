@@ -4,7 +4,7 @@ import { Button, FormInputField } from '../../../components';
 import './signInPage.css';
 import GoogleIcon from '../../../common/assets/google-icon.png';
 import CartIcon from '../../../common/assets/cart-form-icon.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ISignInFormData } from '../../../types';
 import { signInServiceInstance } from '../../../services';
 import { useAuthUser, usePageTitle, useNotification } from '../../../hooks';
@@ -18,15 +18,26 @@ export default function SignInPage(): React.ReactElement {
   const { setUser } = useAuthUser();
   const navigate = useNavigate();
   const { showErrorPopup } = useNotification();
+  const location = useLocation();
+
+  // get return url from search params
+  const searchParams = new URLSearchParams(location.search);
+  let returnUrl = searchParams.get('returnUrl');
 
   const handleSubmitForm = async (data: ISignInFormData): Promise<any> => {
     try {
       const res = await signInServiceInstance.login(data);
       if (res.success) {
         setUser(res);
-        navigate('/');
+        if (returnUrl !== null) {
+          navigate(returnUrl, { replace: true });
+          returnUrl = null;
+        } else {
+          navigate('/');
+        }
       }
     } catch (error: any) {
+      console.log(error);
       reset();
       showErrorPopup(error.message);
     }

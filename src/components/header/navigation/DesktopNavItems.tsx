@@ -21,7 +21,6 @@ import { Modal } from '../../../portals';
 interface IDesktopNavItemsProps {
   isNavActive: boolean;
   isNavMenuOpen: boolean;
-  isStickyActive: boolean;
 }
 
 export default function DesktopNavItems(
@@ -30,25 +29,17 @@ export default function DesktopNavItems(
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { signOut } = signInServiceInstance;
-  const { isNavActive, isNavMenuOpen, isStickyActive } = props;
+  const { isNavActive, isNavMenuOpen } = props;
 
-  const navItemClassName = classNames('nav--item', {
-    'nav--item-is-sticky': isStickyActive
-  });
-
-  const navItemIconClassName = classNames('nav--item nav--item__i', {
-    'nav--item-is-sticky': isStickyActive
-  });
   return (
     <>
       <Logo
         isNavActive={isNavActive}
         isNavMenuOpen={isNavMenuOpen}
-        isStickyActive={isStickyActive}
       />
       <div className='nav--group nav-center-top'>
         <ul className='nav--list flex'>
-          <li className={navItemClassName}>
+          <li className='nav--item'>
             <NavLink
               to='/'
               className={({ isActive }) => (isActive ? 'active' : '')}
@@ -57,7 +48,7 @@ export default function DesktopNavItems(
               Home
             </NavLink>
           </li>
-          <li className={navItemClassName}>
+          <li className='nav--item'>
             <NavLink
               className={({ isActive }) => (isActive ? 'active' : '')}
               to='/categories'
@@ -65,7 +56,7 @@ export default function DesktopNavItems(
               Products
             </NavLink>
           </li>
-          <li className={navItemClassName}>
+          <li className='nav--item'>
             <NavLink
               className={({ isActive }) => (isActive ? 'active' : '')}
               to='/news'
@@ -73,7 +64,7 @@ export default function DesktopNavItems(
               News
             </NavLink>
           </li>
-          <li className={navItemClassName}>
+          <li className='nav--item'>
             <NavLink
               className={({ isActive }) => (isActive ? 'active' : '')}
               to='/about-us'
@@ -81,7 +72,7 @@ export default function DesktopNavItems(
               About Us
             </NavLink>
           </li>
-          <li className={navItemClassName}>
+          <li className='nav--item'>
             <NavLink
               className={({ isActive }) => (isActive ? 'active' : '')}
               to='/contact-us'
@@ -93,7 +84,7 @@ export default function DesktopNavItems(
       </div>
       <div className='nav--group'>
         <ul className='nav--list flex nav--list__icons'>
-          <li className={navItemIconClassName}>
+          <li className={'nav--item nav--item__i'}>
             <HoverableIcon
               onClick={() => setIsModalOpen(true)}
               regularIcon={<CiSearch />}
@@ -102,7 +93,7 @@ export default function DesktopNavItems(
           </li>
 
           <AuthNavItem>
-            <li className={navItemIconClassName}>
+            <li className={'nav--item nav--item__i'}>
               <HoverableIcon
                 regularIcon={<AiOutlineHeart />}
                 hoverIcon={<AiFillHeart />}
@@ -111,7 +102,7 @@ export default function DesktopNavItems(
             </li>
           </AuthNavItem>
           <AuthNavItem>
-            <li className={navItemIconClassName}>
+            <li className={'nav--item nav--item__i'}>
               <HoverableIcon
                 regularIcon={<BsPerson />}
                 hoverIcon={<BsPersonFill />}
@@ -120,7 +111,7 @@ export default function DesktopNavItems(
             </li>
           </AuthNavItem>
           <li
-            className={navItemIconClassName}
+            className={'nav--item nav--item__i'}
             style={{ position: 'relative' }}
           >
             <HoverableIcon
@@ -140,7 +131,7 @@ export default function DesktopNavItems(
             />
           </li>
           <NonAuthNavItem>
-            <li className={navItemClassName}>
+            <li className='nav--item'>
               <NavLink
                 className={({ isActive }) => (isActive ? 'active' : '')}
                 to='/auth/login'
@@ -151,7 +142,7 @@ export default function DesktopNavItems(
           </NonAuthNavItem>
           <AuthNavItem>
             <li
-              className={navItemIconClassName}
+              className={'nav--item nav--item__i'}
               onClick={signOut}
             >
               <FaSignOutAlt />

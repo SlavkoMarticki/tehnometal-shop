@@ -66,6 +66,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
                       currency={prod.data.currency}
                       price={prod.data.price}
                       prodId={prod.id}
+                      subCatId={prod.data.subCategoryId}
                       onProductSelect={() => {
                         setActiveProdId(prod.id);
                       }}
@@ -110,13 +111,15 @@ interface IProductCardProps {
   onModalToggle: () => void;
   onProductSelect: () => void;
   prodId: string;
+  subCatId: string;
 }
 
 const ProductCard = observer(function ProductCard(
   props: IProductCardProps
 ): React.ReactElement {
   const {
-    productStore: { setActiveProdId }
+    productStore: { setActiveProdId },
+    cartStore: { checkItemAvailability }
   } = useStore();
 
   const {
@@ -127,43 +130,51 @@ const ProductCard = observer(function ProductCard(
     currency,
     onModalToggle,
     onProductSelect,
-    prodId
+    prodId,
+    subCatId
   } = props;
   return (
-    <div
-      className='card--item product--item'
-      onClick={() => {
-        setActiveProdId(prodId);
-        onProductSelect();
-        onModalToggle();
-      }}
-    >
-      <div className='card--favorite r-10'>
-        <AiOutlineHeart />
-      </div>
-      <div className='flex product'>
-        <div className='product--img'>
-          <img
-            className='product--img-side'
-            src={imgUrl}
-            alt={`img-url${imgUrl}`}
-          />
+    <div className='card--item-wrap'>
+      <div
+        className='card--item product--item'
+        onClick={() => {
+          setActiveProdId(prodId);
+          onProductSelect();
+          onModalToggle();
+        }}
+      >
+        <div className='card--favorite r-10'>
+          <AiOutlineHeart />
         </div>
-        <div className='flex flex-column product--content'>
-          <h2 className='product--title'>{name}</h2>
-          <StarsDisplay
-            product
-            starsNum={numOfStars ?? 4}
-          />
-          <div className='flex justify-spaceBetween align-center'>
-            <p className='product--price'>
-              {formatPriceNum(price)} <span>{currency}</span>
-            </p>
-            <div className='product--cart'>
-              <BiCartAdd />
+        <div className='flex product'>
+          <div className='product--img'>
+            <img
+              className='product--img-side'
+              src={imgUrl}
+              alt={`img-url${imgUrl}`}
+            />
+          </div>
+          <div className='flex flex-column product--content'>
+            <h2 className='product--title'>{name}</h2>
+            <StarsDisplay
+              product
+              starsNum={numOfStars ?? 4}
+            />
+            <div className='flex justify-spaceBetween align-center'>
+              <p className='product--price'>
+                {formatPriceNum(price)} <span>{currency}</span>
+              </p>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className='product--cart cart__ef'
+        onClick={() => {
+          checkItemAvailability(subCatId, prodId);
+        }}
+      >
+        <BiCartAdd />
       </div>
     </div>
   );
