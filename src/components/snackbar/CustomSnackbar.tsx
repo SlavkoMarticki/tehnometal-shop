@@ -29,6 +29,7 @@ const CustomSnackbar: React.FC<ISnackbarProps> = ({
         autoHideDuration={4000}
         onClose={onClose}
         message={message}
+        style={{ zIndex: 200000 }}
         action={
           <>
             <IconButton

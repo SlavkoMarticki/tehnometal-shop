@@ -1,7 +1,6 @@
 .categories--container {
   max-width: 70%;
   margin: auto;
-  min-height: calc(100vh - 55px);
 }
 .categories-wrap {
   justify-content: center;
@@ -19,8 +18,8 @@
 
 .card--item {
   position: relative;
-  max-width: 400px;
-  min-width: 300px;
+  max-width: 300px;
+  min-width: 250px;
   width: -webkit-fill-available;
 }
 

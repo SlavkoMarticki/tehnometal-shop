@@ -105,7 +105,7 @@ export default observer(function ProductModal(
                       {formatPriceNum(prod.price)} <span>{prod.currency}</span>
                     </div>
                     <BiCartAdd
-                      className='product--m-cart-icon'
+                      className='product--m-cart-icon cart__ef'
                       onClick={(e) => {
                         e.preventDefault();
                         checkItemAvailability(subCatId!, activeProdId);

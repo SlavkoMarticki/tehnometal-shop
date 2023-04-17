@@ -9,7 +9,7 @@
 .news--content {
   position: absolute;
   height: calc(50% - 2rem);
-  bottom: 20px;
+  bottom: 1rem;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
   background-color: #113f67;
@@ -31,6 +31,13 @@
   font-size: 10px;
   color: #6087a8;
 }
+
+.card--item.news--card {
+  max-width: 350px;
+  min-width: 250px;
+  width: 100%;
+}
+
 .news--middle-txt {
   text-align: center;
   display: flex;

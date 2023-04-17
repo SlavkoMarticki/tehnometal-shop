@@ -86,6 +86,9 @@ export class CartStore {
               this.cart[index].quantity * this.cart[index].price;
           });
         }
+        this.rootStore.notificationStore.showSuccessPopup(
+          'Item successfully added to cart!'
+        );
       } else {
         // TODO: add error message for not having in stock
         console.log('No more in stock');

@@ -39,6 +39,7 @@
   aspect-ratio: 1;
   border-radius: 7px;
   width: -webkit-fill-available;
+  object-fit: cover;
 }
 
 .product--m-left-side-img {
@@ -141,7 +142,10 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 1200px) {
+  .product--m-category {
+    padding: 5px 0;
+  }
   .product--m-wrap {
     grid-template-areas:
       'a'

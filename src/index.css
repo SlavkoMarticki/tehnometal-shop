@@ -49,6 +49,7 @@ body {
 
 .app {
   position: relative;
+  background-color: #081c2f;
 }
 
 /* flex utility classes */
@@ -66,7 +67,6 @@ body {
 }
 
 header {
-  background-color: var(--background-color-dark);
   position: relative;
 }
 
@@ -112,7 +112,7 @@ a {
 }
 
 .full {
-  min-height: calc(100vh - 55px);
+  min-height: calc(100vh - 55px - 255px); /* height of nav and footer */
   background-color: var(--background-color-dark);
 }
 
@@ -137,4 +137,16 @@ a {
 
 .c-success {
   color: rgb(48, 255, 93);
+}
+
+@media screen and (max-width: 840px) {
+  .full {
+    min-height: calc(100vh - 55px - 315px); /* height of nav and footer */
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .full {
+    min-height: calc(100vh - 55px - 540px); /* height of nav and footer */
+  }
 }
