@@ -12,7 +12,6 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
     <NotificationProvider>
       <AuthContextProvider>
         <LoaderProvider>
@@ -24,5 +23,4 @@ root.render(
         </LoaderProvider>
       </AuthContextProvider>
     </NotificationProvider>
-  </React.StrictMode>
 );

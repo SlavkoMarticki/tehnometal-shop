@@ -4,13 +4,19 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './cartSuccess.css';
 import { formatPriceNum } from '../../../utils';
 import { Button } from '../../../components';
-import { usePageTitle } from '../../../hooks';
+import { useAuthUser, usePageTitle } from '../../../hooks';
+import useStore from '../../../hooks/useStore';
+import { observer } from 'mobx-react';
 
-export default function CartSuccess(): React.ReactElement | null {
+export default observer(function CartSuccess(): React.ReactElement | null {
   usePageTitle('Successful Cart Details');
   const [paymentInfo, setPaymentInfo] = useState<any>(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuthUser();
+  const {
+    cartStore: { savePurchaseOnUser, findIfOrderAlreadyExists, clearCart }
+  } = useStore();
 
   // check if location object has search params
   const hasSearchParams = location.search !== '';
@@ -27,13 +33,33 @@ export default function CartSuccess(): React.ReactElement | null {
   useEffect(() => {
     /* TODO: add loader  */
     const fetchData = async (): Promise<void> => {
+      // TODO: check if entry exits, if exists redirect to home with navigate replace
       try {
         // TODO: Move this to service
         const response = await axios.get(
           `http://localhost:5000/payment-data?session_id=${sessionId}`
         );
-        // TODO: add save to user from server.js /webhook
         const data = await response.data;
+
+        // if purchase is successful, remove cart from store
+        if (data != null) {
+          clearCart();
+        }
+
+        const isOrderAlreadyPlaced = await findIfOrderAlreadyExists(data.id);
+
+        // if order already exists in db, redirect to home page
+        if (isOrderAlreadyPlaced.success) {
+          navigate('/', { replace: true });
+        } else {
+          if (user !== null) {
+            // save purchase info
+            savePurchaseOnUser(data, data.id);
+          }
+        }
+
+        // save order on user if user is signed in
+
         setPaymentInfo(data);
       } catch (error) {
         /* TODO: add error handling */
@@ -44,10 +70,6 @@ export default function CartSuccess(): React.ReactElement | null {
 
     fetchData();
     /* eslint-disable */
-
-    return () => {
-      setPaymentInfo(null);
-    };
   }, []);
 
   if (paymentInfo == null) {
@@ -188,4 +210,4 @@ export default function CartSuccess(): React.ReactElement | null {
       </div>
     </div>
   );
-}
+});

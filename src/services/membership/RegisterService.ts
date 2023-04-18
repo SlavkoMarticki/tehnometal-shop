@@ -1,28 +1,34 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { push, ref } from 'firebase/database';
+import { set, ref } from 'firebase/database';
 import { auth, db } from '../../common';
 import { ISignUpRequestData } from '../../types';
 import { ApiResponse, ErrorResponse } from '../../utils';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 class RegisterService {
+  get baseUrl(): string {
+    return process.env.REACT_APP_BASE_DB_URL!;
+  }
+
   async registerUser(data: ISignUpRequestData): Promise<any> {
     try {
       const { username, password, email, dateOfBirth, timeStamp } = data;
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      const reference = ref(db, 'users/');
-
+      const reference = ref(db, `users/${res.user.uid}`);
       const dbData = {
         dateOfBirth,
         email,
         username,
-        id: uuidv4()
+        createdAt: timeStamp,
+        id: uuidv4(),
+        uid: res.user.uid
       };
 
-      push(reference, {
+      set(reference, {
         ...dbData
       });
 
-      localStorage.setItem('loginUser', JSON.stringify(res.user));
+      localStorage.setItem('loginUser', JSON.stringify(dbData));
       return new ApiResponse(res.user);
     } catch (error: any) {
       switch (error.code) {
@@ -60,6 +66,56 @@ class RegisterService {
       }
     }
   }
+
+  // TODO: add types
+  getUser = async (uid: string): Promise<any> => {
+    try {
+      const response = await axios.get(`${this.baseUrl}users/${uid}.json`);
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      // TODO: add error
+      console.log(error);
+    }
+  };
+
+  /* TODO: add type  */
+  saveSuccessfulPurchaseInDb = async (
+    data: any,
+    uid: string,
+    transactionId: string
+  ): Promise<void> => {
+    try {
+      // use put to avoid creating new unique id in db
+      await axios.put(
+        `${this.baseUrl}users/${uid}/orders/${transactionId}.json`,
+        {
+          ...data
+        }
+      );
+    } catch (error) {
+      /* TODO: add err handling */
+      console.log(error);
+    }
+  };
+
+  /* TODO: add types for this method */
+  findIfOrderAlreadyExists = async (
+    uid: string,
+    transactionId: string
+  ): Promise<any> => {
+    try {
+      const response = await axios.get(
+        `${this.baseUrl}users/${uid}/orders/${transactionId}.json`
+      );
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      // TODO: add error handling
+      console.log(error);
+    }
+  };
 }
+
 const registerServiceInstance = new RegisterService();
 export { registerServiceInstance };

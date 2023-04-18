@@ -17,6 +17,7 @@ import { HoverableIcon } from '../../hoverable-icon';
 import Logo from './Logo';
 import { SearchModal } from '../../modals';
 import { Modal } from '../../../portals';
+import useStore from '../../../hooks/useStore';
 
 interface IDesktopNavItemsProps {
   isNavActive: boolean;
@@ -28,7 +29,9 @@ export default function DesktopNavItems(
 ): React.ReactElement {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const { signOut } = signInServiceInstance;
+  const {
+    userStore: { doSignOut }
+  } = useStore();
   const { isNavActive, isNavMenuOpen } = props;
 
   return (
@@ -143,7 +146,7 @@ export default function DesktopNavItems(
           <AuthNavItem>
             <li
               className={'nav--item nav--item__i'}
-              onClick={signOut}
+              onClick={doSignOut}
             >
               <FaSignOutAlt />
             </li>

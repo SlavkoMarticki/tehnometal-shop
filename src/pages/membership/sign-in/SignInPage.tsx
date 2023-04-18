@@ -10,6 +10,7 @@ import { signInServiceInstance } from '../../../services';
 import { useAuthUser, usePageTitle, useNotification } from '../../../hooks';
 import { emailFieldPatternValidationInfo } from '../../../common';
 import { validatePassword } from '../../../utils/validate';
+import useStore from '../../../hooks/useStore';
 
 export default function SignInPage(): React.ReactElement {
   usePageTitle('Sign In');
@@ -19,14 +20,16 @@ export default function SignInPage(): React.ReactElement {
   const navigate = useNavigate();
   const { showErrorPopup } = useNotification();
   const location = useLocation();
-
+  const {
+    userStore: { login }
+  } = useStore();
   // get return url from search params
   const searchParams = new URLSearchParams(location.search);
   let returnUrl = searchParams.get('returnUrl');
 
   const handleSubmitForm = async (data: ISignInFormData): Promise<any> => {
     try {
-      const res = await signInServiceInstance.login(data);
+      const res = await login(data);
       if (res.success) {
         setUser(res);
         if (returnUrl !== null) {

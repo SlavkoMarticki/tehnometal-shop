@@ -18,8 +18,7 @@ class SignInService {
     const { email, password } = data;
     try {
       const data = await signInWithEmailAndPassword(auth, email, password);
-      localStorage.setItem('loginUser', JSON.stringify(data.user));
-      return new ApiResponse(data);
+      return data;
     } catch (error: any) {
       switch (error.code) {
         case 'auth/invalid-email':
@@ -43,6 +42,7 @@ class SignInService {
     }
   }
 
+  // TODO: see return object and make same method for user sign in to save user in db
   doSignInWithGoogle = (): void => {
     signInWithPopup(auth, this.googleProvider);
   };

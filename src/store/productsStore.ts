@@ -49,7 +49,6 @@ export class ProductStore {
         subCatId
       );
       const data = new Array(productData);
-      console.log(data);
       this.setProduct(data);
     } catch (error) {
       throw new Error();

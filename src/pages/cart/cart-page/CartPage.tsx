@@ -15,7 +15,6 @@ export default observer(function CartPage(): React.ReactElement {
   } = useStore();
 
   const navigate = useNavigate();
-
   return (
     <div className='cart full'>
       <div className='vector--top-right-bg'></div>
@@ -63,7 +62,14 @@ export default observer(function CartPage(): React.ReactElement {
                 </span>
               </p>
             </div>
-            <Button className='cart--finish-btn' onClick={() => {navigate("/cart/finish-cart")}}>FINISH PURCHASE</Button>
+            <Button
+              className='cart--finish-btn'
+              onClick={() => {
+                navigate('/cart/finish-cart');
+              }}
+            >
+              FINISH PURCHASE
+            </Button>
           </div>
         </div>
       </div>

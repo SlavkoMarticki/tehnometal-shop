@@ -13,12 +13,17 @@ import {
   passwordFieldPatternValidationInfo
 } from '../../../common';
 import { validatePassword } from '../../../utils/validate';
+import useStore from '../../../hooks/useStore';
 
 export default function RegisterPage(): React.ReactElement {
   usePageTitle('Sign Up');
 
   const methods = useForm<ISignUpFormData>({ mode: 'onChange' });
   const { handleSubmit, watch, reset } = methods;
+
+  const {
+    userStore: { register }
+  } = useStore();
 
   const password = useRef({});
   const email = useRef({});
@@ -37,9 +42,11 @@ export default function RegisterPage(): React.ReactElement {
         password,
         email,
         dateOfBirth,
-        timeStamp: serverTimestamp()
+        timeStamp: serverTimestamp(),
+        moneySpent: 0,
+        averageBillPrice: 0
       };
-      const res = await registerServiceInstance.registerUser(modifiedData);
+      const res = await register(modifiedData);
       if (res.success) {
         setUser(res);
         navigate('/');

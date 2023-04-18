@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { Modal } from '../../../portals';
 import { SearchModal } from '../../modals';
 import NavCartItemsDisplay from './NavCartItemsDisplay';
+import useStore from '../../../hooks/useStore';
 
 interface IMobileNavItemsProps {
   setIsNavMenuOpen: (value: boolean) => void;
@@ -31,7 +32,9 @@ export default function MobileNavItems(
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { setIsNavMenuOpen, isNavActive, isNavMenuOpen } = props;
 
-  const { signOut } = signInServiceInstance;
+  const {
+    userStore: { doSignOut }
+  } = useStore();
 
   return (
     <>
@@ -162,7 +165,7 @@ export default function MobileNavItems(
             <AuthNavItem>
               <FaSignOutAlt
                 onClick={() => {
-                  signOut();
+                  doSignOut();
                   setIsNavMenuOpen(false);
                 }}
               />

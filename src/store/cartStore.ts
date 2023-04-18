@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   action,
   computed,
@@ -6,8 +7,13 @@ import {
   runInAction
 } from 'mobx';
 import { RootStore } from './rootStore';
-import { productServiceInstance } from '../services';
+import { productServiceInstance, registerServiceInstance } from '../services';
 import { IProduct } from '../types';
+import { ApiResponse } from '../utils';
+import axios from 'axios';
+import { ref, remove } from 'firebase/database';
+import { db } from '../common';
+import firebase from 'firebase/app';
 
 export class CartStore {
   rootStore: RootStore;
@@ -15,6 +21,7 @@ export class CartStore {
   cart: any = [];
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
+
     makeObservable(this, {
       cart: observable,
       setCart: action,
@@ -22,7 +29,10 @@ export class CartStore {
       removeFromCart: action,
       decreaseQuantity: action,
       totalPrice: computed,
-      totalCount: computed
+      addItem: action,
+      totalCount: computed,
+      savePurchaseOnUser: action,
+      setCartData: action
     });
     this.onInitialize();
     this.removeFromCart = this.removeFromCart.bind(this);
@@ -30,30 +40,78 @@ export class CartStore {
     window.addEventListener('beforeunload', this.onBeforeLoad);
   }
 
-  onBeforeLoad = (): void => {
+  setCartData = (data: any): void => {
+    this.cart = data;
+  };
+
+  onBeforeLoad = async (): Promise<void> => {
     if (this.cart.length === 0) {
       return;
     }
-    // TODO: save cart on user if user is logged in
-    sessionStorage.setItem('cart', JSON.stringify(this.cart));
+    // check if user is logged in
+    const user = localStorage.getItem('loginUser');
+    if (user !== null) {
+      const { uid } = JSON.parse(user);
+
+      // if logged in, put data on user
+      fetch(`${process.env.REACT_APP_BASE_DB_URL!}users/${uid}/cart.json`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.cart)
+      }).catch((error) => {
+        console.error('Error updating cart:', error);
+      });
+    }
   };
 
   onInitialize = (): void => {
+    // Check if cart is empty to put data on specific user
     const cartFromSessionStorage = sessionStorage.getItem('cart');
-    if (cartFromSessionStorage === null) {
-      return;
+    if (cartFromSessionStorage !== null) {
+      this.setCartData(JSON.parse(cartFromSessionStorage));
     }
-
-    this.cart = JSON.parse(cartFromSessionStorage);
   };
 
   setCart = (cartItem: any): void => {
-    if (this.cart.length === 0) {
-      this.cart.push(cartItem);
-    } else {
-      this.cart = cartItem;
-    }
+    this.cart = cartItem;
   };
+
+  clearCart = (): void => {
+    // check if cart is in session storage
+    const cart = sessionStorage.getItem('cart');
+    if (cart != null) {
+      sessionStorage.removeItem('cart');
+    }
+    runInAction(() => {
+      this.cart = [];
+    });
+  };
+
+  addItem = (item: any, id?: string): void => {
+    const existingItemIndex = this.cart.findIndex((i: any) => i.id === item.id);
+    if (existingItemIndex === -1) {
+      item.quantity = 1;
+      item.prodTotalPrice = item.price;
+      item.prodId = id;
+      this.cart.push(item);
+    } else {
+      this.cart[existingItemIndex].quantity += 1;
+      this.cart[existingItemIndex].prodTotalPrice =
+        this.cart[existingItemIndex].quantity *
+        this.cart[existingItemIndex].price;
+    }
+    this.saveCart();
+  };
+
+  private saveCart() {
+    const updatedItems: any = {};
+    this.cart.forEach((item: any): any => {
+      updatedItems[item.id] = { ...item, quantity: item.quantity };
+    });
+    sessionStorage.setItem('cart', JSON.stringify(this.cart));
+  }
 
   checkItemAvailability = async (
     subCatId: string,
@@ -66,29 +124,7 @@ export class CartStore {
         prodId
       );
       if (response !== null && response.stockQuantity > 1) {
-        const index = this.cart.findIndex(
-          (cartItem: any) => cartItem.id === response.id
-        );
-        if (index === -1) {
-          runInAction(() => {
-            const modifiedResponse = {
-              ...response,
-              quantity: 1,
-              prodTotalPrice: response.price,
-              prodId
-            };
-            this.cart.push(modifiedResponse);
-          });
-        } else {
-          runInAction(() => {
-            this.cart[index].quantity++;
-            this.cart[index].prodTotalPrice =
-              this.cart[index].quantity * this.cart[index].price;
-          });
-        }
-        this.rootStore.notificationStore.showSuccessPopup(
-          'Item successfully added to cart!'
-        );
+        this.addItem(response, prodId);
       } else {
         // TODO: add error message for not having in stock
         console.log('No more in stock');
@@ -99,24 +135,95 @@ export class CartStore {
     }
   };
 
-  removeFromCart(id: string): void {
-    const index = this.cart.findIndex((cartItem: any) => cartItem.id === id);
-
-    if (index !== -1) {
-      this.cart.splice(index, 1);
+  async removeFromCart(id: string): Promise<void> {
+    const itemIndex = this.cart.findIndex((item: any) => item.id === id);
+    if (itemIndex !== -1) {
+      this.cart.splice(itemIndex, 1);
     }
+    const user = localStorage.getItem('loginUser');
+    if (user !== null) {
+      const { uid } = JSON.parse(user);
+      id = uid;
+    }
+    this.saveCart();
+    fetch(
+      `${process.env.REACT_APP_BASE_DB_URL!}users/${id}/cart/${itemIndex}.json`,
+      {
+        method: 'DELETE'
+      }
+    );
   }
 
   decreaseQuantity(id: string): void {
-    const index = this.cart.findIndex((cartItem: any) => cartItem.id === id);
-
-    if (index !== -1 && this.cart[index].quantity > 1) {
-      this.cart[index].quantity--;
-    } else {
-      // if quantity is 1 -> item should be removed from state
-      this.cart.splice(index, 1);
+    const index = this.cart.findIndex((i: any) => i.id === id);
+    if (index !== -1) {
+      const currentItem = this.cart[index];
+      if (currentItem.quantity === 1) {
+        this.cart.splice(index, 1);
+        // remove from db if user exists
+        if (this.rootStore.userStore.user !== null) {
+        }
+        fetch(
+          `${process.env.REACT_APP_BASE_DB_URL!}users/${
+            this.rootStore.userStore.user.uid
+          }/cart/${index}.json`,
+          {
+            method: 'DELETE'
+          }
+        );
+      } else {
+        currentItem.quantity -= 1;
+      }
+      this.saveCart();
     }
   }
+
+  savePurchaseOnUser = async (
+    data: any,
+    transactionId: string
+  ): Promise<any> => {
+    const userFromLS = localStorage.getItem('loginUser');
+    if (userFromLS === null) {
+      return;
+    }
+    const { uid } = JSON.parse(userFromLS);
+    try {
+      /* eslint-disable-next-line */
+      await registerServiceInstance.saveSuccessfulPurchaseInDb(
+        data,
+        uid,
+        transactionId
+      );
+    } catch (error) {
+      // TODO: add err handling
+      console.log(error);
+    }
+  };
+
+  findIfOrderAlreadyExists = async (transactionId: string): Promise<any> => {
+    const userFromLS = localStorage.getItem('loginUser');
+    if (userFromLS === null) {
+      return;
+    }
+
+    const { uid } = JSON.parse(userFromLS);
+
+    try {
+      /* eslint-disable-next-line */
+      const response = await registerServiceInstance.findIfOrderAlreadyExists(
+        uid,
+        transactionId
+      );
+      if (response != null) {
+        return new ApiResponse(response.data);
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      // TODO: add err handling
+      console.log(error);
+    }
+  };
 
   get totalPrice(): number {
     return this.cart.reduce(

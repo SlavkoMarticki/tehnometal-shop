@@ -19,7 +19,6 @@ class ProductService {
 
   async getProductById(subCatId: string, prodId: string): Promise<IProduct> {
     try {
-      console.log(subCatId, prodId);
       const response = await axios.get(
         `${this.baseUrl}products/${subCatId}/${prodId}.json`
       );
@@ -30,6 +29,24 @@ class ProductService {
       throw new Error();
     }
   }
+
+  //  Add cart on user
+  updateUserWithCurrentCart = async (data: any, uid: string): Promise<any> => {
+    try {
+      const response = await axios.put(
+        `${this.baseUrl}/users/${uid}/cart.json`,
+        { ...data }
+      );
+      const responseData = await response.data;
+      const blob = new Blob([JSON.stringify(responseData)], {
+        type: 'application/json'
+      });
+      return blob;
+    } catch (error) {
+      // Add error handling
+      console.log(error);
+    }
+  };
 }
 
 const productServiceInstance = new ProductService();
