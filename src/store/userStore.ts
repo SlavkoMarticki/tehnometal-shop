@@ -56,7 +56,8 @@ export class UserStore {
 
   doSignOut = async (): Promise<void> => {
     // first save all changes to user object in db
-    const { uid } = this.rootStore.userStore.user;
+
+    const { uid } = this.user;
     await fetch(`${process.env.REACT_APP_BASE_DB_URL!}users/${uid}/cart.json`, {
       method: 'PUT',
       headers: {
@@ -66,7 +67,7 @@ export class UserStore {
     });
 
     // then sign out user
-    signInServiceInstance.signOut();
+    await signInServiceInstance.signOut();
     this.setUser(null);
     this.rootStore.cartStore.clearCart();
   };
@@ -76,14 +77,14 @@ export class UserStore {
     const response = await signInServiceInstance.login(data);
     /* eslint-disable-next-line */
     const user = await this.getUserById(response.user.uid);
-
-    if (this.rootStore.cartStore.cart.length === 0 && user.cart != null) {
-      this.rootStore.cartStore.setCart(user.cart);
-      sessionStorage.setItem('cart', JSON.stringify(user.cart));
+    console.log(user, this.rootStore.cartStore.cart.length);
+    if (this.rootStore.cartStore.cart.length === 0 && user.data.cart != null) {
+      this.rootStore.cartStore.setCart(user.data.cart);
+      sessionStorage.setItem('cart', JSON.stringify(user.data.cart));
     } else {
       // update cart if user assings again
       await fetch(
-        `${process.env.REACT_APP_BASE_DB_URL!}users/${user.uid}/cart.json`,
+        `${process.env.REACT_APP_BASE_DB_URL!}users/${user.data.uid}/cart.json`,
         {
           method: 'PUT',
           headers: {
@@ -94,7 +95,7 @@ export class UserStore {
       );
     }
 
-    localStorage.setItem('loginUser', JSON.stringify(user));
+    localStorage.setItem('loginUser', JSON.stringify(user.data));
     this.setUser(user);
     return new ApiResponse(response);
   };

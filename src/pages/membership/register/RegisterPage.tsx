@@ -48,7 +48,7 @@ export default function RegisterPage(): React.ReactElement {
       };
       const res = await register(modifiedData);
       if (res.success) {
-        setUser(res);
+        setUser(res.data);
         navigate('/');
       }
     } catch (error: any) {

@@ -31,7 +31,7 @@ export default function SignInPage(): React.ReactElement {
     try {
       const res = await login(data);
       if (res.success) {
-        setUser(res);
+        setUser(res.data);
         if (returnUrl !== null) {
           navigate(returnUrl, { replace: true });
           returnUrl = null;

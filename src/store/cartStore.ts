@@ -33,33 +33,10 @@ export class CartStore {
     this.onInitialize();
     this.removeFromCart = this.removeFromCart.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
-    window.addEventListener('beforeunload', this.onBeforeLoad);
   }
 
   setCartData = (data: any): void => {
     this.cart = data;
-  };
-
-  onBeforeLoad = async (): Promise<void> => {
-    if (this.cart.length === 0) {
-      return;
-    }
-    // check if user is logged in
-    const user = localStorage.getItem('loginUser');
-    if (user !== null) {
-      const { uid } = JSON.parse(user);
-
-      // if logged in, put data on user
-      fetch(`${process.env.REACT_APP_BASE_DB_URL!}users/${uid}/cart.json`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(this.cart)
-      }).catch((error) => {
-        console.error('Error updating cart:', error);
-      });
-    }
   };
 
   onInitialize = (): void => {
@@ -85,7 +62,7 @@ export class CartStore {
     });
   };
 
-  addItem = (item: any, id?: string): void => {
+  addItem = async (item: any, id?: string): Promise<void> => {
     const existingItemIndex = this.cart.findIndex((i: any) => i.id === item.id);
     if (existingItemIndex === -1) {
       item.quantity = 1;
@@ -98,15 +75,36 @@ export class CartStore {
         this.cart[existingItemIndex].quantity *
         this.cart[existingItemIndex].price;
     }
-    this.saveCart();
+    await this.saveCart();
   };
 
-  private saveCart() {
+  async saveCart() {
     const updatedItems: any = {};
     this.cart.forEach((item: any): any => {
       updatedItems[item.id] = { ...item, quantity: item.quantity };
     });
     sessionStorage.setItem('cart', JSON.stringify(this.cart));
+    const user = localStorage.getItem('loginUser');
+    if (user != null) {
+      const { uid } = JSON.parse(user);
+      if (uid !== null) {
+        try {
+          console.log('uso sam');
+          await fetch(
+            `${process.env.REACT_APP_BASE_DB_URL!}users/${uid}/cart.json`,
+            {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(this.cart)
+            }
+          );
+        } catch (error) {
+          console.error('Error updating cart:', error);
+        }
+      }
+    }
   }
 
   checkItemAvailability = async (
