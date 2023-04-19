@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Button, FormInputField, Datepicker } from '../../../components';
 import './register.css';
 import CartIcon from '../../../common/assets/cart-form-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { serverTimestamp } from '../../../common/firebase/firebase';
+import { serverTimestamp, storage } from '../../../common/firebase/firebase';
 import { ISignUpFormData } from '../../../types';
 import { registerServiceInstance } from '../../../services';
 import { useAuthUser, useNotification, usePageTitle } from '../../../hooks';
@@ -14,9 +14,61 @@ import {
 } from '../../../common';
 import { validatePassword } from '../../../utils/validate';
 import useStore from '../../../hooks/useStore';
+import { useDropzone } from 'react-dropzone';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export default function RegisterPage(): React.ReactElement {
   usePageTitle('Sign Up');
+  const [image, setImage] = useState<any>([]);
+  const [imageUpload, setImageUpload] = useState<any>(null);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      'image/*': []
+    },
+    onDrop: (acceptedFiles) => {
+      console.log(acceptedFiles);
+
+      setImage(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file)
+          })
+        )
+      );
+    }
+  });
+  // #region dropzone
+  // const imagesListRef = ref(storage, 'images/');
+
+  const uploadFile = (email: string): void => {
+    console.log(image[0]);
+    if (image == null) return;
+
+    const imageRef = ref(storage, `tehnometal-shop/profile/${email}/${image}`);
+    uploadBytes(imageRef, image).then((snapshot: any) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUpload(url);
+      });
+    });
+  };
+
+  const thumbs = image?.map((img: any) => (
+    <div key={img.name}>
+      <div>
+        <img
+          src={img.preview}
+          alt='Loading..'
+          // Revoke data uri after img is loaded
+          onLoad={() => {
+            URL.revokeObjectURL(img.preview);
+          }}
+        />
+      </div>
+    </div>
+  ));
+
+  // #endregion
 
   const methods = useForm<ISignUpFormData>({ mode: 'onChange' });
   const { handleSubmit, watch, reset } = methods;
@@ -124,6 +176,15 @@ export default function RegisterPage(): React.ReactElement {
                 value === email.current || 'The passwords do not match'
               }
             />
+
+            <section className='container'>
+              <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop some files here, or click to select files</p>
+              </div>
+              <aside>{thumbs}</aside>
+            </section>
+
             <Button
               className='btn login--btn'
               type='submit'

@@ -9,9 +9,25 @@ import { Modal } from '../../portals';
 
 export default observer(function ProfilePage(): React.ReactElement | null {
   const [user, setUser] = useState<any | null>(null);
+ 
+
+  const imagesListRef = ref(storage, `tehnometal-shop/profile/${user!.email}`);
+  const [imageUrl, setImageUrl] = useState<string>('');
   const {
     userStore: { getUserById }
   } = useStore();
+  
+  /* 
+    useEffect(() => {
+    listAll(imagesListRef).then((response: any) => {
+      response.items.forEach((item: any) => {
+        getDownloadURL(item).then((url) => {
+          setImageUrl(url);
+        });
+      });
+    });
+  }, []);
+  */
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
@@ -49,7 +65,11 @@ export default observer(function ProfilePage(): React.ReactElement | null {
             <div className='flex flex-column justify-center text-center align-center gap-20 pad-2'>
               <img
                 className='profile--user-pic'
-                src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'
+                src={
+                  imageUrl.length === 0
+                    ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'
+                    : imageUrl
+                }
                 alt='profile img'
               />
               <h1 className='profile--user-name'>{user.username}</h1>
