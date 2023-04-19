@@ -67,6 +67,20 @@ class RegisterService {
     }
   }
 
+  // TODO: Add type
+  getOrderById = async (uid: string, id: string): Promise<any> => {
+    try {
+      const response = await axios.get(
+        `${this.baseUrl}users/${uid}/orders/${id}.json`
+      );
+      const data = await response.data;
+      return new ApiResponse(data);
+    } catch (error) {
+      // TODO: add error
+      console.log(error);
+    }
+  };
+
   // TODO: add types
   getUser = async (uid: string): Promise<any> => {
     try {
@@ -83,16 +97,31 @@ class RegisterService {
   saveSuccessfulPurchaseInDb = async (
     data: any,
     uid: string,
-    transactionId: string
+    transactionId: string,
+    additionalData?: any
   ): Promise<void> => {
     try {
       // use put to avoid creating new unique id in db
-      await axios.put(
-        `${this.baseUrl}users/${uid}/orders/${transactionId}.json`,
-        {
-          ...data
-        }
-      );
+      if (additionalData != null) {
+        const response = await axios.put(
+          `${this.baseUrl}users/${uid}/orders/${transactionId}.json`,
+          {
+            ...data,
+            ...additionalData
+          }
+        );
+        const responseData = await response.data;
+        return responseData;
+      } else {
+        const response = await axios.put(
+          `${this.baseUrl}users/${uid}/orders/${transactionId}.json`,
+          {
+            ...data
+          }
+        );
+        const responseData = await response.data;
+        return responseData;
+      }
     } catch (error) {
       /* TODO: add err handling */
       console.log(error);

@@ -176,6 +176,21 @@
   font-size: 1.5rem;
 }
 
+.purchase--num {
+  max-width: 70%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* INFO MODAL CSS */
+
+.info--modal {
+  background-color: #113f67;
+  padding: 2rem;
+  border-radius: 5px;
+}
+
 /* grid breakpoint for laptop views */
 @media screen and (max-width: 1120px) {
   .profile {

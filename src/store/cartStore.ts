@@ -9,11 +9,7 @@ import {
 import { RootStore } from './rootStore';
 import { productServiceInstance, registerServiceInstance } from '../services';
 import { IProduct } from '../types';
-import { ApiResponse } from '../utils';
-import axios from 'axios';
-import { ref, remove } from 'firebase/database';
-import { db } from '../common';
-import firebase from 'firebase/app';
+import { ApiResponse, transferObjectIntoArray } from '../utils';
 
 export class CartStore {
   rootStore: RootStore;
@@ -180,7 +176,8 @@ export class CartStore {
 
   savePurchaseOnUser = async (
     data: any,
-    transactionId: string
+    transactionId: string,
+    additionalData?: any
   ): Promise<any> => {
     const userFromLS = localStorage.getItem('loginUser');
     if (userFromLS === null) {
@@ -189,11 +186,14 @@ export class CartStore {
     const { uid } = JSON.parse(userFromLS);
     try {
       /* eslint-disable-next-line */
-      await registerServiceInstance.saveSuccessfulPurchaseInDb(
+      const response = await registerServiceInstance.saveSuccessfulPurchaseInDb(
         data,
         uid,
-        transactionId
+        transactionId,
+        additionalData
       );
+      const responseData = transferObjectIntoArray(response);
+      return responseData;
     } catch (error) {
       // TODO: add err handling
       console.log(error);

@@ -42,6 +42,43 @@ export class ProductStore {
     }
   };
 
+  /* TODO: add types */
+  toggleFavoriteState = async (
+    subCatId: string,
+    prodId: string,
+    favoriteState: boolean
+  ): Promise<any> => {
+    try {
+      await productServiceInstance.updateFavoriteStatus(
+        subCatId,
+        prodId,
+        favoriteState
+      );
+
+      // modify product state with new favorite
+      const modifiedProducts = this.products.map((prod: any) => {
+        if (prod.id === prodId) {
+          return {
+            id: prod.id,
+            data: { ...prod.data, isFavorite: favoriteState }
+          };
+        } else {
+          return prod;
+        }
+      });
+      await this.rootStore.userStore.updateUserFavoriteList(
+        this.rootStore.userStore.user.uid,
+        subCatId,
+        prodId,
+        favoriteState
+      );
+      this.setProducts(modifiedProducts);
+    } catch (error) {
+      // TODO: add err handling
+      console.log(error);
+    }
+  };
+
   getProductById = async (subCatId: string, catId: string): Promise<void> => {
     try {
       const productData = await productServiceInstance.getProductById(
@@ -52,6 +89,32 @@ export class ProductStore {
       this.setProduct(data);
     } catch (error) {
       throw new Error();
+    }
+  };
+
+  // TODO: add data to user
+  getFavoriteProductsByIds = async (ids: any): Promise<any> => {
+    try {
+      const response = await productServiceInstance.getFavoriteProductsByIds(
+        ids
+      );
+
+      return response;
+    } catch (error) {
+      // TODO: add error handling
+      console.log(error);
+    }
+  };
+
+  getFavoriteProductsByUser = async (uid: any): Promise<any> => {
+    try {
+      const response = await productServiceInstance.getFavoriteProductsByUser(
+        uid
+      );
+      return response;
+    } catch (error) {
+      // TODO: add error handling
+      console.log(error);
     }
   };
 }

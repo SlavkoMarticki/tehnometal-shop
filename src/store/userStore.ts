@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
 import { RootStore } from './rootStore';
 import { registerServiceInstance, signInServiceInstance } from '../services';
-import { ApiResponse } from '../utils';
+import { ApiResponse, formatPriceNum, transferObjectIntoArray } from '../utils';
 
 export class UserStore {
   user: any = null;
@@ -34,11 +34,23 @@ export class UserStore {
       }
       const { uid } = JSON.parse(userFromLS);
       const user = await registerServiceInstance.getUser(uid);
+      if (user.orders != null) {
+        user.orders = transferObjectIntoArray(user.orders);
+        const totalPrice = user.orders.reduce(
+          /* eslint-disable-next-line */
+          (acc: number, bill: any) => acc + bill.data.amount,
+          0
+        );
+        user.averageBillPrice = formatPriceNum(totalPrice / user.orders.length);
+
+        user.moneySpent = formatPriceNum(totalPrice);
+      }
       this.setUser(user);
+      return new ApiResponse(user);
     } else {
       const user = await registerServiceInstance.getUser(id);
       this.setUser(user);
-      return user;
+      return new ApiResponse(user);
     }
   };
 
@@ -109,6 +121,54 @@ export class UserStore {
     } catch (error) {
       // TODO: add err handling
       console.log(error);
+    }
+  };
+
+  /* TODO: add types  */
+  getOrderById = async (uid: string, id: string): Promise<any> => {
+    try {
+      const response = await registerServiceInstance.getOrderById(uid, id);
+      return response;
+    } catch (error) {
+      // TODO: add err handling
+      console.log(error);
+    }
+  };
+
+  // TODO: add type
+  updateUserFavoriteList = async (
+    uid: string,
+    subCatId: string,
+    prodId: string,
+    favoriteState: boolean
+  ): Promise<void> => {
+    try {
+      // favorite state is true, save keys in db
+      if (favoriteState) {
+        await fetch(
+          `${process.env
+            .REACT_APP_BASE_DB_URL!}users/${uid}/favorites/${prodId}.json`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ subCatId, prodId })
+          }
+        );
+        // favorite state is false so data should be removed
+      } else {
+        await fetch(
+          `${process.env
+            .REACT_APP_BASE_DB_URL!}users/${uid}/favorites/${prodId}.json`,
+          {
+            method: 'DELETE'
+          }
+        );
+      }
+    } catch (error) {
+      // TODO: add error handling
+      console.error('Error updating favorites:', error);
     }
   };
 }

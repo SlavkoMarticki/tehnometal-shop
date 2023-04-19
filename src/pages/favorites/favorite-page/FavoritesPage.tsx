@@ -1,192 +1,165 @@
-import React from 'react';
-import "./favoritePage.css";
-import { StarsDisplay } from '../../../components';
-import { formatPriceNum } from '../../../utils';
+import React, { useEffect, useState } from 'react';
+import './favoritePage.css';
+import { HoverableIcon, StarsDisplay } from '../../../components';
+import { formatPriceNum, transferObjectIntoArray } from '../../../utils';
 import { BiCartAdd } from 'react-icons/bi';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import useStore from '../../../hooks/useStore';
+import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
+import { useAuthUser } from '../../../hooks';
 
-export default function FavoritesPage(): React.ReactElement {
+export default observer(function FavoritesPage(): React.ReactElement {
+  const [favoritesList, setFavoritesList] = useState([]);
+  const { user } = useAuthUser();
+  const {
+    productStore: { getFavoriteProductsByIds, getFavoriteProductsByUser }
+  } = useStore();
 
-  return <div className='full'>
-    <div className='vector--top-right-bg'></div>
-    <div className='vector--btm-left-bg'></div>
-    <div className='categories--container'>
-      <h1 className='categories--title s-cat--title pad-b-2rem'>Favorites</h1>
-      <div className='flex flex-column categories-wrap'>
-        <div className='card--group product--group'>
-          <div className='card--item product--item'>
-            <div className="card--favorite r-10"><AiOutlineHeart /></div>
-            <div className='flex product'>
-              <div className='product--img'>
-                <img className="product--img-side" src="https://images.unsplash.com/photo-1474742509976-ddec6b387356?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="abdab" />
-              </div>
-              <div className='flex flex-column product--content'>
-                <h2 className='product--title'>MS 271 FARM BOSS®</h2>
-                <StarsDisplay product starsNum={4} />
-                <div className='flex justify-spaceBetween align-center'>
-                  <p className="product--price">{formatPriceNum(48523.99)} <span>RSD</span>
-                  </p>
-                  <div className="product--cart">
-                    <BiCartAdd />
-                  </div>
-                </div>
-              </div>
-            </div>
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      try {
+        // fetch favorites by user first
+        const favoritesResponse = await getFavoriteProductsByUser(user!.uid);
+        console.log(favoritesResponse);
+        const response = await getFavoriteProductsByIds(
+          transferObjectIntoArray(favoritesResponse)
+        );
+        if (response.success) {
+          setFavoritesList(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+
+    return () => {
+      setFavoritesList([]);
+    };
+  }, []);
+
+  const handleCurrentFavoriteState = (prodId: string): void => {
+    const newFavoritesList = favoritesList.filter(
+      (item: any) => prodId !== item.prodId
+    );
+    setFavoritesList(newFavoritesList);
+  };
+
+  if (favoritesList.length === 0) {
+    return <div></div>;
+  }
+
+  return (
+    <div className='full'>
+      <div className='vector--top-right-bg'></div>
+      <div className='vector--btm-left-bg'></div>
+      <div className='categories--container'>
+        <h1 className='categories--title s-cat--title pad-b-2rem'>Favorites</h1>
+        <div className='flex flex-column categories-wrap'>
+          <div className='card--group product--group'>
+            {favoritesList.map((item: any) => {
+              console.log(item);
+              return (
+                <FavoriteProductItem
+                  key={item.prodId}
+                  currency={item.currency}
+                  imgUrl={item.images[0]}
+                  isFavorite={item.isFavorite}
+                  priceNum={item.price}
+                  productTitle={item.productName}
+                  rating={item.rating}
+                  subCatId={item.subCategoryId}
+                  prodId={item.prodId}
+                  handleCurrentFavoriteState={handleCurrentFavoriteState}
+                />
+              );
+            })}
           </div>
-          <div className='card--item product--item'>
-            <div className="card--favorite r-10"><AiOutlineHeart /></div>
-            <div className='flex product'>
-              <div className='product--img'>
-                <img className="product--img-side" src="https://images.unsplash.com/photo-1474742509976-ddec6b387356?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="abdab" />
-              </div>
-              <div className='flex flex-column product--content'>
-                <h2 className='product--title'>MS 271 FARM BOSS®</h2>
-                <StarsDisplay product starsNum={4} />
-                <div className='flex justify-spaceBetween align-center'>
-                  <p className="product--price">{formatPriceNum(48523.99)} <span>RSD</span>
-                  </p>
-                  <div className="product--cart">
-                    <BiCartAdd />
-                  </div>
-                </div>
-              </div>
-            </div>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+interface IFavoriteProductItemProps {
+  isFavorite: boolean;
+  imgUrl: string;
+  productTitle: string;
+  rating: number;
+  priceNum: number;
+  currency: number;
+  subCatId: string;
+  prodId: string;
+  handleCurrentFavoriteState: (item: string) => void;
+}
+
+const FavoriteProductItem = (
+  props: IFavoriteProductItemProps
+): React.ReactElement => {
+  const {
+    isFavorite,
+    imgUrl,
+    productTitle,
+    rating,
+    priceNum,
+    currency,
+    subCatId,
+    prodId,
+    handleCurrentFavoriteState
+  } = props;
+
+  const {
+    productStore: { toggleFavoriteState }
+  } = useStore();
+  return (
+    <div className='card--item-wrap'>
+      <div className='product--favorite cart__ef'>
+        {isFavorite ? (
+          <HoverableIcon
+            onClick={() => {
+              toggleFavoriteState(subCatId, prodId, !isFavorite);
+              handleCurrentFavoriteState(prodId);
+            }}
+            regularIcon={<AiFillHeart />}
+            hoverIcon={<AiOutlineHeart />}
+          />
+        ) : (
+          <HoverableIcon
+            onClick={() => {
+              toggleFavoriteState(subCatId, prodId, !isFavorite);
+            }}
+            regularIcon={<AiOutlineHeart />}
+            hoverIcon={<AiFillHeart />}
+          />
+        )}
+      </div>
+      <div className='card--item product--item'>
+        <div className='flex product'>
+          <div className='product--img'>
+            <img
+              className='product--img-side'
+              src={imgUrl}
+              alt='abdab'
+            />
           </div>
-          <div className='card--item product--item'>
-            <div className="card--favorite r-10"><AiOutlineHeart /></div>
-            <div className='flex product'>
-              <div className='product--img'>
-                <img className="product--img-side" src="https://images.unsplash.com/photo-1474742509976-ddec6b387356?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="abdab" />
-              </div>
-              <div className='flex flex-column product--content'>
-                <h2 className='product--title'>MS 271 FARM BOSS®</h2>
-                <StarsDisplay product starsNum={4} />
-                <div className='flex justify-spaceBetween align-center'>
-                  <p className="product--price">{formatPriceNum(48523.99)} <span>RSD</span>
-                  </p>
-                  <div className="product--cart">
-                    <BiCartAdd />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='card--item product--item'>
-            <div className="card--favorite r-10"><AiOutlineHeart /></div>
-            <div className='flex product'>
-              <div className='product--img'>
-                <img className="product--img-side" src="https://images.unsplash.com/photo-1474742509976-ddec6b387356?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="abdab" />
-              </div>
-              <div className='flex flex-column product--content'>
-                <h2 className='product--title'>MS 271 FARM BOSS®</h2>
-                <StarsDisplay product starsNum={4} />
-                <div className='flex justify-spaceBetween align-center'>
-                  <p className="product--price">{formatPriceNum(48523.99)} <span>RSD</span>
-                  </p>
-                  <div className="product--cart">
-                    <BiCartAdd />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='card--item product--item'>
-            <div className="card--favorite r-10"><AiOutlineHeart /></div>
-            <div className='flex product'>
-              <div className='product--img'>
-                <img className="product--img-side" src="https://images.unsplash.com/photo-1474742509976-ddec6b387356?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="abdab" />
-              </div>
-              <div className='flex flex-column product--content'>
-                <h2 className='product--title'>MS 271 FARM BOSS®</h2>
-                <StarsDisplay product starsNum={4} />
-                <div className='flex justify-spaceBetween align-center'>
-                  <p className="product--price">{formatPriceNum(48523.99)} <span>RSD</span>
-                  </p>
-                  <div className="product--cart">
-                    <BiCartAdd />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='card--item product--item'>
-            <div className="card--favorite r-10"><AiOutlineHeart /></div>
-            <div className='flex product'>
-              <div className='product--img'>
-                <img className="product--img-side" src="https://images.unsplash.com/photo-1474742509976-ddec6b387356?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="abdab" />
-              </div>
-              <div className='flex flex-column product--content'>
-                <h2 className='product--title'>MS 271 FARM BOSS®</h2>
-                <StarsDisplay product starsNum={4} />
-                <div className='flex justify-spaceBetween align-center'>
-                  <p className="product--price">{formatPriceNum(48523.99)} <span>RSD</span>
-                  </p>
-                  <div className="product--cart">
-                    <BiCartAdd />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='card--item product--item'>
-            <div className="card--favorite r-10"><AiOutlineHeart /></div>
-            <div className='flex product'>
-              <div className='product--img'>
-                <img className="product--img-side" src="https://images.unsplash.com/photo-1474742509976-ddec6b387356?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="abdab" />
-              </div>
-              <div className='flex flex-column product--content'>
-                <h2 className='product--title'>MS 271 FARM BOSS®</h2>
-                <StarsDisplay product starsNum={4} />
-                <div className='flex justify-spaceBetween align-center'>
-                  <p className="product--price">{formatPriceNum(48523.99)} <span>RSD</span>
-                  </p>
-                  <div className="product--cart">
-                    <BiCartAdd />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='card--item product--item'>
-            <div className="card--favorite r-10"><AiOutlineHeart /></div>
-            <div className='flex product'>
-              <div className='product--img'>
-                <img className="product--img-side" src="https://images.unsplash.com/photo-1474742509976-ddec6b387356?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="abdab" />
-              </div>
-              <div className='flex flex-column product--content'>
-                <h2 className='product--title'>MS 271 FARM BOSS®</h2>
-                <StarsDisplay product starsNum={4} />
-                <div className='flex justify-spaceBetween align-center'>
-                  <p className="product--price">{formatPriceNum(48523.99)} <span>RSD</span>
-                  </p>
-                  <div className="product--cart">
-                    <BiCartAdd />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='card--item product--item'>
-            <div className="card--favorite r-10"><AiOutlineHeart /></div>
-            <div className='flex product'>
-              <div className='product--img'>
-                <img className="product--img-side" src="https://images.unsplash.com/photo-1474742509976-ddec6b387356?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="abdab" />
-              </div>
-              <div className='flex flex-column product--content'>
-                <h2 className='product--title'>MS 271 FARM BOSS®</h2>
-                <StarsDisplay product starsNum={4} />
-                <div className='flex justify-spaceBetween align-center'>
-                  <p className="product--price">{formatPriceNum(48523.99)} <span>RSD</span>
-                  </p>
-                  <div className="product--cart">
-                    <BiCartAdd />
-                  </div>
-                </div>
+          <div className='flex flex-column product--content'>
+            <h2 className='product--title'>{productTitle}</h2>
+            <StarsDisplay
+              product
+              starsNum={rating}
+            />
+            <div className='flex justify-spaceBetween align-center'>
+              <p className='product--price'>
+                {formatPriceNum(priceNum)} <span>{currency}</span>
+              </p>
+              <div className='product--cart'>
+                <BiCartAdd />
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-}
+  );
+};

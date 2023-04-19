@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './categoryProductPage.css';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { ProductModal, StarsDisplay } from '../../../components';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { HoverableIcon, ProductModal, StarsDisplay } from '../../../components';
 import { formatPriceNum } from '../../../utils';
 import { BiCartAdd } from 'react-icons/bi';
 import { useLoader, usePageTitle } from '../../../hooks';
@@ -9,6 +9,7 @@ import useStore from '../../../hooks/useStore';
 import { useLocation, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Modal } from '../../../portals';
+import { toJS } from 'mobx';
 
 export default observer(function CategoryProductsPage(): React.ReactElement {
   usePageTitle('Product ');
@@ -44,7 +45,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log(toJS(products));
   return (
     <>
       <div className='full'>
@@ -70,6 +71,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
                       onProductSelect={() => {
                         setActiveProdId(prod.id);
                       }}
+                      isFavorite={prod.data.isFavorite}
                       onModalToggle={() => {
                         setIsModalOpen(true);
                       }}
@@ -112,13 +114,14 @@ interface IProductCardProps {
   onProductSelect: () => void;
   prodId: string;
   subCatId: string;
+  isFavorite: boolean;
 }
 
 const ProductCard = observer(function ProductCard(
   props: IProductCardProps
 ): React.ReactElement {
   const {
-    productStore: { setActiveProdId },
+    productStore: { setActiveProdId, toggleFavoriteState },
     cartStore: { checkItemAvailability }
   } = useStore();
 
@@ -131,10 +134,30 @@ const ProductCard = observer(function ProductCard(
     onModalToggle,
     onProductSelect,
     prodId,
-    subCatId
+    subCatId,
+    isFavorite
   } = props;
   return (
     <div className='card--item-wrap'>
+      <div className='product--favorite cart__ef'>
+        {isFavorite ? (
+          <HoverableIcon
+            onClick={() => {
+              toggleFavoriteState(subCatId, prodId, !isFavorite);
+            }}
+            regularIcon={<AiFillHeart />}
+            hoverIcon={<AiOutlineHeart />}
+          />
+        ) : (
+          <HoverableIcon
+            onClick={() => {
+              toggleFavoriteState(subCatId, prodId, !isFavorite);
+            }}
+            regularIcon={<AiOutlineHeart />}
+            hoverIcon={<AiFillHeart />}
+          />
+        )}
+      </div>
       <div
         className='card--item product--item'
         onClick={() => {
@@ -143,9 +166,6 @@ const ProductCard = observer(function ProductCard(
           onModalToggle();
         }}
       >
-        <div className='card--favorite r-10'>
-          <AiOutlineHeart />
-        </div>
         <div className='flex product'>
           <div className='product--img'>
             <img

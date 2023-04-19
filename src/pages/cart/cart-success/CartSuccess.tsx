@@ -12,15 +12,23 @@ export default observer(function CartSuccess(): React.ReactElement | null {
   usePageTitle('Successful Cart Details');
   const [paymentInfo, setPaymentInfo] = useState<any>(null);
   const location = useLocation();
-  const navigate = useNavigate();
   const { user } = useAuthUser();
+  const navigate = useNavigate();
   const {
-    cartStore: { savePurchaseOnUser, findIfOrderAlreadyExists, clearCart }
+    cartStore: {
+      savePurchaseOnUser,
+      findIfOrderAlreadyExists,
+      clearCart,
+      totalCount,
+      totalPrice
+    },
+    userStore: { getUserById }
   } = useStore();
 
   // check if location object has search params
   const hasSearchParams = location.search !== '';
 
+  // guard this route without search params
   if (!hasSearchParams) {
     // navigate to home if there is no search params
     navigate('/', { replace: true });
@@ -40,21 +48,32 @@ export default observer(function CartSuccess(): React.ReactElement | null {
           `http://localhost:5000/payment-data?session_id=${sessionId}`
         );
         const data = await response.data;
+        const additionalData = {
+          purchaseQuantity: totalCount,
+          purchasePrice: totalPrice
+        };
 
         // if purchase is successful, remove cart from store
         if (data != null) {
+          await fetch(
+            `${process.env.REACT_APP_BASE_DB_URL!}users/${user!.uid}/cart.json`,
+            {
+              method: 'DELETE'
+            }
+          );
           clearCart();
         }
 
         const isOrderAlreadyPlaced = await findIfOrderAlreadyExists(data.id);
 
+        await getUserById();
         // if order already exists in db, redirect to home page
         if (isOrderAlreadyPlaced.success) {
           navigate('/', { replace: true });
         } else {
           if (user !== null) {
             // save purchase info
-            savePurchaseOnUser(data, data.id);
+            savePurchaseOnUser(data, data.id, additionalData);
           }
         }
 
@@ -69,7 +88,7 @@ export default observer(function CartSuccess(): React.ReactElement | null {
     };
 
     fetchData();
-    /* eslint-disable */
+    /* eslint-disable-next-line */
   }, []);
 
   if (paymentInfo == null) {
