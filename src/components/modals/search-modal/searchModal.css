@@ -1,4 +1,4 @@
-.search--modal {
+.search--modal{
   width: 50%;
   display: flex;
   color: white;
@@ -6,7 +6,7 @@
   gap: 10px;
 }
 
-.search--modal-input {
+.search--modal-input{
   padding: 10px 15px;
   color: white;
   text-indent: 2px;
@@ -18,32 +18,26 @@
   line-height: 40px;
 }
 
-.search--modal-input::placeholder {
+.search--modal-input::placeholder{
   color: white;
 }
 
-.search--modal-input:focus {
+.search--modal-input:focus{
   outline: none;
 }
 
-.search--modal-icon {
+.search--modal-icon{
   font-size: 30px;
   cursor: pointer;
-  color: white;
 }
 
-.search-btn {
-  background-color: transparent;
-  border: none;
-}
-
-@media screen and (max-width: 540px) {
-  .search--modal {
+@media screen and (max-width:540px) {
+  .search--modal{
     width: 250px;
     justify-content: center;
   }
 
-  .search--modal-input {
+  .search--modal-input{
     width: 100%;
   }
 }

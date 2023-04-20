@@ -1,10 +1,6 @@
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { RootStore } from './rootStore';
-import {
-  productServiceInstance,
-  registerServiceInstance,
-  signInServiceInstance
-} from '../services';
+import { productServiceInstance, registerServiceInstance, signInServiceInstance } from '../services';
 import { ApiResponse, formatPriceNum, transferObjectIntoArray } from '../utils';
 
 export class UserStore {
@@ -82,7 +78,7 @@ export class UserStore {
     const response = await signInServiceInstance.login(data);
     /* eslint-disable-next-line */
     const user = await this.getUserById(response.user.uid);
-    console.log(user);
+    console.log(user)
     if (this.rootStore.cartStore.cart.length === 0 && user.data.cart != null) {
       this.rootStore.cartStore.setCart(user.data.cart);
       sessionStorage.setItem('cart', JSON.stringify(user.data.cart));
@@ -147,12 +143,12 @@ export class UserStore {
     }
   };
 
-  // TODO: add types
-  getCartByUser = async (): Promise<void> => {
+  // TODO: add types 
+  getCartByUser = async():Promise<void>=> {
     try {
-      const user = localStorage.getItem('loginUser');
-      if (user != null) {
-        const { uid } = JSON.parse(user);
+      const user = localStorage.getItem("loginUser");
+      if(user != null){
+        const {uid} = JSON.parse(user);
         const response = await productServiceInstance.getCartByUser(uid);
         const data = await response;
         return data;
@@ -161,7 +157,7 @@ export class UserStore {
       // TODO: add err handling
       console.log(error);
     }
-  };
+  }
 
   // TODO: add type
   updateUserFavoriteList = async (
@@ -185,6 +181,7 @@ export class UserStore {
           }
         );
         const data = await response.json();
+        console.log(data, console.log(this.rootStore.favoritesStore.favorites));
         this.rootStore.favoritesStore.setFavorites({ [prodId]: { ...data } });
 
         // favorite state is false so data should be removed

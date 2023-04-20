@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { useState } from 'react';
+import classNames from 'classnames';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BsPerson, BsPersonFill } from 'react-icons/bs';
 import { CiSearch } from 'react-icons/ci';
@@ -11,6 +12,7 @@ import {
 } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
 import { AuthNavItem, NavCartItemsDisplay, NonAuthNavItem } from '.';
+import { signInServiceInstance } from '../../../services';
 import { HoverableIcon } from '../../hoverable-icon';
 import Logo from './Logo';
 import { SearchModal } from '../../modals';
@@ -156,11 +158,7 @@ export default function DesktopNavItems(
           }}
           isOpen={isModalOpen}
         >
-          <SearchModal
-            onClose={() => {
-              setIsModalOpen(false);
-            }}
-          />
+          <SearchModal />
         </Modal>
       </div>
     </>
