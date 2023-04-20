@@ -1,7 +1,6 @@
 import { ISearchInputFieldProps } from '../../types';
 import { ReactElement } from 'react';
 import './inputs.css';
-import { useFormContext } from 'react-hook-form';
 
 export default function FormInputField(
   props: ISearchInputFieldProps
@@ -16,14 +15,13 @@ export default function FormInputField(
     icon
   } = props;
 
-  const { register } = useFormContext();
   return (
     <>
       <div className='input-group'>
         {icon != null && <span className={icon}></span>}
         <input
           className={className}
-          {...register(name!)}
+          name={name}
           type={type}
           value={value}
           placeholder={placeholder}

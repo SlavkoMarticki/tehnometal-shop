@@ -49,6 +49,7 @@ export class ProductStore {
             }
           );
         });
+        console.log(data);
       }
       // #endregion
 
@@ -84,22 +85,6 @@ export class ProductStore {
           return prod;
         }
       });
-
-      if (this.rootStore.searchStore.searchResults != null) {
-        const data: any = this.rootStore.searchStore.searchResults.map(
-          (item: any, index: number) => {
-            if (item.prodId === prodId) {
-              return {
-                ...item,
-                isFavorite: favoriteState
-              };
-            } else {
-              return item;
-            }
-          }
-        );
-        this.rootStore.searchStore.setSearchResultsData(data);
-      }
 
       await this.rootStore.userStore.updateUserFavoriteList(
         this.rootStore.userStore.user.uid,

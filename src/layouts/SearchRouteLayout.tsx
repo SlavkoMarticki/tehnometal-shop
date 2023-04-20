@@ -1,17 +1,11 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router';
-
-const SearchResultsPage = lazy(
-  () => import('../pages/search-results/SearchResultsPage')
-);
+import { SearchResultsPage } from '../pages';
 
 export default function SearchRouteLayout(): React.ReactElement {
   return (
     <Routes>
-      <Route
-        path='/:searchId'
-        element={<SearchResultsPage />}
-      />
+      <Route path='/:searchId' element={<SearchResultsPage />} />
     </Routes>
   );
 }
