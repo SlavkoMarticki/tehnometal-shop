@@ -10,5 +10,5 @@ export {
   SubCategoriesPage,
   CategoryProductsPage
 } from './categories';
-export { FavoritesPage, FavoriteProductPage } from './favorites';
+export { FavoritesPage } from './favorites';
 export { SearchResultsPage } from './search-results';

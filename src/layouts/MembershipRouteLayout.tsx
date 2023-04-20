@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router';
-import { RegisterPage, SignInPage } from '../pages';
 import { PublicRoute } from '../components/routes';
+
+const SignInPage = lazy(() => import('../pages/membership/sign-in/SignInPage'));
+const RegisterPage = lazy(
+  () => import('../pages/membership/register/RegisterPage')
+);
 
 export default function MembershipRouteLayout(): React.ReactElement {
   return (

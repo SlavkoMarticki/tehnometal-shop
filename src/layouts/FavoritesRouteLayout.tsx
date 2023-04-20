@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Route, Routes } from 'react-router';
-import { FavoritesPage, FavoriteProductPage } from '../pages';
 import { PrivateRoute } from '../components/routes';
+
+const FavoritesPage = lazy(
+  () => import('../pages/favorites/favorite-page/FavoritesPage')
+);
 
 export default function FavoritesRouteLayout(): React.ReactElement {
   return (
@@ -10,12 +13,6 @@ export default function FavoritesRouteLayout(): React.ReactElement {
         <Route
           path='/'
           element={<FavoritesPage />}
-        />
-      </Route>
-      <Route element={<PrivateRoute />}>
-        <Route
-          path='/:favoriteId'
-          element={<FavoriteProductPage />}
         />
       </Route>
     </Routes>

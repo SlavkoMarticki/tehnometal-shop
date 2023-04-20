@@ -1,22 +1,29 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Route, Routes } from 'react-router';
-import {
-  CartRouteLayout,
-  CategoriesRouteLayout,
-  FavoritesRouteLayout,
-  MembershipRouteLayout,
-  SearchRouteLayout
-} from '.';
-import {
-  AboutUsPage,
-  ContactUsPage,
-  HomePage,
-  NewsPage,
-  CartSuccess
-} from '../pages';
-import { ProfilePage } from '../pages/user';
+
 import { Loader, ErrorPage, NotFound } from '../components';
 import { PrivateRoute } from '../components/routes';
+
+// lazy loading components
+const HomePage = lazy(() => import('../pages/homepage/HomePage'));
+const CartSuccess = lazy(
+  () => import('../pages/cart/cart-success/CartSuccess')
+);
+const AboutUsPage = lazy(() => import('../pages/about-us/AboutUsPage'));
+const ContactUsPage = lazy(() => import('../pages/contact-us/ContactUsPage'));
+const NewsPage = lazy(() => import('../pages/news/NewsPage'));
+const ProfilePage = lazy(() => import('../pages/user/ProfilePage'));
+const MembershipRouteLayout = lazy(
+  () => import('../layouts/MembershipRouteLayout')
+);
+const SearchRouteLayout = lazy(() => import('../layouts/SearchRouteLayout'));
+const CartRouteLayout = lazy(() => import('../layouts/CartRouteLayout'));
+const CategoriesRouteLayout = lazy(
+  () => import('../layouts/CategoriesRouteLayout')
+);
+const FavoritesRouteLayout = lazy(
+  () => import('../layouts/FavoritesRouteLayout')
+);
 
 export default function MainRouteLayout(): React.ReactElement {
   return (
