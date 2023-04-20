@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { RootStore } from './rootStore';
 import { productServiceInstance } from '../services';
 import { transferObjectIntoArray } from '../utils';
@@ -34,6 +35,24 @@ export class ProductStore {
       const productData =
         await productServiceInstance.getAllProductsBySubCategory(subCatId);
       const data = transferObjectIntoArray(productData);
+
+      // #region testing
+      console.log(data);
+
+      if (this.rootStore.favoritesStore.favorites != null) {
+        data.forEach((item: any, index: number) => {
+          this.rootStore.favoritesStore.favorites.forEach(
+            (f: any, i: number) => {
+              if (f[item.id]?.prodId === item.id) {
+                data[index].data.isFavorite = true;
+              }
+            }
+          );
+        });
+        console.log(data);
+      }
+      // #endregion
+
       this.setProducts(data);
       // this.rootStore.loadingStore.setIsLoading(false);
     } catch (error) {
@@ -49,12 +68,12 @@ export class ProductStore {
     favoriteState: boolean
   ): Promise<any> => {
     try {
-      await productServiceInstance.updateFavoriteStatus(
+      /*       await productServiceInstance.updateFavoriteStatus(
         subCatId,
         prodId,
         favoriteState
       );
-
+ */
       // modify product state with new favorite
       const modifiedProducts = this.products.map((prod: any) => {
         if (prod.id === prodId) {
@@ -66,6 +85,7 @@ export class ProductStore {
           return prod;
         }
       });
+
       await this.rootStore.userStore.updateUserFavoriteList(
         this.rootStore.userStore.user.uid,
         subCatId,

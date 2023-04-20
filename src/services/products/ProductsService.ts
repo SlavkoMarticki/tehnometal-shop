@@ -77,6 +77,7 @@ class ProductService {
       const postData = await response.data;
       return {
         ...postData,
+        isFavorite: true,
         prodId
       };
     };
@@ -108,6 +109,20 @@ class ProductService {
       console.log(error);
     }
   };
+
+  getCartByUser = async (uid: string): Promise<any> => {
+    try {
+      const response = await axios.get(
+        `${this.baseUrl}users/${uid}/cart.json`
+      );
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      // TODO: add err handling
+      console.log(error);
+    }
+  };
+
 }
 
 const productServiceInstance = new ProductService();

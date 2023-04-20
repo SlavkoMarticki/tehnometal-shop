@@ -24,7 +24,8 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
       setProducts,
       activeProdId,
       setActiveProdId
-    }
+    },
+    favoritesStore: { favorites }
   } = useStore();
 
   const { setIsLoading } = useLoader();
@@ -45,7 +46,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(toJS(products));
+  console.log(toJS(favorites), toJS(products));
   return (
     <>
       <div className='full'>

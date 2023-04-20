@@ -17,8 +17,8 @@ export class RootStore {
 
   constructor() {
     this.loadingStore = new LoadingStore();
-    this.notificationStore = new NotificationStore();
     this.userStore = new UserStore(this);
+    this.notificationStore = new NotificationStore();
     this.cartStore = new CartStore(this);
     this.categoriesStore = new CategoriesStore(this);
     this.productStore = new ProductStore(this);

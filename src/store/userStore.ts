@@ -1,6 +1,6 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable, runInAction } from 'mobx';
 import { RootStore } from './rootStore';
-import { registerServiceInstance, signInServiceInstance } from '../services';
+import { productServiceInstance, registerServiceInstance, signInServiceInstance } from '../services';
 import { ApiResponse, formatPriceNum, transferObjectIntoArray } from '../utils';
 
 export class UserStore {
@@ -69,6 +69,7 @@ export class UserStore {
     // then sign out user
     await signInServiceInstance.signOut();
     this.setUser(null);
+    this.rootStore.favoritesStore.setFavorites([]);
     this.rootStore.cartStore.clearCart();
   };
 
@@ -77,7 +78,7 @@ export class UserStore {
     const response = await signInServiceInstance.login(data);
     /* eslint-disable-next-line */
     const user = await this.getUserById(response.user.uid);
-    console.log(user, this.rootStore.cartStore.cart.length);
+    console.log(user)
     if (this.rootStore.cartStore.cart.length === 0 && user.data.cart != null) {
       this.rootStore.cartStore.setCart(user.data.cart);
       sessionStorage.setItem('cart', JSON.stringify(user.data.cart));
@@ -92,6 +93,12 @@ export class UserStore {
           },
           body: JSON.stringify(this.rootStore.cartStore.cart)
         }
+      );
+    }
+
+    if (user.data.favorites != null) {
+      this.rootStore.favoritesStore.setFavorites(
+        transferObjectIntoArray(user.data.favorites)
       );
     }
 
@@ -136,6 +143,22 @@ export class UserStore {
     }
   };
 
+  // TODO: add types 
+  getCartByUser = async():Promise<void>=> {
+    try {
+      const user = localStorage.getItem("loginUser");
+      if(user != null){
+        const {uid} = JSON.parse(user);
+        const response = await productServiceInstance.getCartByUser(uid);
+        const data = await response;
+        return data;
+      }
+    } catch (error) {
+      // TODO: add err handling
+      console.log(error);
+    }
+  }
+
   // TODO: add type
   updateUserFavoriteList = async (
     uid: string,
@@ -146,7 +169,7 @@ export class UserStore {
     try {
       // favorite state is true, save keys in db
       if (favoriteState) {
-        await fetch(
+        const response = await fetch(
           `${process.env
             .REACT_APP_BASE_DB_URL!}users/${uid}/favorites/${prodId}.json`,
           {
@@ -157,6 +180,10 @@ export class UserStore {
             body: JSON.stringify({ subCatId, prodId })
           }
         );
+        const data = await response.json();
+        console.log(data, console.log(this.rootStore.favoritesStore.favorites));
+        this.rootStore.favoritesStore.setFavorites({ [prodId]: { ...data } });
+
         // favorite state is false so data should be removed
       } else {
         await fetch(
@@ -166,6 +193,7 @@ export class UserStore {
             method: 'DELETE'
           }
         );
+        this.rootStore.favoritesStore.removeFromFavoritesById(prodId);
       }
     } catch (error) {
       // TODO: add error handling
