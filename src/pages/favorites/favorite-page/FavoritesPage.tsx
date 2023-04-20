@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './favoritePage.css';
-import { HoverableIcon, StarsDisplay } from '../../../components';
+import { Button, HoverableIcon, StarsDisplay } from '../../../components';
 import { formatPriceNum, transferObjectIntoArray } from '../../../utils';
 import { BiCartAdd } from 'react-icons/bi';
+import emptyFaforitesPhoto from '../../../common/assets/emptyFavoritesPhoto.png';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import useStore from '../../../hooks/useStore';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import { useAuthUser } from '../../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 export default observer(function FavoritesPage(): React.ReactElement {
   const [favoritesList, setFavoritesList] = useState([]);
@@ -48,7 +50,7 @@ export default observer(function FavoritesPage(): React.ReactElement {
   };
 
   if (favoritesList.length === 0) {
-    return <div></div>;
+    return <EmptyFavorites />;
   }
 
   return (
@@ -160,6 +162,37 @@ const FavoriteProductItem = (
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+const EmptyFavorites = (): React.ReactElement => {
+  const navigate = useNavigate();
+  return (
+    <div className='full'>
+      <div className='vector--top-right-bg'></div>
+      <div className='vector--btm-left-bg'></div>
+      <div className='favourite--empty flex justify-center align-center flex-column'>
+        <img
+          className='favourite--empty-photo'
+          src={emptyFaforitesPhoto}
+          alt='emptyFavoritesPhoto'
+        />
+        <h1 className=' favourite--empty-text color-w uppercase'>
+          No favorites yet!
+        </h1>
+
+        <Button
+          type='button'
+          className='favourite--btn'
+          onClick={() => {
+            console.log('clicked');
+            navigate('/categories');
+          }}
+        >
+          See what we have to offer
+        </Button>
       </div>
     </div>
   );

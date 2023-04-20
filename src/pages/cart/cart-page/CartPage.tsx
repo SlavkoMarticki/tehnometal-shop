@@ -6,6 +6,7 @@ import useStore from '../../../hooks/useStore';
 import { formatPriceNum } from '../../../utils';
 import CartItem from './CartItem';
 import { useNavigate } from 'react-router';
+import { BsCartX } from 'react-icons/bs';
 
 export default observer(function CartPage(): React.ReactElement {
   usePageTitle('Cart');
@@ -15,6 +16,7 @@ export default observer(function CartPage(): React.ReactElement {
   } = useStore();
 
   const navigate = useNavigate();
+
   return (
     <div className='cart full'>
       <div className='vector--top-right-bg'></div>
@@ -34,23 +36,27 @@ export default observer(function CartPage(): React.ReactElement {
             <span className='cart--labels-title-empty'>&nbsp;</span>
           </div>
           <div className='full-height'>
-            {cart.map((c: any) => {
-              return (
-                <CartItem
-                  key={c.id}
-                  id={c.id}
-                  imgUrl={c.images[0]}
-                  name={c.productName}
-                  rating={c.rating}
-                  quantity={c.quantity}
-                  price={c.price}
-                  currency={c.currency}
-                  totalPrice={c.prodTotalPrice}
-                  subCatId={c.subCategoryId}
-                  prodId={c.prodId}
-                />
-              );
-            })}
+            {cart.length === 0 ? (
+              <EmptyCart />
+            ) : (
+              cart.map((c: any) => {
+                return (
+                  <CartItem
+                    key={c.id}
+                    id={c.id}
+                    imgUrl={c.images[0]}
+                    name={c.productName}
+                    rating={c.rating}
+                    quantity={c.quantity}
+                    price={c.price}
+                    currency={c.currency}
+                    totalPrice={c.prodTotalPrice}
+                    subCatId={c.subCategoryId}
+                    prodId={c.prodId}
+                  />
+                );
+              })
+            )}
           </div>
           <div className='cart--price-wrap'>
             <div className='cart--price-total'>
@@ -76,3 +82,12 @@ export default observer(function CartPage(): React.ReactElement {
     </div>
   );
 });
+
+const EmptyCart = (): React.ReactElement => {
+  return (
+    <div className='cart--empty full-height flex justify-center align-center flex-column'>
+      <BsCartX className='cart--empty-icon' />
+      <h1 className=' cart--empty-text color-w uppercase'>No items found!</h1>
+    </div>
+  );
+};

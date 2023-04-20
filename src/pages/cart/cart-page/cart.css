@@ -295,3 +295,20 @@
     width: 100%;
   }
 }
+
+.cart--empty {
+  height: 100%;
+  gap: 2rem;
+}
+
+.cart--empty-icon {
+  font-size: 200px;
+  line-height: 200px;
+  color: white;
+  font-weight: 500;
+}
+
+.cart--empty-text {
+  letter-spacing: 3px;
+  font-weight: 500;
+}
