@@ -37,6 +37,7 @@ export default observer(function FavoritesPage(): React.ReactElement {
     return () => {
       setFavoritesList([]);
     };
+    /* eslint-disable-next-line */
   }, []);
 
   const handleCurrentFavoriteState = (prodId: string): void => {

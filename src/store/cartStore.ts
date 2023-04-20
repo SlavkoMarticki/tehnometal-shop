@@ -41,10 +41,24 @@ export class CartStore {
 
   onInitialize = (): void => {
     // Check if cart is empty to put data on specific user
-    const cartFromSessionStorage = sessionStorage.getItem('cart');
-    if (cartFromSessionStorage !== null) {
-      this.setCartData(JSON.parse(cartFromSessionStorage));
-    }
+    const fetchData = async (): Promise<any> => {
+      try {
+        const response = await this.rootStore.userStore.getCartByUser();
+        if (response != null) {
+          this.setCartData(response);
+          console.log(response);
+          sessionStorage.setItem('cart', JSON.stringify(response));
+        } else {
+          const cartFromSessionStorage = sessionStorage.getItem('cart');
+          if (cartFromSessionStorage !== null) {
+            this.setCartData(JSON.parse(cartFromSessionStorage));
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
   };
 
   setCart = (cartItem: any): void => {
