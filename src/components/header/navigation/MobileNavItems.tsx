@@ -206,7 +206,11 @@ export default function MobileNavItems(
           }}
           isOpen={isModalOpen}
         >
-          <SearchModal />
+          <SearchModal
+            onClose={() => {
+              setIsModalOpen(false);
+            }}
+          />
         </Modal>
       </div>
     </>
