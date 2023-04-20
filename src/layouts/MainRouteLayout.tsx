@@ -15,7 +15,7 @@ import {
   CartSuccess
 } from '../pages';
 import { ProfilePage } from '../pages/user';
-import { Loader, ErrorPage, NotFound } from '../components';
+import { Loader, ErrorPage, NotFound, ErrorBoundary } from '../components';
 import { PrivateRoute } from '../components/routes';
 
 export default function MainRouteLayout(): React.ReactElement {
@@ -26,63 +26,101 @@ export default function MainRouteLayout(): React.ReactElement {
         {/* routes */}
         <Route
           path='/'
-          element={<HomePage />}
+          element={
+            <ErrorBoundary>
+              <HomePage />
+            </ErrorBoundary>
+          }
         />
 
-        {/* TODO remove this after styling implementation */}
-
         <Route
-          path='/error'
+          path='*'
           element={<NotFound />}
         />
 
         <Route
-          path='/error-page'
-          element={<ErrorPage />}
-        />
-        <Route
           path='/cart/successful'
-          element={<CartSuccess />}
+          element={
+            <ErrorBoundary>
+              <CartSuccess />
+            </ErrorBoundary>
+          }
         />
         <Route
           path='/about-us'
-          element={<AboutUsPage />}
+          element={
+            <ErrorBoundary>
+              <AboutUsPage />
+            </ErrorBoundary>
+          }
         />
         <Route
           path='/contact-us'
-          element={<ContactUsPage />}
+          element={
+            <ErrorBoundary>
+              <ContactUsPage />
+            </ErrorBoundary>
+          }
         />
         <Route
           path='/news'
-          element={<NewsPage />}
+          element={
+            <ErrorBoundary>
+              <NewsPage />
+            </ErrorBoundary>
+          }
         />
         <Route element={<PrivateRoute />}>
           <Route
             path='/profile'
-            element={<ProfilePage />}
+            element={
+              <ErrorBoundary>
+                <ProfilePage />
+              </ErrorBoundary>
+            }
           />
         </Route>
 
         {/* layout routes outlets */}
         <Route
           path='/auth/*'
-          element={<MembershipRouteLayout />}
+          element={
+            <ErrorBoundary>
+              <MembershipRouteLayout />
+            </ErrorBoundary>
+          }
         />
         <Route
           path='/search/*'
-          element={<SearchRouteLayout />}
+          element={
+            <ErrorBoundary>
+              <SearchRouteLayout />
+            </ErrorBoundary>
+          }
         />
         <Route
           path='/cart/*'
-          element={<CartRouteLayout />}
+          element={
+            <ErrorBoundary>
+              <CartRouteLayout />
+            </ErrorBoundary>
+          }
         />
         <Route
           path='/categories/*'
-          element={<CategoriesRouteLayout />}
+          element={
+            <ErrorBoundary>
+              <CategoriesRouteLayout />
+            </ErrorBoundary>
+          }
         />
         <Route
           path='/favorites/*'
-          element={<FavoritesRouteLayout />}
+          element={
+            <ErrorBoundary>
+              <FavoritesRouteLayout />
+            </ErrorBoundary>
+          }
         />
       </Routes>
     </>

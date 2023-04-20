@@ -5,22 +5,40 @@ import {
   CategoryProductsPage,
   SubCategoriesPage
 } from '../pages';
+import { ErrorBoundary, NotFound } from '../components';
 
 export default function CategoriesRouteLayout(): React.ReactElement {
   return (
     <Routes>
       <Route
         path='/'
-        element={<CategoriesPage />}
+        element={
+          <ErrorBoundary>
+            <CategoriesPage />
+          </ErrorBoundary>
+        }
       />
       <Route
         path='/:categoryId'
-        element={<SubCategoriesPage />}
+        element={
+          <ErrorBoundary>
+            <SubCategoriesPage />
+          </ErrorBoundary>
+        }
       />
 
       <Route
         path='/:categoryId/:subCategoryId'
-        element={<CategoryProductsPage />}
+        element={
+          <ErrorBoundary>
+            <CategoryProductsPage />
+          </ErrorBoundary>
+        }
+      />
+
+      <Route
+        path='*'
+        element={<NotFound />}
       />
     </Routes>
   );
