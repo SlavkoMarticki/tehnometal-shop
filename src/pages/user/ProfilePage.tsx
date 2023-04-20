@@ -6,34 +6,35 @@ import useStore from '../../hooks/useStore';
 import { observer } from 'mobx-react';
 import { formatPriceNum } from '../../utils';
 import { Modal } from '../../portals';
-
+import { storage } from '../../common';
+import { listAll, ref, getDownloadURL } from 'firebase/storage';
 export default observer(function ProfilePage(): React.ReactElement | null {
   const [user, setUser] = useState<any | null>(null);
- 
+  const { userStore } = useStore();
 
-  const imagesListRef = ref(storage, `tehnometal-shop/profile/${user!.email}`);
   const [imageUrl, setImageUrl] = useState<string>('');
   const {
     userStore: { getUserById }
   } = useStore();
-  
-  /* 
-    useEffect(() => {
-    listAll(imagesListRef).then((response: any) => {
-      response.items.forEach((item: any) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrl(url);
-        });
-      });
-    });
-  }, []);
-  */
+  const imagesListRef = ref(
+    storage,
+    `tehnometal-shop/profile/${userStore.user?.email}`
+  );
+
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
         const response = await getUserById();
         if (response.success) {
           const date = new Date(response.data.dateOfBirth);
+
+          listAll(imagesListRef).then((res: any) => {
+            res.items.forEach((item: any) => {
+              getDownloadURL(item).then((url: any) => {
+                setImageUrl(url);
+              });
+            });
+          });
           const dateString = `${date.getDate()}/${
             date.getMonth() + 1
           }/${date.getFullYear()} `;

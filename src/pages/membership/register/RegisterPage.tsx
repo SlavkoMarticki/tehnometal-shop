@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { Button, FormInputField, Datepicker } from '../../../components';
 import './register.css';
 import CartIcon from '../../../common/assets/cart-form-icon.png';
@@ -27,9 +27,10 @@ export default function RegisterPage(): React.ReactElement {
       'image/*': []
     },
     onDrop: (acceptedFiles) => {
-      console.log(acceptedFiles);
+      console.log('d', acceptedFiles);
 
-      setImage(
+      setImage(acceptedFiles[0]);
+      setImageUpload(
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file)
@@ -38,14 +39,14 @@ export default function RegisterPage(): React.ReactElement {
       );
     }
   });
-  // #region dropzone
-  // const imagesListRef = ref(storage, 'images/');
 
   const uploadFile = (email: string): void => {
-    console.log(image[0]);
     if (image == null) return;
 
-    const imageRef = ref(storage, `tehnometal-shop/profile/${email}/${image}`);
+    const imageRef = ref(
+      storage,
+      `tehnometal-shop/profile/${email}/${image.name}`
+    );
     uploadBytes(imageRef, image).then((snapshot: any) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setImageUpload(url);
@@ -53,25 +54,10 @@ export default function RegisterPage(): React.ReactElement {
     });
   };
 
-  const thumbs = image?.map((img: any) => (
-    <div key={img.name}>
-      <div>
-        <img
-          src={img.preview}
-          alt='Loading..'
-          // Revoke data uri after img is loaded
-          onLoad={() => {
-            URL.revokeObjectURL(img.preview);
-          }}
-        />
-      </div>
-    </div>
-  ));
-
   // #endregion
 
   const methods = useForm<ISignUpFormData>({ mode: 'onChange' });
-  const { handleSubmit, watch, reset } = methods;
+  const { handleSubmit, watch, reset, control } = methods;
 
   const {
     userStore: { register }
@@ -98,8 +84,12 @@ export default function RegisterPage(): React.ReactElement {
         moneySpent: 0,
         averageBillPrice: 0
       };
+      uploadFile('damlbadlmb');
+
       const res = await register(modifiedData);
       if (res.success) {
+        console.log(res);
+        uploadFile(res.data.data.email);
         setUser(res.data);
         navigate('/');
       }
@@ -109,6 +99,9 @@ export default function RegisterPage(): React.ReactElement {
     }
   };
 
+  const handleImageUpload = (event: any): void => {
+    setImage(event.target.files[0]);
+  };
   return (
     <section className='register--container full'>
       <div className='vector--top-right-bg'></div>
@@ -173,16 +166,44 @@ export default function RegisterPage(): React.ReactElement {
               placeholder='REPEAT EMAIL'
               icon='form--icon email-icon'
               validate={(value: string) =>
-                value === email.current || 'The passwords do not match'
+                value === email.current || 'The emails do not match'
               }
             />
 
             <section className='container'>
-              <div {...getRootProps({ className: 'dropzone' })}>
-                <input {...getInputProps()} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
-              </div>
-              <aside>{thumbs}</aside>
+              <Controller
+                name='image'
+                control={control}
+                render={({ field }) => (
+                  <div {...getRootProps({ className: 'dropzone' })}>
+                    <input
+                      {...getInputProps()}
+                      onChange={(e) => {
+                        handleImageUpload(e);
+                        field.onChange(e);
+                      }}
+                      onBlur={field.onBlur}
+                    />
+                    <p>
+                      Drag 'n' drop some files here, or click to select files
+                    </p>
+                  </div>
+                )}
+              />
+              <aside>
+                <div>
+                  <div>
+                    <img
+                      src={imageUpload[0]?.preview}
+                      alt='Loading..'
+                      // Revoke data uri after img is loaded
+                      onLoad={() => {
+                        URL.revokeObjectURL(imageUpload[0]?.preview);
+                      }}
+                    />
+                  </div>
+                </div>
+              </aside>
             </section>
 
             <Button
