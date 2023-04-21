@@ -109,9 +109,7 @@
 .nav--cart.nav--item-is-sticky {
   color: var(--background-color-dark);
 }
-.nav--item.nav--item-is-sticky > a:hover {
-  border-bottom: 1px solid var(--background-color-dark);
-}
+
 .cart-count {
   display: block;
   position: absolute;
@@ -244,8 +242,9 @@
 .nav-h-ef a {
   --b: 0.2em; /* the thickness of the line */
   --c: #278aac; /* the color */
-
-  color: #ffffff;
+  --cc: #000000;
+  --cw: #ffffff;
+  color: var(--cw);
   padding-block: var(--b);
   background: linear-gradient(var(--c) 50%, #000 0) 0%
       calc(100% - var(--_p, 0%)) / 100% 200%,
@@ -266,6 +265,9 @@
   padding-block: 0.2em;
 }
 
+.nav-h-ef.nav--item-is-sticky a {
+  color: #000000;
+}
 .nav-h-ef:hover a {
   color: #1095c1;
 }

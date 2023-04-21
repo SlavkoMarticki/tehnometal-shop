@@ -3,11 +3,12 @@ import { useLoader, usePageTitle } from '../../../hooks';
 import './subCategories.css';
 import useStore from '../../../hooks/useStore';
 import { observer } from 'mobx-react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { IoMdArrowBack } from 'react-icons/io';
 
 export default observer(function SubCategoriesPage(): React.ReactElement {
   usePageTitle('SubCategories');
-
+  const navigate = useNavigate();
   const { categoryId } = useParams();
   const {
     categoriesStore: {
@@ -44,7 +45,13 @@ export default observer(function SubCategoriesPage(): React.ReactElement {
       <div className='categories--container'>
         <div className='flex flex-column categories-wrap'>
           <div className='flex flex-column'>
-            <h1 className='categories--title s-cat--title'>
+            <h1 className='categories--title s-cat--title flex justify-center align-center gap-20'>
+              <IoMdArrowBack
+                onClick={() => {
+                  navigate(-1);
+                }}
+                className='cursor-pointer'
+              />
               {activeCategory != null
                 ? activeCategory[0]?.data?.name
                 : 'Category'}

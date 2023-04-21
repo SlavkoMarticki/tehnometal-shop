@@ -9,10 +9,11 @@ interface IFavIconProps {
   subCatId: string;
   prodId: string;
   className?: string;
+  callback?: () => void;
 }
 
 export default observer((props: IFavIconProps): React.ReactElement | null => {
-  const { isFavorite, subCatId, prodId, className } = props;
+  const { isFavorite, subCatId, prodId, className, callback } = props;
   const { user } = useAuthUser();
 
   const {
@@ -28,6 +29,10 @@ export default observer((props: IFavIconProps): React.ReactElement | null => {
       <HoverableIcon
         onClick={() => {
           toggleFavoriteState(subCatId, prodId, !isFavorite);
+          /* eslint-disable-next-line */
+          if (callback) {
+            callback();
+          }
         }}
         regularIcon={
           <AiFillHeart

@@ -5,15 +5,16 @@ import { formatPriceNum } from '../../../utils';
 import { BiCartAdd } from 'react-icons/bi';
 import { useLoader, usePageTitle } from '../../../hooks';
 import useStore from '../../../hooks/useStore';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Modal } from '../../../portals';
+import { IoMdArrowBack } from 'react-icons/io';
 
 export default observer(function CategoryProductsPage(): React.ReactElement {
   usePageTitle('Product ');
-
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { state } = useLocation();
+  const navigate = useNavigate();
   const { subCategoryId } = useParams();
   const {
     productStore: {
@@ -50,7 +51,13 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
         <div className='vector--top-right-bg'></div>
         <div className='vector--btm-left-bg'></div>
         <div className='categories--container'>
-          <h1 className='categories--title s-cat--title pad-b-2rem uppercase'>
+          <h1 className='categories--title s-cat--title pad-b-2rem uppercase flex justify-center align-center gap-20'>
+            <IoMdArrowBack
+              onClick={() => {
+                navigate(-1);
+              }}
+              className='cursor-pointer'
+            />
             {state}
           </h1>
           <div className='flex flex-column categories-wrap'>
@@ -152,7 +159,7 @@ export const ProductCard = observer(function ProductCard(
         }}
       >
         <div className='flex product'>
-          <div className='product-hov-ef flex '>
+          <div className='product-hov-ef flex'>
             <div className='product--img'>
               <img
                 className='product--img-side'

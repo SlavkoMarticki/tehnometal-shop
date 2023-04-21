@@ -1,6 +1,6 @@
 import { StarsDisplay } from '../../stars';
 import './productModal.css';
-import { AiOutlineCloseCircle, AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { BiCartAdd } from 'react-icons/bi';
 import { observer } from 'mobx-react';
 import useStore from '../../../hooks/useStore';
@@ -13,12 +13,13 @@ interface IProductModalProps {
   onClose?: () => void;
   prodId?: string;
   subCatId?: string;
+  callback?: () => void;
 }
 
 export default observer(function ProductModal(
   props: IProductModalProps
 ): React.ReactElement {
-  const { onClose, prodId, subCatId } = props;
+  const { onClose, prodId, subCatId, callback } = props;
   const { setIsLoading } = useLoader();
   const {
     productStore: { product, getProductById, setProduct, activeProdId },
@@ -43,7 +44,6 @@ export default observer(function ProductModal(
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(favorites);
   return (
     <div className='products-details__modal'>
       <div className='product--m-container'>
@@ -81,6 +81,7 @@ export default observer(function ProductModal(
                       isFavorite={prod.isFavorite}
                       subCatId={subCatId!}
                       prodId={prodId!}
+                      callback={callback}
                       className='product--m-content-favorite'
                     />
                   </div>

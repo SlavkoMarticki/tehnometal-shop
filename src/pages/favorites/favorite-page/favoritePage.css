@@ -11,6 +11,7 @@
   transition: transform 0.2s;
   background: #0c2a45;
   border-radius: 10px;
+  width: 350px;
   border: 1px solid #1b5e99;
 }
 .product-hov-ef:hover {
@@ -141,4 +142,16 @@
 .favourite--empty-photo {
   height: 400px;
   width: auto;
+}
+
+@media screen and (max-width: 450px) {
+  .product--item {
+    width: 270px;
+    gap: 10px;
+    line-break: anywhere;
+  }
+
+  .product--title {
+    max-width: 70%;
+  }
 }

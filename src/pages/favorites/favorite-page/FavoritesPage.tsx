@@ -1,36 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import './favoritePage.css';
-import { Button, HoverableIcon, StarsDisplay } from '../../../components';
-import { formatPriceNum, transferObjectIntoArray } from '../../../utils';
-import { BiCartAdd } from 'react-icons/bi';
-import emptyFaforitesPhoto from '../../../common/assets/emptyFavoritesPhoto.png';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { ProductModal } from '../../../components';
+import { transferObjectIntoArray } from '../../../utils';
+
 import useStore from '../../../hooks/useStore';
 import { observer } from 'mobx-react';
-import { toJS } from 'mobx';
-import { useAuthUser } from '../../../hooks';
-import { useNavigate } from 'react-router-dom';
+import {
+  useAuthUser,
+  useLoader,
+  useNotification,
+  usePageTitle
+} from '../../../hooks';
+import { Modal } from '../../../portals';
+import { FavoriteProductItem, EmptyFavoritePage } from './components';
 
 export default observer(function FavoritesPage(): React.ReactElement {
+  usePageTitle('Favorites');
   const [favoritesList, setFavoritesList] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [activeSubCatId, setActiveSubCatId] = useState<string>('');
+
   const { user } = useAuthUser();
   const {
-    productStore: { getFavoriteProductsByIds, getFavoriteProductsByUser }
+    productStore: {
+      getFavoriteProductsByIds,
+      getFavoriteProductsByUser,
+      setActiveProdId,
+      activeProdId
+    }
   } = useStore();
+  const { isLoading, setIsLoading } = useLoader();
+  const { showErrorPopup } = useNotification();
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
         // fetch favorites by user first
+        setIsLoading(true);
         const favoritesResponse = await getFavoriteProductsByUser(user!.uid);
-        console.log(favoritesResponse);
-        const response = await getFavoriteProductsByIds(
-          transferObjectIntoArray(favoritesResponse)
-        );
-        if (response.success) {
-          setFavoritesList(response.data);
+
+        if (favoritesResponse != null) {
+          const response = await getFavoriteProductsByIds(
+            transferObjectIntoArray(favoritesResponse)
+          );
+          if (response.success) {
+            setFavoritesList(response.data);
+          }
         }
+        setIsLoading(false);
       } catch (error) {
+        setIsLoading(false);
+        showErrorPopup('Something went wrong while getting favorites.');
         console.log(error);
       }
     };
@@ -49,8 +69,8 @@ export default observer(function FavoritesPage(): React.ReactElement {
     setFavoritesList(newFavoritesList);
   };
 
-  if (favoritesList.length === 0) {
-    return <EmptyFavorites />;
+  if (favoritesList.length === 0 && !isLoading) {
+    return <EmptyFavoritePage />;
   }
 
   return (
@@ -62,7 +82,6 @@ export default observer(function FavoritesPage(): React.ReactElement {
         <div className='flex flex-column categories-wrap'>
           <div className='card--group product--group'>
             {favoritesList.map((item: any) => {
-              console.log(item);
               return (
                 <FavoriteProductItem
                   key={item.prodId}
@@ -75,125 +94,41 @@ export default observer(function FavoritesPage(): React.ReactElement {
                   subCatId={item.subCategoryId}
                   prodId={item.prodId}
                   handleCurrentFavoriteState={handleCurrentFavoriteState}
+                  onProductSelect={() => {
+                    setActiveProdId(item.prodId);
+                  }}
+                  onModalToggle={() => {
+                    setIsModalOpen(true);
+                  }}
+                  setActiveSubCatId={setActiveSubCatId}
                 />
               );
             })}
+
+            <Modal
+              isOpen={isModalOpen}
+              onClose={() => {
+                setIsModalOpen(false);
+              }}
+            >
+              <div className='modal'>
+                <ProductModal
+                  subCatId={activeSubCatId}
+                  prodId={activeProdId}
+                  onClose={() => {
+                    setIsModalOpen(false);
+                    setActiveSubCatId('');
+                  }}
+                  callback={() => {
+                    handleCurrentFavoriteState(activeProdId);
+                    setIsModalOpen(false);
+                  }}
+                />
+              </div>
+            </Modal>
           </div>
         </div>
       </div>
     </div>
   );
 });
-
-interface IFavoriteProductItemProps {
-  isFavorite: boolean;
-  imgUrl: string;
-  productTitle: string;
-  rating: number;
-  priceNum: number;
-  currency: number;
-  subCatId: string;
-  prodId: string;
-  handleCurrentFavoriteState: (item: string) => void;
-}
-
-const FavoriteProductItem = (
-  props: IFavoriteProductItemProps
-): React.ReactElement => {
-  const {
-    isFavorite,
-    imgUrl,
-    productTitle,
-    rating,
-    priceNum,
-    currency,
-    subCatId,
-    prodId,
-    handleCurrentFavoriteState
-  } = props;
-
-  const {
-    productStore: { toggleFavoriteState }
-  } = useStore();
-  return (
-    <div className='card--item-wrap'>
-      <div className='product--favorite cart__ef'>
-        {isFavorite ? (
-          <HoverableIcon
-            onClick={() => {
-              toggleFavoriteState(subCatId, prodId, !isFavorite);
-              handleCurrentFavoriteState(prodId);
-            }}
-            regularIcon={<AiFillHeart />}
-            hoverIcon={<AiOutlineHeart />}
-          />
-        ) : (
-          <HoverableIcon
-            onClick={() => {
-              toggleFavoriteState(subCatId, prodId, !isFavorite);
-            }}
-            regularIcon={<AiOutlineHeart />}
-            hoverIcon={<AiFillHeart />}
-          />
-        )}
-      </div>
-      <div className='card--item product--item'>
-        <div className='flex product'>
-          <div className='product--img'>
-            <img
-              className='product--img-side'
-              src={imgUrl}
-              alt='abdab'
-            />
-          </div>
-          <div className='flex flex-column product--content'>
-            <h2 className='product--title'>{productTitle}</h2>
-            <StarsDisplay
-              product
-              starsNum={rating}
-            />
-            <div className='flex justify-spaceBetween align-center'>
-              <p className='product--price'>
-                {formatPriceNum(priceNum)} <span>{currency}</span>
-              </p>
-              <div className='product--cart'>
-                <BiCartAdd />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const EmptyFavorites = (): React.ReactElement => {
-  const navigate = useNavigate();
-  return (
-    <div className='full'>
-      <div className='vector--top-right-bg'></div>
-      <div className='vector--btm-left-bg'></div>
-      <div className='favourite--empty flex justify-center align-center flex-column'>
-        <img
-          className='favourite--empty-photo'
-          src={emptyFaforitesPhoto}
-          alt='emptyFavoritesPhoto'
-        />
-        <h1 className=' favourite--empty-text color-w uppercase'>
-          No favorites yet!
-        </h1>
-
-        <Button
-          type='button'
-          className='favourite--btn'
-          onClick={() => {
-            console.log('clicked');
-            navigate('/categories');
-          }}
-        >
-          See what we have to offer
-        </Button>
-      </div>
-    </div>
-  );
-};

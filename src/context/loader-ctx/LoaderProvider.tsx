@@ -23,7 +23,10 @@ const LoaderProvider = (props: IContainerProps): React.ReactElement => {
   }, []);
 
   const contextValue = useMemo(() => {
-    return { isLoading: loadingStore.isLoading, setIsLoading };
+    return {
+      isLoading: !isLoadingLocal ? loadingStore.isLoading : isLoadingLocal,
+      setIsLoading
+    };
 
     /* eslint-disable-next-line */
   }, [isLoadingLocal, setIsLoading, loadingStore.isLoading]);

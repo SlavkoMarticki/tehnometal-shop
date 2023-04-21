@@ -133,9 +133,12 @@ export class CartStore {
       );
       if (response !== null && response.stockQuantity > 1) {
         this.addItem(response, prodId);
+        this.rootStore.notificationStore.showSuccessPopup(
+          'Item added in cart.'
+        );
       } else {
         // TODO: add error message for not having in stock
-        console.log('No more in stock');
+        this.rootStore.notificationStore.showWarningPopup('No more in stock.');
       }
     } catch (error) {
       console.log(error);
