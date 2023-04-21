@@ -4,7 +4,7 @@ import { RootStore } from '../rootStore';
 
 export class SearchStore {
   searchQuery: string = '';
-  searchResults: any = null;
+  searchResults: any = [];
   rootStore: RootStore;
   activeProd: any = null;
 

@@ -11,6 +11,7 @@ import { formatPriceNum } from '../../utils';
 import { useParams } from 'react-router-dom';
 import { useLoader, useNotification, usePageTitle } from '../../hooks';
 import { toJS } from 'mobx';
+import EmptySearch from '../../common/assets/emptySearch.png';
 
 export default observer(function SearchResultsPage(): React.ReactElement {
   const { searchId } = useParams();
@@ -46,8 +47,27 @@ export default observer(function SearchResultsPage(): React.ReactElement {
     fetchData();
   }, [searchId]);
 
-  if (searchResults == null && !isLoading) {
-    return <div></div>;
+  console.log(toJS(favorites));
+
+  console.log(searchResults);
+  if (searchResults.length === 0) {
+    return (
+      <div>
+        <div className='vector--top-right-bg'></div>
+        <div className='vector--btm-left-bg'></div>
+        <div className='flex flex-column search-title'>
+          <h1 className='search--title'>YOUR SEARCH RESULTS FOR:</h1>
+          <h3 className='search--sub-title lowercase'>{searchQuery}</h3>
+        </div>
+        <img
+          src={EmptySearch}
+          alt='emptySearch'
+          className='justify-center'
+        />
+        <h2 className='search--title'>No RESULTS FOUND!</h2>
+        <p className='search--sub-title '>Try searching again.</p>
+      </div>
+    );
   }
 
   return (
