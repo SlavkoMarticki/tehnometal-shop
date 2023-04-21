@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { IErrorMessage } from '../../types';
+import { Fade } from 'react-reveal';
 
 export default function ErrorMessage(
   props: IErrorMessage

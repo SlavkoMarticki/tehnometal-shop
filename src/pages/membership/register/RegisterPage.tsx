@@ -6,7 +6,6 @@ import CartIcon from '../../../common/assets/cart-form-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { serverTimestamp, storage } from '../../../common/firebase/firebase';
 import { ISignUpFormData } from '../../../types';
-import { registerServiceInstance } from '../../../services';
 import { useAuthUser, useNotification, usePageTitle } from '../../../hooks';
 import {
   emailFieldPatternValidationInfo,
@@ -16,13 +15,31 @@ import { validatePassword } from '../../../utils/validate';
 import useStore from '../../../hooks/useStore';
 import { useDropzone } from 'react-dropzone';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import classNames from 'classnames';
 
 export default function RegisterPage(): React.ReactElement {
   usePageTitle('Sign Up');
   const [image, setImage] = useState<any>([]);
   const [imageUpload, setImageUpload] = useState<any>(null);
+  const methods = useForm<ISignUpFormData>({ mode: 'onChange' });
+  const { handleSubmit, watch, reset, control } = methods;
+  const navigate = useNavigate();
+  const { showErrorPopup } = useNotification();
+  const { setUser } = useAuthUser();
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() - 16);
+
+  const password = useRef({});
+  const email = useRef({});
+  password.current = watch('password', '');
+  email.current = watch('email', '');
+
+  const {
+    userStore: { register }
+  } = useStore();
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       'image/*': []
     },
@@ -54,24 +71,6 @@ export default function RegisterPage(): React.ReactElement {
     });
   };
 
-  // #endregion
-
-  const methods = useForm<ISignUpFormData>({ mode: 'onChange' });
-  const { handleSubmit, watch, reset, control } = methods;
-
-  const {
-    userStore: { register }
-  } = useStore();
-
-  const password = useRef({});
-  const email = useRef({});
-  password.current = watch('password', '');
-  email.current = watch('email', '');
-
-  const navigate = useNavigate();
-  const { setUser } = useAuthUser();
-  const { showErrorPopup } = useNotification();
-
   const handleSignUpForm = async (data: ISignUpFormData): Promise<any> => {
     try {
       const { username, password, email, dateOfBirth } = data;
@@ -84,11 +83,9 @@ export default function RegisterPage(): React.ReactElement {
         moneySpent: 0,
         averageBillPrice: 0
       };
-      uploadFile('damlbadlmb');
 
       const res = await register(modifiedData);
       if (res.success) {
-        console.log(res);
         uploadFile(res.data.data.email);
         setUser(res.data);
         navigate('/');
@@ -102,6 +99,11 @@ export default function RegisterPage(): React.ReactElement {
   const handleImageUpload = (event: any): void => {
     setImage(event.target.files[0]);
   };
+
+  const dropzoneClassName = classNames('dropzone', {
+    'dropzone--active': isDragActive
+  });
+
   return (
     <section className='register--container full'>
       <div className='vector--top-right-bg'></div>
@@ -146,6 +148,7 @@ export default function RegisterPage(): React.ReactElement {
               name='dateOfBirth'
               placeholder='DATE OF BIRTH'
               icon='form--icon calendar-icon'
+              maxDate={maxDate}
             />
             <FormInputField
               name='email'
@@ -170,12 +173,15 @@ export default function RegisterPage(): React.ReactElement {
               }
             />
 
-            <section className='container'>
+            <div className='register--img-dnd flex flex-column'>
               <Controller
                 name='image'
                 control={control}
                 render={({ field }) => (
-                  <div {...getRootProps({ className: 'dropzone' })}>
+                  <div
+                    {...getRootProps({})}
+                    className={dropzoneClassName}
+                  >
                     <input
                       {...getInputProps()}
                       onChange={(e) => {
@@ -184,16 +190,28 @@ export default function RegisterPage(): React.ReactElement {
                       }}
                       onBlur={field.onBlur}
                     />
-                    <p>
-                      Drag 'n' drop some files here, or click to select files
-                    </p>
+                    {isDragActive ? (
+                      <p>Drop your files here...</p>
+                    ) : (
+                      <label
+                        htmlFor='image'
+                        className='text-center cursor-pointer flex flex-column gap-20'
+                      >
+                        <span>Image (optional):</span>
+                        <span>
+                          <Button className='add-img-btn'>Add Image</Button> or
+                          drop files here
+                        </span>
+                      </label>
+                    )}
                   </div>
                 )}
               />
               <aside>
-                <div>
-                  <div>
+                {imageUpload !== null && !isDragActive && (
+                  <div className='flex justify-center align-center'>
                     <img
+                      className='register--profile-img'
                       src={imageUpload[0]?.preview}
                       alt='Loading..'
                       // Revoke data uri after img is loaded
@@ -202,17 +220,16 @@ export default function RegisterPage(): React.ReactElement {
                       }}
                     />
                   </div>
-                </div>
+                )}
               </aside>
-            </section>
-
+            </div>
             <Button
               className='btn login--btn'
               type='submit'
             >
               Register
             </Button>
-            <SignUpWithGoogleOption />
+            <AlreadyHaveAccount />
           </form>
         </FormProvider>
       </div>
@@ -220,7 +237,7 @@ export default function RegisterPage(): React.ReactElement {
   );
 }
 
-const SignUpWithGoogleOption = (): React.ReactElement => {
+const AlreadyHaveAccount = (): React.ReactElement => {
   return (
     <>
       <span className='link--label'>

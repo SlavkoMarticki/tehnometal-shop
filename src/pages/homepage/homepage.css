@@ -64,8 +64,17 @@
       'a b'
       'c d';
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 20px;
+
     height: 1300px;
+  }
+
+  .homepage--specials {
+    max-width: 90%;
+  }
+
+  .specials--card {
+    box-shadow: rgba(255, 255, 255, 0.24) 0px 2px 2px;
   }
 }
 
@@ -121,7 +130,7 @@
       'c'
       'd';
     grid-template-columns: repeat(1, 1fr);
-    gap: 10px;
+    gap: 20px;
     height: 2000px;
   }
 
