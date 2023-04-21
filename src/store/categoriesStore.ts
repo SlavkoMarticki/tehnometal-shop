@@ -24,25 +24,15 @@ export class CategoriesStore {
       getSubCategories: action
     });
     this.getCategories();
-    this.onInitialize();
     this.setSubCategories = this.setSubCategories.bind(this);
     this.setCategories = this.setCategories.bind(this);
+    this.onInitialize();
   }
 
   onInitialize = (): void => {
-    const { pathname } = window.location;
-    if (pathname.includes('categories')) {
-      const currentId = pathname.slice(
-        pathname.lastIndexOf('/') + 1,
-        pathname.length
-      );
-      runInAction(() => {
-        const activeCategory = this.categories.filter((cat) => {
-          // set active category
-          return cat.id === currentId;
-        });
-        this.setActiveCategory(activeCategory);
-      });
+    const activeCategory = localStorage.getItem('activeCat');
+    if (activeCategory != null) {
+      this.setActiveCategory(JSON.parse(activeCategory));
     }
   };
 
@@ -56,6 +46,7 @@ export class CategoriesStore {
 
   setActiveCategory = (activeCategory: ICategory[] | []): void => {
     this.activeCategory = activeCategory;
+    localStorage.setItem('activeCat', JSON.stringify(activeCategory));
   };
 
   getCategories = async (): Promise<void> => {
@@ -72,6 +63,8 @@ export class CategoriesStore {
 
   getSubCategories = async (id: string): Promise<void> => {
     try {
+      const subCategoriesData =
+        await categoriesServiceInstance.getAllSubCategories(id);
       runInAction(() => {
         const activeCategory = this.categories.filter((cat) => {
           // set active category
@@ -79,11 +72,8 @@ export class CategoriesStore {
         });
         this.setActiveCategory(activeCategory);
       });
-      const subCategoriesData =
-        await categoriesServiceInstance.getAllSubCategories(id);
       const data = transferObjectIntoArray(subCategoriesData);
       this.setSubCategories(data);
-
     } catch (error: any) {
       console.log(error.message);
       throw new Error();

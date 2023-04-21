@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, reaction, toJS } from 'mobx';
+import { makeObservable, observable, action } from 'mobx';
 import { searchIndex } from '../../common';
 import { RootStore } from '../rootStore';
 
@@ -20,14 +20,6 @@ export class SearchStore {
       unmountSearchQuery: action
     });
     this.onInitialize();
-
-    reaction(
-      () => toJS(this.rootStore.favoritesStore.favorites),
-      (user) => {
-        console.log(`User ${user} changed.`);
-        // perform other actions here
-      }
-    );
   }
 
   onInitialize = (): void => {

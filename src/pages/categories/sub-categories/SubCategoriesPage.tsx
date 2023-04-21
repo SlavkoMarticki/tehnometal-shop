@@ -14,8 +14,7 @@ export default observer(function SubCategoriesPage(): React.ReactElement {
       getSubCategories,
       subCategories,
       setSubCategories,
-      activeCategory,
-      setActiveCategory
+      activeCategory
     }
   } = useStore();
 
@@ -34,7 +33,6 @@ export default observer(function SubCategoriesPage(): React.ReactElement {
     fetchData();
     return () => {
       setSubCategories([]);
-      setActiveCategory([]);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -40,7 +40,7 @@ export default function DesktopNavItems(
       />
       <div className='nav--group nav-center-top'>
         <ul className='nav--list flex'>
-          <li className='nav--item'>
+          <li className='nav--item nav-h-ef'>
             <NavLink
               to='/'
               className={({ isActive }) => (isActive ? 'active' : '')}
@@ -49,7 +49,7 @@ export default function DesktopNavItems(
               Home
             </NavLink>
           </li>
-          <li className='nav--item'>
+          <li className='nav--item nav-h-ef'>
             <NavLink
               className={({ isActive }) => (isActive ? 'active' : '')}
               to='/categories'
@@ -57,7 +57,7 @@ export default function DesktopNavItems(
               Products
             </NavLink>
           </li>
-          <li className='nav--item'>
+          <li className='nav--item nav-h-ef'>
             <NavLink
               className={({ isActive }) => (isActive ? 'active' : '')}
               to='/news'
@@ -65,7 +65,7 @@ export default function DesktopNavItems(
               News
             </NavLink>
           </li>
-          <li className='nav--item'>
+          <li className='nav--item nav-h-ef'>
             <NavLink
               className={({ isActive }) => (isActive ? 'active' : '')}
               to='/about-us'
@@ -73,7 +73,7 @@ export default function DesktopNavItems(
               About Us
             </NavLink>
           </li>
-          <li className='nav--item'>
+          <li className='nav--item nav-h-ef'>
             <NavLink
               className={({ isActive }) => (isActive ? 'active' : '')}
               to='/contact-us'
@@ -85,7 +85,7 @@ export default function DesktopNavItems(
       </div>
       <div className='nav--group'>
         <ul className='nav--list flex nav--list__icons'>
-          <li className={'nav--item nav--item__i'}>
+          <li className='nav--item nav--item__i'>
             <HoverableIcon
               onClick={() => setIsModalOpen(true)}
               regularIcon={<CiSearch />}
@@ -94,7 +94,7 @@ export default function DesktopNavItems(
           </li>
 
           <AuthNavItem>
-            <li className={'nav--item nav--item__i'}>
+            <li className='nav--item nav--item__i'>
               <HoverableIcon
                 regularIcon={<AiOutlineHeart />}
                 hoverIcon={<AiFillHeart />}
@@ -103,7 +103,7 @@ export default function DesktopNavItems(
             </li>
           </AuthNavItem>
           <AuthNavItem>
-            <li className={'nav--item nav--item__i'}>
+            <li className='nav--item nav--item__i'>
               <HoverableIcon
                 regularIcon={<BsPerson />}
                 hoverIcon={<BsPersonFill />}
@@ -112,7 +112,7 @@ export default function DesktopNavItems(
             </li>
           </AuthNavItem>
           <li
-            className={'nav--item nav--item__i'}
+            className='nav--item nav--item__i'
             style={{ position: 'relative' }}
           >
             <HoverableIcon
@@ -132,7 +132,7 @@ export default function DesktopNavItems(
             />
           </li>
           <NonAuthNavItem>
-            <li className='nav--item'>
+            <li className='nav--item nav-h-ef'>
               <NavLink
                 className={({ isActive }) => (isActive ? 'active' : '')}
                 to='/auth/login'
@@ -143,7 +143,7 @@ export default function DesktopNavItems(
           </NonAuthNavItem>
           <AuthNavItem>
             <li
-              className={'nav--item nav--item__i'}
+              className='nav--item nav--item__i'
               onClick={doSignOut}
             >
               <FaSignOutAlt />

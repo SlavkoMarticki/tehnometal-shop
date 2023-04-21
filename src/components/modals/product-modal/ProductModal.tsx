@@ -7,6 +7,7 @@ import useStore from '../../../hooks/useStore';
 import { useEffect } from 'react';
 import { useLoader } from '../../../hooks';
 import { formatPriceNum } from '../../../utils';
+import { FavIcon } from '../../icons';
 
 interface IProductModalProps {
   onClose?: () => void;
@@ -21,7 +22,8 @@ export default observer(function ProductModal(
   const { setIsLoading } = useLoader();
   const {
     productStore: { product, getProductById, setProduct, activeProdId },
-    cartStore: { checkItemAvailability }
+    cartStore: { checkItemAvailability },
+    favoritesStore: { favorites }
   } = useStore();
 
   useEffect(() => {
@@ -36,14 +38,12 @@ export default observer(function ProductModal(
     };
 
     fetchData();
-
     return () => {
       setProduct([]);
     };
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log(favorites);
   return (
     <div className='products-details__modal'>
       <div className='product--m-container'>
@@ -77,7 +77,12 @@ export default observer(function ProductModal(
                     <h1 className='product--m-content-title'>
                       {prod.productName}
                     </h1>
-                    <AiOutlineHeart className='product--m-content-favorite' />
+                    <FavIcon
+                      isFavorite={prod.isFavorite}
+                      subCatId={subCatId!}
+                      prodId={prodId!}
+                      className='product--m-content-favorite'
+                    />
                   </div>
                   <StarsDisplay
                     className='product--m-stars'

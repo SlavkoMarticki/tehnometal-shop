@@ -186,7 +186,9 @@ export class UserStore {
         );
         const data = await response.json();
         this.rootStore.favoritesStore.setFavorites({ [prodId]: { ...data } });
-
+        this.rootStore.notificationStore.showSuccessPopup(
+          'Item added to favorites!'
+        );
         // favorite state is false so data should be removed
       } else {
         await fetch(
@@ -197,6 +199,9 @@ export class UserStore {
           }
         );
         this.rootStore.favoritesStore.removeFromFavoritesById(prodId);
+        this.rootStore.notificationStore.showInfoPopup(
+          'Item removed from favorites'
+        );
       }
     } catch (error) {
       // TODO: add error handling

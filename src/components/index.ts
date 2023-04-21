@@ -8,3 +8,4 @@ export * from './footer';
 export * from './loader';
 export * from './snackbar';
 export * from './error';
+export * from './icons';

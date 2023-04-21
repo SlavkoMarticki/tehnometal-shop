@@ -1,12 +1,9 @@
 export function formatPriceNum(num: number): string {
-  const numFixed: string = num.toFixed(2);
-  const numStr: string = numFixed.toString();
-  if (num >= 1000) {
-    const numStrReversed: string = numStr.split('').reverse().join('');
-    const numStrReversedWithWhitespace: string = numStrReversed.match(/.{1,3}/g)!.join(' ');
-    return numStrReversedWithWhitespace.split('').reverse().join('');
+  const parts = num.toFixed(2).toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  if (parts.length > 1) {
+    return parts.join('.');
   } else {
-    return numStr;
+    return parts[0] + '.00';
   }
-
 }

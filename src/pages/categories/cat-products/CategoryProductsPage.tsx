@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './categoryProductPage.css';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import { HoverableIcon, ProductModal, StarsDisplay } from '../../../components';
+import { FavIcon, ProductModal, StarsDisplay } from '../../../components';
 import { formatPriceNum } from '../../../utils';
 import { BiCartAdd } from 'react-icons/bi';
 import { useLoader, usePageTitle } from '../../../hooks';
@@ -9,7 +8,6 @@ import useStore from '../../../hooks/useStore';
 import { useLocation, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Modal } from '../../../portals';
-import { toJS } from 'mobx';
 
 export default observer(function CategoryProductsPage(): React.ReactElement {
   usePageTitle('Product ');
@@ -24,8 +22,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
       setProducts,
       activeProdId,
       setActiveProdId
-    },
-    favoritesStore: { favorites }
+    }
   } = useStore();
 
   const { setIsLoading } = useLoader();
@@ -46,7 +43,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(toJS(favorites), toJS(products));
+
   return (
     <>
       <div className='full'>
@@ -80,7 +77,6 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
                   </>
                 );
               })}
-
               <Modal
                 isOpen={isModalOpen}
                 onClose={() => {
@@ -141,23 +137,11 @@ export const ProductCard = observer(function ProductCard(
   return (
     <div className='card--item-wrap'>
       <div className='product--favorite cart__ef'>
-        {isFavorite ? (
-          <HoverableIcon
-            onClick={() => {
-              toggleFavoriteState(subCatId, prodId, !isFavorite);
-            }}
-            regularIcon={<AiFillHeart />}
-            hoverIcon={<AiOutlineHeart />}
-          />
-        ) : (
-          <HoverableIcon
-            onClick={() => {
-              toggleFavoriteState(subCatId, prodId, !isFavorite);
-            }}
-            regularIcon={<AiOutlineHeart />}
-            hoverIcon={<AiFillHeart />}
-          />
-        )}
+        <FavIcon
+          isFavorite={isFavorite}
+          prodId={prodId}
+          subCatId={subCatId}
+        />
       </div>
       <div
         className='card--item product--item'
@@ -168,23 +152,25 @@ export const ProductCard = observer(function ProductCard(
         }}
       >
         <div className='flex product'>
-          <div className='product--img'>
-            <img
-              className='product--img-side'
-              src={imgUrl}
-              alt={`img-url${imgUrl}`}
-            />
-          </div>
-          <div className='flex flex-column product--content'>
-            <h2 className='product--title'>{name}</h2>
-            <StarsDisplay
-              product
-              starsNum={numOfStars ?? 4}
-            />
-            <div className='flex justify-spaceBetween align-center'>
-              <p className='product--price'>
-                {formatPriceNum(price)} <span>{currency}</span>
-              </p>
+          <div className='product-hov-ef flex '>
+            <div className='product--img'>
+              <img
+                className='product--img-side'
+                src={imgUrl}
+                alt={`img-url${imgUrl}`}
+              />
+            </div>
+            <div className='flex flex-column product--content'>
+              <h2 className='product--title'>{name}</h2>
+              <StarsDisplay
+                product
+                starsNum={numOfStars ?? 4}
+              />
+              <div className='flex justify-spaceBetween align-center'>
+                <p className='product--price'>
+                  {formatPriceNum(price)} <span>{currency}</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>

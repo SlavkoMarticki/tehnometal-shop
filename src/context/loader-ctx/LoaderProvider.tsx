@@ -19,7 +19,7 @@ const LoaderProvider = (props: IContainerProps): React.ReactElement => {
     /* eslint-disable-next-line */
     debounceLoadingTimer = setTimeout(() => {
       setIsLoadingLocal(isLoading);
-    }, 300);
+    }, 200);
   }, []);
 
   const contextValue = useMemo(() => {

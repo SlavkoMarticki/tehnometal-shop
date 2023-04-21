@@ -2,7 +2,7 @@
 import { RootStore } from './rootStore';
 import { productServiceInstance } from '../services';
 import { transferObjectIntoArray } from '../utils';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { IProduct, IProductData } from '../types';
 
 export class ProductStore {
@@ -31,13 +31,9 @@ export class ProductStore {
 
   getAllProducts = async (subCatId: string): Promise<void> => {
     try {
-      // this.rootStore.loadingStore.setIsLoading(true);
       const productData =
         await productServiceInstance.getAllProductsBySubCategory(subCatId);
       const data = transferObjectIntoArray(productData);
-
-      // #region testing
-      console.log(data);
 
       if (this.rootStore.favoritesStore.favorites != null) {
         data.forEach((item: any, index: number) => {
@@ -50,11 +46,10 @@ export class ProductStore {
           );
         });
       }
-      // #endregion
 
       this.setProducts(data);
-      // this.rootStore.loadingStore.setIsLoading(false);
     } catch (error) {
+      this.rootStore.loadingStore.setIsLoading(false);
       console.log(error);
       throw new Error();
     }
@@ -67,12 +62,6 @@ export class ProductStore {
     favoriteState: boolean
   ): Promise<any> => {
     try {
-      /*       await productServiceInstance.updateFavoriteStatus(
-        subCatId,
-        prodId,
-        favoriteState
-      );
- */
       // modify product state with new favorite
       const modifiedProducts = this.products.map((prod: any) => {
         if (prod.id === prodId) {
@@ -107,6 +96,12 @@ export class ProductStore {
         prodId,
         favoriteState
       );
+      if (this.product.length !== 0) {
+        runInAction(() => {
+          this.product[0].isFavorite = favoriteState;
+          this.setProduct(this.product);
+        });
+      }
       this.setProducts(modifiedProducts);
     } catch (error) {
       // TODO: add err handling
@@ -120,7 +115,20 @@ export class ProductStore {
         catId,
         subCatId
       );
+
       const data = new Array(productData);
+      if (this.rootStore.favoritesStore.favorites != null) {
+        data.forEach((item: any, index: number) => {
+          this.rootStore.favoritesStore.favorites.forEach(
+            (f: any, i: number) => {
+              console.log(item);
+              if (f[subCatId!]?.prodId === subCatId) {
+                item.isFavorite = true;
+              }
+            }
+          );
+        });
+      }
       this.setProduct(data);
     } catch (error) {
       throw new Error();
