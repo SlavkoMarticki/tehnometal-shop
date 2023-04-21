@@ -127,7 +127,7 @@
 /* media queries for responsive header navigation */
 @media only screen and (max-width: 840px) {
   .is--sticky {
-    height: 70px;
+    height: 50px;
     background-color: #e7eaf6;
   }
 
@@ -185,12 +185,18 @@
     height: 60px;
   }
 
+  #hamburger--menu-icon {
+    font-size: 24px;
+    top: 13px;
+  }
+
   .nav--cart {
     color: white;
-    font-size: 30px;
+    font-size: 24px;
+    line-height: 24px;
     position: absolute;
     right: calc(30px + 2.6rem + 10px);
-    top: 1.2rem;
+    top: 13px;
     cursor: pointer;
   }
 
@@ -216,10 +222,16 @@
 
   .nav--cart-count {
     position: relative;
+    font-size: 24px;
   }
 
   .nav--logo__closed-menu {
-    top: 3px;
+    top: 0;
     left: 1.3rem;
+  }
+
+  .nav--logo__closed-menu img {
+    width: 50px;
+    height: 50px;
   }
 }

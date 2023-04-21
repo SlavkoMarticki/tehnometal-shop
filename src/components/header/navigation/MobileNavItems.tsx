@@ -9,7 +9,6 @@ import {
 import { NavLink } from 'react-router-dom';
 import NonAuthNavItem from './NonAuthNavItem';
 import { FaSignOutAlt } from 'react-icons/fa';
-import { signInServiceInstance } from '../../../services';
 import { CiSearch } from 'react-icons/ci';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import Logo from './Logo';
