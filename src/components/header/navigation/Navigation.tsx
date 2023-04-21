@@ -30,6 +30,10 @@ export default function Navigation(
     'nav--menu__m': !isNavActive && isNavMenuOpen
   });
 
+  const overlayClassName = classNames({
+    'mobile--overlay': !isNavActive && isNavMenuOpen
+  });
+
   return (
     <nav className='nav'>
       <MobileNavIcon
@@ -37,12 +41,20 @@ export default function Navigation(
         setIsNavMenuOpen={setIsNavMenuOpen}
         isNavActive={isNavActive}
       />
-      <section className={navMenuClassName}>
-        <NavMenuContent
-          isNavActive={isNavActive}
-          isNavMenuOpen={isNavMenuOpen}
-          setIsNavMenuOpen={setIsNavMenuOpen}
-        />
+      <section>
+        <div
+          className={overlayClassName}
+          onClick={() => {
+            setIsNavMenuOpen(false);
+          }}
+        ></div>
+        <section className={navMenuClassName}>
+          <NavMenuContent
+            isNavActive={isNavActive}
+            isNavMenuOpen={isNavMenuOpen}
+            setIsNavMenuOpen={setIsNavMenuOpen}
+          />
+        </section>
       </section>
     </nav>
   );

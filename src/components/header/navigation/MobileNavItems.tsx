@@ -208,6 +208,7 @@ export default function MobileNavItems(
           <SearchModal
             onClose={() => {
               setIsModalOpen(false);
+              setIsNavMenuOpen(false);
             }}
           />
         </Modal>

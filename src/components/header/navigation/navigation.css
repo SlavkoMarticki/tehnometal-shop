@@ -67,6 +67,14 @@
   z-index: 101;
 }
 
+.mobile--overlay {
+  position: fixed;
+  height: 100vh;
+  background-color: var(--background-color-dark);
+  width: 100%;
+  opacity: 0.2;
+}
+
 .nav--item:hover {
   border-bottom: 1px solid white;
 }
