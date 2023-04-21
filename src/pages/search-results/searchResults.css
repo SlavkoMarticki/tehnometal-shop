@@ -24,6 +24,10 @@
   background-color: #124068;
 }
 
+.lowercase {
+  text-transform: lowercase;
+}
+
 @media screen and (max-width: 840px) {
   .search-title {
     padding-top: 3rem;

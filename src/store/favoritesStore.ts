@@ -11,8 +11,10 @@ export class FavoritesStore {
     makeObservable(this, {
       favorites: observable,
       setFavorites: action,
-      removeFromFavoritesById: action
+      removeFromFavoritesById: action,
+      onInitialize: action
     });
+
     this.onInitialize();
   }
 
