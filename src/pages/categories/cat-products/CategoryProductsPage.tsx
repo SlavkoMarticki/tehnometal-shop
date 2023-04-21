@@ -118,7 +118,7 @@ interface IProductCardProps {
   isFavorite: boolean;
 }
 
-const ProductCard = observer(function ProductCard(
+export const ProductCard = observer(function ProductCard(
   props: IProductCardProps
 ): React.ReactElement {
   const {
