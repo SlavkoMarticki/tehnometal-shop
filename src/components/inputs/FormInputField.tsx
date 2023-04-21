@@ -60,7 +60,7 @@ export default function FormInputField(
           <>
             <span
               className='input--info-icon'
-              title={infoMessage}
+              data-title={infoMessage}
             >
               <AiOutlineInfoCircle />
             </span>

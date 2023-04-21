@@ -7,13 +7,14 @@ interface IProps {
   icon?: string;
   name: string;
   validate?: any;
+  maxDate?: Date;
   placeholder: string;
 }
 
 export default function DatePicker(props: IProps): React.ReactElement {
   const { control, register } = useFormContext();
 
-  const { icon, name, validate, placeholder } = props;
+  const { icon, name, validate, placeholder, maxDate } = props;
   return (
     <div className='input-group'>
       {icon != null && <span className={icon}></span>}
@@ -27,8 +28,10 @@ export default function DatePicker(props: IProps): React.ReactElement {
               ref.field.onChange(date.getTime());
             }}
             locale='en'
+            maxDate={maxDate}
             showMonthDropdown
             showYearDropdown
+            dropdownMode='scroll'
             dateFormat={'MMMM d, yyyy'}
             placeholderText={placeholder}
             className='form--input'

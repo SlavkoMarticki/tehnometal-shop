@@ -5,6 +5,7 @@ export interface ISignUpFormData {
   email: string;
   repeatEmail: string;
   dateOfBirth: Date;
+  image?: string;
 }
 export interface ISignUpRequestData {
   username: string;

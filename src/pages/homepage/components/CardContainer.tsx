@@ -7,6 +7,7 @@ import './styles/homeCards.css';
 import { useAuthUser } from '../../../hooks';
 import { ProductModal, StarsDisplay } from '../../../components';
 import { Modal } from '../../../portals';
+import { Fade } from 'react-reveal';
 
 interface ICardData {
   id: number;
@@ -19,6 +20,7 @@ interface ICardData {
 interface CardsContainerProps {
   cardsData: ICardData[];
   cardClassName?: string;
+  isVisible?: boolean;
 }
 
 const CardsContainer: React.FC<CardsContainerProps> = ({
@@ -31,36 +33,42 @@ const CardsContainer: React.FC<CardsContainerProps> = ({
   return (
     <div className='card--container'>
       {cardsData.map((cardItem, index) => (
-        <Card
+        <Fade
+          bottom
+          delay={500}
+          duration={1000}
           key={cardItem.id}
-          className={cardClassName}
-          onClick={() => {
-            setIsModalOpen(true);
-          }}
         >
-          {user != null ? (
-            <div className='card--favorite'>
-              <AiOutlineHeart />
+          <Card
+            className={cardClassName}
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
+          >
+            {user != null ? (
+              <div className='card--favorite'>
+                <AiOutlineHeart />
+              </div>
+            ) : null}
+            <div className='card--img-wrap'>
+              <img
+                className='card--img'
+                src={cardItem.imgUrl}
+                alt={`cardImg${index}`}
+              />
             </div>
-          ) : null}
-          <div className='card--img-wrap'>
-            <img
-              className='card--img'
-              src={cardItem.imgUrl}
-              alt={`cardImg${index}`}
-            />
-          </div>
-          <div className='card--title-wrap'>
-            <h1 className='card--title'>{cardItem.title}</h1>
-          </div>
-          <StarsDisplay starsNum={cardItem.stars} />
-          <p className='card--price'>
-            {formatPriceNum(cardItem.price)} <span>RSD</span>
-          </p>
-          <div className='card--cart'>
-            <BiCartAdd />
-          </div>
-        </Card>
+            <div className='card--title-wrap'>
+              <h1 className='card--title'>{cardItem.title}</h1>
+            </div>
+            <StarsDisplay starsNum={cardItem.stars} />
+            <p className='card--price'>
+              {formatPriceNum(cardItem.price)} <span>RSD</span>
+            </p>
+            <div className='card--cart'>
+              <BiCartAdd />
+            </div>
+          </Card>
+        </Fade>
       ))}
       <Modal
         isOpen={isModalOpen}

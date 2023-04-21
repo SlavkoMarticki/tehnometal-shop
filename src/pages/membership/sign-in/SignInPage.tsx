@@ -9,7 +9,7 @@ import { ISignInFormData } from '../../../types';
 import { signInServiceInstance } from '../../../services';
 import { useAuthUser, usePageTitle, useNotification } from '../../../hooks';
 import { emailFieldPatternValidationInfo } from '../../../common';
-import { validatePassword } from '../../../utils/validate';
+import { isNullOrWhitespace, validatePassword } from '../../../utils/validate';
 import useStore from '../../../hooks/useStore';
 
 export default function SignInPage(): React.ReactElement {
@@ -81,7 +81,9 @@ export default function SignInPage(): React.ReactElement {
               type='password'
               placeholder='PASSWORD*'
               icon='form--icon pass-icon'
-              validate={validatePassword}
+              validate={(value: string): any =>
+                isNullOrWhitespace(value) || 'Password not valid.'
+              }
               required
             />
             <Button

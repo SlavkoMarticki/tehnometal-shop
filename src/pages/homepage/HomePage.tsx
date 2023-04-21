@@ -10,6 +10,7 @@ import {
 } from './components';
 import './homepage.css';
 import { cardsData } from '../../common';
+import { Fade } from 'react-reveal';
 
 export default function HomePage(): React.ReactElement {
   usePageTitle('Home');
@@ -20,9 +21,16 @@ export default function HomePage(): React.ReactElement {
       <section className='homepage--hero'>
         <SlideShow />
       </section>
-      <section className='homepage--carousel-categories'>
-        <HomepageCategories />
-      </section>
+      <Fade
+        top
+        distance='10%'
+        duration={1500}
+        delay={500}
+      >
+        <section className='homepage--carousel-categories'>
+          <HomepageCategories />
+        </section>
+      </Fade>
       <div className='full'>
         <section className='homepage--specials'>
           <Specials />
@@ -42,12 +50,24 @@ export default function HomePage(): React.ReactElement {
         <FindUsSection />
       </section>
       <section className='homepage--map'>
-        <div className='homepage--title'>
-          <h1>WHERE TO FIND US</h1>
-        </div>
-        <div className='homepage--map-container'>
-          <Map />
-        </div>
+        <Fade
+          left
+          duration={1000}
+          delay={500}
+        >
+          <div className='homepage--title'>
+            <h1>WHERE TO FIND US</h1>
+          </div>
+        </Fade>
+        <Fade
+          right
+          duration={1000}
+          delay={500}
+        >
+          <div className='homepage--map-container'>
+            <Map />
+          </div>
+        </Fade>
       </section>
     </div>
   );
