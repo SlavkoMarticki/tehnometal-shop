@@ -46,30 +46,30 @@
 .about-us--title-main {
   font-style: normal;
   font-weight: 200;
-  font-size: 35px;
-  line-height: 48px;
+  font-size: clamp(1.5625rem, 1.4274rem + 0.6757vw, 2.1875rem);
+  line-height: clamp(2.0625rem, 1.9274rem + 0.6757vw, 2.6875rem);
   color: #ffffff;
 }
 
 .about-us--title-secondary {
   font-weight: 200;
-  font-size: 30px;
-  line-height: 42px;
+  font-size: clamp(1.25rem, 1.1149rem + 0.6757vw, 1.875rem);
+  line-height: clamp(1.75rem, 1.6149rem + 0.6757vw, 2.375rem);
 
   color: #ffffff;
 }
 
 .about-us--content-block {
   font-weight: 200;
-  font-size: 20px;
-  line-height: 30px;
+  font-size: clamp(0.9375rem, 0.8024rem + 0.6757vw, 1.5625rem);
+  line-height: clamp(1.4375rem, 1.3024rem + 0.6757vw, 2.0625rem);
   color: #ffffff;
 }
 
 .about-us--location-map-title {
   font-weight: 200;
-  font-size: 40px;
-  line-height: 48px;
+  font-size: clamp(1.875rem, 1.7399rem + 0.6757vw, 2.5rem);
+  line-height: clamp(2.375rem, 2.2399rem + 0.6757vw, 3rem);
   color: #ffffff;
   padding-bottom: 2rem;
 }
