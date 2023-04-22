@@ -41,7 +41,10 @@ function SliderCard(props: ISliderCardProps): React.ReactElement {
 
   return (
     <div className='slider--content'>
-      <Link to={`/categories/${id}`}>
+      <Link
+        to={`/categories/${id}`}
+        state={cardTitle}
+      >
         <img
           className='slider--img'
           src={imgUrl}

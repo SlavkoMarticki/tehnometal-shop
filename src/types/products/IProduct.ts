@@ -21,6 +21,7 @@ export interface IProduct {
   inStock: boolean;
   stockQuantity: number;
   quantity?: number;
+  totalCount?: number;
 }
 export interface IProductData {
   id: string;

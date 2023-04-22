@@ -153,3 +153,20 @@ a {
     min-height: calc(100vh - 420px); /* height of nav and footer */
   }
 }
+
+.pager {
+  padding: 3rem 10px;
+}
+.MuiPagination-ul {
+  justify-content: center;
+}
+
+.MuiPagination-ul > li > button {
+  color: whitesmoke;
+  background-color: #38598b;
+}
+
+.Mui-selected {
+  background-color: rgba(121, 161, 221, 1) !important;
+  font-weight: 600;
+}

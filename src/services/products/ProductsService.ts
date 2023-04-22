@@ -7,9 +7,29 @@ class ProductService {
     return process.env.REACT_APP_BASE_DB_URL!;
   }
 
-  async getAllProductsBySubCategory(subId: string): Promise<IProduct> {
+  async getAllProductsBySubCategory(
+    subId: string,
+    params: any
+  ): Promise<IProduct> {
     try {
-      const response = await axios.get(`${this.baseUrl}products/${subId}.json`);
+      const response = await axios.get(
+        `${this.baseUrl}products/${subId}.json`,
+        { params }
+      );
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      // TODO: add error handling
+      throw new Error();
+    }
+  }
+
+  async getShallowAllProductsBySubCategory(subId: string): Promise<any> {
+    try {
+      const response = await axios.get(
+        `${this.baseUrl}products/${subId}.json`,
+        { params: { shallow: true } }
+      );
       const data = await response.data;
       return data;
     } catch (error) {
@@ -112,9 +132,7 @@ class ProductService {
 
   getCartByUser = async (uid: string): Promise<any> => {
     try {
-      const response = await axios.get(
-        `${this.baseUrl}users/${uid}/cart.json`
-      );
+      const response = await axios.get(`${this.baseUrl}users/${uid}/cart.json`);
       const data = await response.data;
       return data;
     } catch (error) {
@@ -122,7 +140,6 @@ class ProductService {
       console.log(error);
     }
   };
-
 }
 
 const productServiceInstance = new ProductService();

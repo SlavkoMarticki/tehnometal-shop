@@ -1,1 +1,1 @@
-export { default as CategoryProductsPage } from "./CategoryProductsPage";
+export { default as CategoryProductsPage } from './CategoryProductsPage';

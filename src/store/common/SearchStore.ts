@@ -7,6 +7,7 @@ export class SearchStore {
   searchResults: any = [];
   rootStore: RootStore;
   activeProd: any = null;
+  isEmpty: boolean = false;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -14,6 +15,8 @@ export class SearchStore {
       searchQuery: observable,
       searchResults: observable,
       activeProd: observable,
+      isEmpty: observable,
+      setIsEmpty: action,
       setSearchQuery: action,
       setSearchResultsData: action,
       setActiveProd: action,
@@ -22,12 +25,18 @@ export class SearchStore {
     this.onInitialize();
   }
 
+  setIsEmpty = (value: boolean): void => {
+    this.isEmpty = value;
+  };
+
   onInitialize = (): void => {
     const urlParams = window.location.pathname;
     if (urlParams.includes('search')) {
       const lastIndexOfSearch = urlParams.lastIndexOf('/') + 1;
       const searchParam = urlParams.slice(lastIndexOfSearch, urlParams.length);
-      this.setSearchQuery(searchParam);
+
+      const newStr = searchParam.replace(/%20/g, ' ');
+      this.setSearchQuery(newStr);
     }
   };
 
@@ -43,9 +52,11 @@ export class SearchStore {
     this.searchResults = data;
   };
 
-  getDataBySearchQuery = async (): Promise<void> => {
+  getDataBySearchQuery = async (): Promise<any> => {
     try {
-      const response: any = await searchIndex.search(this.searchQuery);
+      const response: any = await searchIndex.search(this.searchQuery, {
+        hitsPerPage: 1000
+      });
       response.hits.map((item: any, index: number) => {
         this.rootStore.favoritesStore.favorites.forEach(
           (i: any, inx: number) => {
@@ -56,6 +67,7 @@ export class SearchStore {
         );
       });
       this.setSearchResultsData(response.hits);
+      return response.hits;
     } catch (error) {
       console.log(error);
     }

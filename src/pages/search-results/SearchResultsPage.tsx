@@ -2,23 +2,20 @@ import React, { useEffect, useState } from 'react';
 import './searchResults.css';
 import { observer } from 'mobx-react';
 import useStore from '../../hooks/useStore';
-import { ProductCard } from '../categories/cat-products/CategoryProductsPage';
-import { ProductModal, StarsDisplay } from '../../components';
+import { Pager, ProductModal } from '../../components';
 import { Modal } from '../../portals';
-import { BiCartAdd } from 'react-icons/bi';
-import { AiOutlineCloseCircle, AiOutlineHeart } from 'react-icons/ai';
-import { formatPriceNum } from '../../utils';
 import { useParams } from 'react-router-dom';
 import { useLoader, useNotification, usePageTitle } from '../../hooks';
-import { toJS } from 'mobx';
-import EmptySearch from '../../common/assets/emptySearch.png';
+import EmptySearchIcon from '../../common/assets/emptySearch.png';
+import { ProductCard } from '../categories/cat-products/components';
 
 export default observer(function SearchResultsPage(): React.ReactElement {
   const { searchId } = useParams();
   usePageTitle(searchId!.toUpperCase() ?? 'SEARCH');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const { isLoading, setIsLoading } = useLoader();
+  const [page, setPage] = useState<number>(1);
+  const [paginatedList, setPaginatedList] = useState<any>([]);
+  const { setIsLoading } = useLoader();
   const { showErrorPopup } = useNotification();
 
   const {
@@ -28,16 +25,31 @@ export default observer(function SearchResultsPage(): React.ReactElement {
       setActiveProd,
       activeProd,
       searchQuery,
-      setSearchResultsData
+      setSearchResultsData,
+      setIsEmpty,
+      isEmpty
     },
     productStore: { setActiveProdId }
   } = useStore();
+  const { isLoading } = useLoader();
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
         setIsLoading(true);
-        await getDataBySearchQuery();
+        const response = await getDataBySearchQuery();
+        if (response.length === 0) {
+          setIsEmpty(true);
+        } else {
+          setIsEmpty(true);
+        }
+        const startIndex = (page - 1) * 10;
+        let endIndex = startIndex + 10;
+        if (endIndex > response.length) {
+          endIndex = response.length;
+        }
+        setPaginatedList(response.slice(startIndex, endIndex));
+
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -48,28 +60,28 @@ export default observer(function SearchResultsPage(): React.ReactElement {
     fetchData();
     return () => {
       setSearchResultsData([]);
+      setIsEmpty(false);
     };
+
+    /* eslint-disable react-hooks/exhaustive-deps */
   }, [searchId]);
 
-  if (searchResults.length === 0) {
-    return (
-      <div className='full'>
-        <div className='vector--top-right-bg'></div>
-        <div className='vector--btm-left-bg'></div>
-        <div className='flex flex-column justify-center align-center search--page'>
-          <h1 className='search--title'>YOUR SEARCH RESULTS FOR:</h1>
-          <h3 className='search--sub-title lowercase'>{searchQuery}</h3>
+  useEffect(() => {
+    const startIndex = (page - 1) * 10;
+    let endIndex = startIndex + 10;
+    if (endIndex > searchResults.length) {
+      endIndex = searchResults.length;
+    }
+    setPaginatedList(searchResults.slice(startIndex, endIndex));
+  }, [page]);
 
-          <img
-            src={EmptySearch}
-            alt='emptySearch'
-            className='img-search-icon'
-          />
-          <h2 className='search--title'>No RESULTS FOUND!</h2>
-          <p className='search--sub-title '>Try searching again.</p>
-        </div>
-      </div>
-    );
+  const handleChange = (event: any, value: number): void => {
+    setPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  if (paginatedList.length === 0 && !isLoading && isEmpty) {
+    return <EmptySearch searchQuery={searchQuery} />;
   }
 
   return (
@@ -83,7 +95,7 @@ export default observer(function SearchResultsPage(): React.ReactElement {
         </div>
         <div className='flex flex-column categories-wrap'>
           <div className='card--group product--group products--grid'>
-            {searchResults.map((prod: any) => {
+            {paginatedList.map((prod: any) => {
               return (
                 <>
                   <ProductCard
@@ -128,6 +140,39 @@ export default observer(function SearchResultsPage(): React.ReactElement {
           )}
         </div>
       </div>
+      {!isLoading && isEmpty && (
+        <Pager
+          handleChange={handleChange}
+          count={Math.ceil(searchResults.length / 10)}
+          page={page}
+        />
+      )}
     </div>
   );
 });
+
+interface IEmptySearchProps {
+  searchQuery: string;
+}
+
+const EmptySearch = (props: IEmptySearchProps): React.ReactElement => {
+  const { searchQuery } = props;
+  return (
+    <div className='full'>
+      <div className='vector--top-right-bg'></div>
+      <div className='vector--btm-left-bg'></div>
+      <div className='flex flex-column justify-center align-center search--page'>
+        <h1 className='search--title'>YOUR SEARCH RESULTS FOR:</h1>
+        <h3 className='search--sub-title lowercase'>{searchQuery}</h3>
+
+        <img
+          src={EmptySearchIcon}
+          alt='emptySearch'
+          className='img-search-icon'
+        />
+        <h2 className='search--title'>No RESULTS FOUND!</h2>
+        <p className='search--sub-title '>Try searching again.</p>
+      </div>
+    </div>
+  );
+};

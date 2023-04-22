@@ -2,6 +2,7 @@ import { CartStore } from './cartStore';
 import { CategoriesStore } from './categoriesStore';
 import { LoadingStore } from './common/LoadingStore';
 import { NotificationStore } from './common/NotificationStore';
+import { PaginationStore } from './common/PaginationStore';
 import { SearchStore } from './common/SearchStore';
 import { FavoritesStore } from './favoritesStore';
 import { ProductStore } from './productsStore';
@@ -16,6 +17,7 @@ export class RootStore {
   loadingStore: LoadingStore;
   notificationStore: NotificationStore;
   searchStore: SearchStore;
+  paginationStore: PaginationStore;
 
   constructor() {
     this.loadingStore = new LoadingStore();
@@ -24,6 +26,7 @@ export class RootStore {
     this.cartStore = new CartStore(this);
     this.categoriesStore = new CategoriesStore(this);
     this.productStore = new ProductStore(this);
+    this.paginationStore = new PaginationStore(this);
     this.searchStore = new SearchStore(this);
     this.favoritesStore = new FavoritesStore(this);
   }

@@ -29,12 +29,30 @@ export class ProductStore {
     this.activeProdId = id;
   };
 
-  getAllProducts = async (subCatId: string): Promise<void> => {
+  // TODO: add type for params
+  getAllProducts = async (subCatId: string): Promise<any> => {
+    let params;
+    if (this.rootStore.paginationStore.paginationParams != null) {
+      params = {
+        orderBy: '"$key"',
+        limitToFirst: 10,
+        startAt: `"${this.rootStore.paginationStore.paginationParams.startsAt}"`,
+        endAt: `"${this.rootStore.paginationStore.paginationParams.endsAt}"`
+      };
+    } else {
+      params = {
+        orderBy: '"$key"',
+        limitToFirst: 10
+      };
+    }
     try {
       const productData =
-        await productServiceInstance.getAllProductsBySubCategory(subCatId);
-      const data = transferObjectIntoArray(productData);
+        await productServiceInstance.getAllProductsBySubCategory(
+          subCatId,
+          params
+        );
 
+      const data = transferObjectIntoArray(productData);
       if (this.rootStore.favoritesStore.favorites != null) {
         data.forEach((item: any, index: number) => {
           this.rootStore.favoritesStore.favorites.forEach(
@@ -52,6 +70,21 @@ export class ProductStore {
       this.rootStore.loadingStore.setIsLoading(false);
       console.log(error);
       throw new Error();
+    }
+  };
+
+  getAllShallowProducts = async (subCatId: string): Promise<void> => {
+    try {
+      const shallowProductsData =
+        await productServiceInstance.getShallowAllProductsBySubCategory(
+          subCatId
+        );
+
+      this.rootStore.paginationStore.setPaginateKeysList(
+        Object.keys(shallowProductsData).sort()
+      );
+    } catch (error) {
+      console.log(error);
     }
   };
 
