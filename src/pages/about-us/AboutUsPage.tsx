@@ -25,16 +25,11 @@ const AboutUsDesktopView = (): React.ReactElement => {
       <div className='about-us--container'>
         <div className='about-us--wrap'>
           <div className='about-us--about'>
-            <div className='about-us--content-img'>
+            <div className='about-us--content-img flex justify-center'>
               <img
-                className='about-us--drill-img'
+                className='about--us-marker-img'
                 src={AboutUsCaseImg}
                 alt='about us drill img'
-              />
-              <img
-                className='about-us--case-img'
-                src={AboutUsDrillImg}
-                alt='about us case img'
               />
             </div>
             <div className='about-us--content-txt'>

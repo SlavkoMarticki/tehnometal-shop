@@ -6,6 +6,10 @@
   border: 1px solid #fff;
 }
 
+.favourite--empty-photo {
+  position: relative;
+}
+
 .product-hov-ef {
   transform: translate(-10px, -10px);
   transition: transform 0.2s;
@@ -121,6 +125,8 @@
   font-weight: 500;
   z-index: 2;
   color: white;
+  text-align: center;
+  padding: 0px 10px;
 }
 
 .favourite--btn {
@@ -136,12 +142,14 @@
   line-height: 20px;
   text-align: center;
   text-transform: uppercase;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
   color: #ffffff;
 }
 
 .favourite--empty-photo {
-  height: 400px;
-  width: auto;
+  width: clamp(12.5rem, 9.375rem + 15.625vw, 28.125rem);
 }
 
 @media screen and (max-width: 450px) {

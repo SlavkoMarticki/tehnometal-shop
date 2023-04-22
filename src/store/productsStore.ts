@@ -32,7 +32,7 @@ export class ProductStore {
   // TODO: add type for params
   getAllProducts = async (subCatId: string): Promise<any> => {
     let params;
-    if (this.rootStore.paginationStore.paginationParams != null) {
+    if (this.rootStore.paginationStore.paginationParams?.startsAt != null) {
       params = {
         orderBy: '"$key"',
         limitToFirst: 10,
