@@ -88,6 +88,10 @@
     opacity: 0.45;
   }
 
+  .product--img img {
+    opacity: 1;
+  }
+
   .slider--content .slider--middle,
   .card--item .slider--middle {
     opacity: 1;

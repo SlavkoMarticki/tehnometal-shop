@@ -4,6 +4,7 @@ import { usePageTitle } from '../../../hooks';
 import { Link } from 'react-router-dom';
 import useStore from '../../../hooks/useStore';
 import { observer } from 'mobx-react';
+import { Zoom } from 'react-reveal';
 
 export default observer(function CategoriesPage(): React.ReactElement {
   usePageTitle('Categories');
@@ -47,17 +48,22 @@ function CategoriesCard(props: ICategoriesCardProps): React.ReactElement {
   const { imgUrl, name, catId } = props;
 
   return (
-    <div className='card--item'>
-      <Link to={`/categories/${catId}`}>
-        <img
-          className='slider--img card--item-img'
-          src={imgUrl}
-          alt='img'
-        />
-        <div className='slider--middle'>
-          <div className='slider--middle-txt'>{name}</div>
-        </div>
-      </Link>
-    </div>
+    <Zoom bottom>
+      <div className='card--item'>
+        <Link
+          to={`/categories/${catId}`}
+          state={name}
+        >
+          <img
+            className='slider--img card--item-img'
+            src={imgUrl}
+            alt='img'
+          />
+          <div className='slider--middle'>
+            <div className='slider--middle-txt'>{name}</div>
+          </div>
+        </Link>
+      </div>
+    </Zoom>
   );
 }

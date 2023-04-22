@@ -27,7 +27,8 @@ export default observer(function SearchResultsPage(): React.ReactElement {
       searchResults,
       setActiveProd,
       activeProd,
-      searchQuery
+      searchQuery,
+      setSearchResultsData
     },
     productStore: { setActiveProdId }
   } = useStore();
@@ -45,27 +46,28 @@ export default observer(function SearchResultsPage(): React.ReactElement {
       }
     };
     fetchData();
+    return () => {
+      setSearchResultsData([]);
+    };
   }, [searchId]);
 
-  console.log(toJS(favorites));
-
-  console.log(searchResults);
   if (searchResults.length === 0) {
     return (
-      <div>
+      <div className='full'>
         <div className='vector--top-right-bg'></div>
         <div className='vector--btm-left-bg'></div>
-        <div className='flex flex-column search-title'>
+        <div className='flex flex-column justify-center align-center search--page'>
           <h1 className='search--title'>YOUR SEARCH RESULTS FOR:</h1>
           <h3 className='search--sub-title lowercase'>{searchQuery}</h3>
+
+          <img
+            src={EmptySearch}
+            alt='emptySearch'
+            className='img-search-icon'
+          />
+          <h2 className='search--title'>No RESULTS FOUND!</h2>
+          <p className='search--sub-title '>Try searching again.</p>
         </div>
-        <img
-          src={EmptySearch}
-          alt='emptySearch'
-          className='justify-center'
-        />
-        <h2 className='search--title'>No RESULTS FOUND!</h2>
-        <p className='search--sub-title '>Try searching again.</p>
       </div>
     );
   }

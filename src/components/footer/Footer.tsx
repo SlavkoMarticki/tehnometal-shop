@@ -10,7 +10,6 @@ export default function Footer(): JSX.Element {
           <div className='footer--data'>
             <div>
               <h4 className='footer--sub-title'>About</h4>
-              <br />
               <Link to='/about-us'>
                 <p className='footer--data-item'>About</p>
               </Link>
@@ -20,18 +19,15 @@ export default function Footer(): JSX.Element {
             </div>
             <div>
               <h4 className='footer--sub-title'>Contact</h4>
-              <br />
               <p className='footer--data-item'>+99 9999 99</p>
               <p className='footer--data-item'>metalkremenovic@gmail.com</p>
             </div>
             <div>
               <h4 className='footer--sub-title'>Shops</h4>
-              <br />
               <p className='footer--data-item'>Milosa Obilica 52, Curug</p>
             </div>
             <div>
               <h4 className='footer--sub-title'>Social media</h4>
-              <br />
               <div className='footer--data-item footer--data-icons'>
                 <a
                   href='https://sv-se.facebook.com/'

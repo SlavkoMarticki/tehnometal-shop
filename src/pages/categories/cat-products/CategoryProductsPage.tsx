@@ -9,11 +9,12 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Modal } from '../../../portals';
 import { IoMdArrowBack } from 'react-icons/io';
-
 export default observer(function CategoryProductsPage(): React.ReactElement {
-  usePageTitle('Product ');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { state } = useLocation();
+
+  usePageTitle(state.toUpperCase());
+
   const navigate = useNavigate();
   const { subCategoryId } = useParams();
   const {

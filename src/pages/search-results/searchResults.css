@@ -1,11 +1,11 @@
 .search--title {
   text-align: center;
   position: relative;
-  padding-top: 3rem;
+  padding: 3rem 15px 0rem 15px;
   font-weight: 400;
   text-transform: uppercase;
   color: white;
-  font-size: 2.2rem;
+  font-size: clamp(1.2rem, 1rem + 1vw, 2.2rem);
   letter-spacing: 0.5px;
 }
 
@@ -13,7 +13,7 @@
   text-align: center;
   position: relative;
   padding: 1.2rem 0;
-  font-size: 1.7rem;
+  font-size: clamp(1rem, 0.86rem + 0.7vw, 1.7rem);
   letter-spacing: 0.5px;
   color: white;
 }
@@ -28,9 +28,15 @@
   text-transform: lowercase;
 }
 
+.img-search-icon {
+  width: clamp(9.375rem, 5rem + 21.875vw, 31.25rem);
+  aspect-ratio: 1;
+  position: relative;
+}
+
 @media screen and (max-width: 840px) {
-  .search-title {
+  .search--page {
     padding-top: 3rem;
-    padding-bottom: 2rem;
+    padding-bottom: 3rem;
   }
 }

@@ -144,12 +144,12 @@ a {
 
 @media screen and (max-width: 840px) {
   .full {
-    min-height: calc(100vh - 55px - 315px); /* height of nav and footer */
+    min-height: calc(100vh - 55px - 260px); /* height of nav and footer */
   }
 }
 
 @media screen and (max-width: 560px) {
   .full {
-    min-height: calc(100vh - 55px - 540px); /* height of nav and footer */
+    min-height: calc(100vh - 420px); /* height of nav and footer */
   }
 }

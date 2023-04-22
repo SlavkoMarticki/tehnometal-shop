@@ -15,5 +15,12 @@ declare module 'react-reveal' {
     when?: boolean;
   }
 
+  export interface ZoomProps {
+    bottom?: boolean;
+    children: React.ReactNode;
+  }
+
   export const Fade: React.FC<FadeProps>;
+
+  export const Zoom: React.FC<ZoomProps>;
 }

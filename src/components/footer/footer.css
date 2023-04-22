@@ -4,6 +4,11 @@
   bottom: 0;
   background-color: #081c2f;
   padding-top: 2rem;
+  height: 255px;
+}
+
+.footer--sub-title {
+  padding-bottom: 1rem;
 }
 
 .main--color {
@@ -33,7 +38,7 @@
 .footer--data-item {
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: clamp(0.75rem, 0.5rem + 0.7143vw, 0.875rem);
   line-height: 19px;
   color: #6087a8;
   padding: 0 10px 10px 0;
@@ -82,6 +87,15 @@
     width: 100%;
   }
 
+  .footer--line {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+  }
+  .footer--full {
+    height: 315px;
+  }
+
   .footer--data-icons {
     justify-content: center;
     gap: 1rem;
@@ -93,5 +107,14 @@
     grid-template-columns: repeat(1, 1fr);
     margin: unset;
     max-width: 100%;
+    gap: 10px;
+  }
+
+  .footer--sub-title {
+    padding-bottom: 0.5rem;
+  }
+
+  .footer--full {
+    height: 420px;
   }
 }

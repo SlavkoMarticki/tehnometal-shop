@@ -3,20 +3,19 @@ import { useLoader, usePageTitle } from '../../../hooks';
 import './subCategories.css';
 import useStore from '../../../hooks/useStore';
 import { observer } from 'mobx-react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { IoMdArrowBack } from 'react-icons/io';
+import { Zoom } from 'react-reveal';
 
 export default observer(function SubCategoriesPage(): React.ReactElement {
-  usePageTitle('SubCategories');
+  const { state } = useLocation();
+  usePageTitle(state.toUpperCase());
+
   const navigate = useNavigate();
+
   const { categoryId } = useParams();
   const {
-    categoriesStore: {
-      getSubCategories,
-      subCategories,
-      setSubCategories,
-      activeCategory
-    }
+    categoriesStore: { getSubCategories, subCategories, setSubCategories }
   } = useStore();
 
   const { setIsLoading } = useLoader();
@@ -52,9 +51,7 @@ export default observer(function SubCategoriesPage(): React.ReactElement {
                 }}
                 className='cursor-pointer'
               />
-              {activeCategory != null
-                ? activeCategory[0]?.data?.name
-                : 'Category'}
+              {state}
             </h1>
             <h3 className='s-cat--sub__title'>
               Choose one of our subcategories:
@@ -91,20 +88,22 @@ const SubCategoryCard = observer(function SubCategoryCard(
 ): React.ReactElement {
   const { imgUrl, id, name, catId } = props;
   return (
-    <div className='card--item'>
-      <Link
-        to={`/categories/${catId}/${id}`}
-        state={name}
-      >
-        <img
-          className='slider--img card--item-img'
-          src={imgUrl}
-          alt={`category-img${id}`}
-        />
-        <div className='slider--middle'>
-          <div className='slider--middle-txt'>{name}</div>
-        </div>
-      </Link>
-    </div>
+    <Zoom bottom>
+      <div className='card--item'>
+        <Link
+          to={`/categories/${catId}/${id}`}
+          state={name}
+        >
+          <img
+            className='slider--img card--item-img'
+            src={imgUrl}
+            alt={`category-img${id}`}
+          />
+          <div className='slider--middle'>
+            <div className='slider--middle-txt'>{name}</div>
+          </div>
+        </Link>
+      </div>
+    </Zoom>
   );
 });
