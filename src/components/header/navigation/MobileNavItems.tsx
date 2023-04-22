@@ -6,7 +6,7 @@ import {
   RiShoppingCart2Fill,
   RiShoppingCart2Line
 } from 'react-icons/ri';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import NonAuthNavItem from './NonAuthNavItem';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { CiSearch } from 'react-icons/ci';
@@ -188,10 +188,12 @@ export default function MobileNavItems(
             }}
           >
             <AuthNavItem>
-              <HoverableIcon
-                regularIcon={<AiOutlineHeart />}
-                hoverIcon={<AiFillHeart />}
-              />
+              <Link to='/favorites'>
+                <HoverableIcon
+                  regularIcon={<AiOutlineHeart />}
+                  hoverIcon={<AiFillHeart />}
+                />
+              </Link>
             </AuthNavItem>
           </li>
         </ul>

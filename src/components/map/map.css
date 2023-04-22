@@ -24,6 +24,10 @@
   color: #ffffff;
 }
 
+.leaflet-container {
+  z-index: 10;
+}
+
 @media screen and (max-width: 1100px) {
   .homepage--map {
     flex-direction: column;

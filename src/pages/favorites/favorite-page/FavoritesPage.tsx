@@ -27,7 +27,9 @@ export default observer(function FavoritesPage(): React.ReactElement {
       getFavoriteProductsByUser,
       setActiveProdId,
       activeProdId
-    }
+    },
+
+    favoritesStore: { isEmpty, setIsEmpty }
   } = useStore();
   const { isLoading, setIsLoading } = useLoader();
   const { showErrorPopup } = useNotification();
@@ -46,6 +48,8 @@ export default observer(function FavoritesPage(): React.ReactElement {
           if (response.success) {
             setFavoritesList(response.data);
           }
+        } else {
+          setIsEmpty(true);
         }
         setIsLoading(false);
       } catch (error) {
@@ -66,10 +70,13 @@ export default observer(function FavoritesPage(): React.ReactElement {
     const newFavoritesList = favoritesList.filter(
       (item: any) => prodId !== item.prodId
     );
+    if (newFavoritesList.length === 0) {
+      setIsEmpty(true);
+    }
     setFavoritesList(newFavoritesList);
   };
 
-  if (favoritesList.length === 0 && !isLoading) {
+  if (favoritesList.length === 0 && !isLoading && isEmpty) {
     return <EmptyFavoritePage />;
   }
 

@@ -1,5 +1,5 @@
 .about-us--container {
-  max-width: 90%;
+  max-width: 80%;
   width: 100%;
   margin: auto;
 }
@@ -14,7 +14,7 @@
 .about-us--about,
 .about--us-location {
   display: grid;
-  grid-template-columns: 400px calc(70% - 3rem);
+  grid-template-columns: 300px calc(70% - 3rem);
   position: relative;
   gap: 3rem;
 }
@@ -46,30 +46,25 @@
 .about-us--title-main {
   font-style: normal;
   font-weight: 200;
-  font-size: 35px;
-  line-height: 48px;
+  font-size: clamp(1.375rem, 0.7917rem + 1.1111vw, 2.125rem);
   color: #ffffff;
 }
 
 .about-us--title-secondary {
   font-weight: 200;
-  font-size: 30px;
-  line-height: 42px;
+  font-size: clamp(1.125rem, 0.6389rem + 0.9259vw, 1.75rem);
 
   color: #ffffff;
 }
 
 .about-us--content-block {
   font-weight: 200;
-  font-size: 20px;
-  line-height: 30px;
+  font-size: clamp(0.875rem, 0.3889rem + 0.9259vw, 1.5rem);
   color: #ffffff;
 }
 
 .about-us--location-map-title {
   font-weight: 200;
-  font-size: 40px;
-  line-height: 48px;
   color: #ffffff;
   padding-bottom: 2rem;
 }

@@ -13,9 +13,10 @@ const Map = ({ className }: { className?: string }): React.ReactElement => {
     const zoom = 14;
     const map = L.map(mapRef.current as HTMLDivElement).setView(center, zoom);
 
-
     // Create tile layer and add to map
-    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZHJhZ2FuNyIsImEiOiJjbGc4Zmg5cWIwZXg5M210Mzl1bm9ydG84In0.9Dv9ooQFfLuYuVzWiaAzRA').addTo(map);
+    L.tileLayer(
+      'https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZHJhZ2FuNyIsImEiOiJjbGc4Zmg5cWIwZXg5M210Mzl1bm9ydG84In0.9Dv9ooQFfLuYuVzWiaAzRA'
+    ).addTo(map);
 
     const myIcon = L.icon({
       iconUrl: Marker
@@ -34,7 +35,7 @@ const Map = ({ className }: { className?: string }): React.ReactElement => {
     <div
       ref={mapRef}
       className={className}
-      style={{ height: '400px' }}
+      style={{ height: '400px', zIndex: '10px' }}
     />
   );
 };
