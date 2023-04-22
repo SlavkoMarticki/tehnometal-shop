@@ -1,0 +1,48 @@
+.homepage--discount-widget {
+  padding-bottom: 10rem;
+  position: relative;
+}
+.homepage--discount-container {
+  max-width: 85%;
+  width: 100%;
+  border-radius: 10px;
+  height: 150px;
+  margin: auto;
+  padding: 5rem 0;
+  background: url('https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.widget--content {
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  padding-right: 2rem;
+}
+.widget--content > h1 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 37px;
+  letter-spacing: 1px;
+}
+
+.widget--content > p {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 49px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.widget--content > p > span {
+  padding-top: 10px;
+}

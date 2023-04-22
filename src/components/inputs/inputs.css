@@ -1,0 +1,126 @@
+.user-icon {
+  background: url('../../common/assets/input-icons/user.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.input-group {
+  position: relative;
+}
+
+.form--icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.pass-icon {
+  background: url('../../common/assets/input-icons/pass-icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.calendar-icon {
+  background: url('../../common/assets/input-icons/calendar-icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.email-icon {
+  background: url('../../common/assets/input-icons/email-icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.customized-error-field-message {
+  position: absolute;
+  padding: 5px;
+  font-size: 10px;
+  color: red;
+  letter-spacing: 1px;
+  z-index: -1;
+}
+
+.form--input.input--has-error {
+  position: relative;
+  width: 300px;
+  background: transparent;
+  color: red;
+  border: none;
+  border-bottom: 1px solid red;
+  border-radius: 4px;
+  letter-spacing: 0.7px;
+}
+
+.form--input.input--has-error::placeholder {
+  color: red;
+}
+
+.form--input.input--has-error:focus-visible {
+  outline: 1px solid red;
+}
+
+.input--info-icon {
+  position: absolute;
+  color: rgb(202, 202, 202);
+  font-size: 15px;
+  top: 50%;
+  right: 0;
+  transform: translate(0%, -40%);
+  z-index: 100;
+}
+
+.info--text-drop {
+  content: '';
+  position: aboslute;
+  padding: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(28, 58, 148);
+  background-color: white;
+  border-radius: 4px;
+  z-index: 101;
+  bottom: 18px;
+  padding: 10px;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+span[data-title]:hover::before {
+  content: attr(data-title);
+  position: absolute;
+  text-align: center;
+  padding: 4px;
+  font-size: 14px;
+  color: #415599;
+  background-color: white;
+  border-radius: 4px;
+  z-index: 1;
+  width: 200px;
+  right: 0;
+  padding: 10px;
+}
+
+span[data-title]:hover::after {
+  content: attr(data-title);
+  position: absolute;
+  text-align: center;
+  padding: 4px;
+  font-size: 14px;
+  color: #415599;
+  background-color: white;
+  border-radius: 4px;
+  z-index: 10;
+  width: 200px;
+  right: 0;
+  padding: 10px;
+  display: none;
+}
+
+input::placeholder {
+  position: absolute;
+  z-index: -1;
+}

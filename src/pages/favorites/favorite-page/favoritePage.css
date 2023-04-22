@@ -1,0 +1,157 @@
+.product {
+  border-radius: 10px;
+  background: #0c2a45;
+  height: 160px;
+  position: relative;
+  border: 1px solid #fff;
+}
+
+.product-hov-ef {
+  transform: translate(-10px, -10px);
+  transition: transform 0.2s;
+  background: #0c2a45;
+  border-radius: 10px;
+  width: 350px;
+  border: 1px solid #1b5e99;
+}
+.product-hov-ef:hover {
+  transform: translate(0, 0);
+}
+
+.product-hov-ef::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+}
+
+.product--item {
+  width: 350px;
+  gap: 10px;
+  line-break: anywhere;
+}
+
+.product--img {
+  flex: 0 0 40%;
+}
+
+.product--img-side {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.product--content {
+  padding: 10px;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.product--title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  line-height: 29px;
+  color: #ffffff;
+  width: 170px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.product--stars {
+  width: 100%;
+  margin: unset;
+  position: relative;
+  top: -10px;
+}
+
+.product--price,
+.product--cart {
+  color: white;
+}
+.product--price {
+  font-size: 16px;
+  position: relative;
+  bottom: -5px;
+  font-weight: 600;
+}
+
+.product--price > span {
+  font-size: 10px;
+}
+
+.product--cart {
+  font-size: 28px;
+}
+
+.r-10 {
+  right: 10px;
+}
+
+.product--group {
+  gap: 30px;
+}
+
+.pad-b-2rem {
+  padding-bottom: 4rem;
+}
+
+.favourite--empty {
+  min-height: 600px;
+  gap: 2rem;
+}
+
+/* .favourite--empty-icon {
+  font-size: 200px;
+  line-height: 200px;
+  color: white;
+  font-weight: 500;
+} */
+
+.favourite--empty-text {
+  letter-spacing: 3px;
+  font-weight: 500;
+  z-index: 2;
+  color: white;
+}
+
+.favourite--btn {
+  width: 200px;
+  height: 70px;
+  background: #113f67;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  position: relative;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.favourite--empty-photo {
+  height: 400px;
+  width: auto;
+}
+
+@media screen and (max-width: 450px) {
+  .product--item {
+    width: 270px;
+    gap: 10px;
+    line-break: anywhere;
+  }
+
+  .product--title {
+    max-width: 70%;
+  }
+}
