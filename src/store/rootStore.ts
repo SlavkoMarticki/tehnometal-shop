@@ -23,9 +23,9 @@ export class RootStore {
     this.loadingStore = new LoadingStore();
     this.userStore = new UserStore(this);
     this.notificationStore = new NotificationStore();
-    this.cartStore = new CartStore(this);
     this.categoriesStore = new CategoriesStore(this);
     this.productStore = new ProductStore(this);
+    this.cartStore = new CartStore(this);
     this.paginationStore = new PaginationStore(this);
     this.searchStore = new SearchStore(this);
     this.favoritesStore = new FavoritesStore(this);

@@ -8,6 +8,10 @@ export class SearchStore {
   rootStore: RootStore;
   activeProd: any = null;
   isEmpty: boolean = false;
+  page: number = 1;
+  pageSize: number = 10;
+  totalCount: number = 0;
+  paginatedList: any[] = [];
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -16,7 +20,13 @@ export class SearchStore {
       searchResults: observable,
       activeProd: observable,
       isEmpty: observable,
+      page: observable,
+      pageSize: observable,
+      totalCount: observable,
+      paginatedList: observable,
       setIsEmpty: action,
+      setPaginatedList: action,
+      setPage: action,
       setSearchQuery: action,
       setSearchResultsData: action,
       setActiveProd: action,
@@ -25,8 +35,22 @@ export class SearchStore {
     this.onInitialize();
   }
 
+  setPaginatedList = (value: any): void => {
+    this.paginatedList = value;
+  };
+
   setIsEmpty = (value: boolean): void => {
     this.isEmpty = value;
+  };
+
+  setPage = (page: number): void => {
+    const startIndex = (page - 1) * 10;
+    let endIndex = startIndex + 10;
+    if (endIndex > this.searchResults.length) {
+      endIndex = this.searchResults.length;
+    }
+    const paginatedList = this.searchResults.slice(startIndex, endIndex);
+    this.setPaginatedList(paginatedList);
   };
 
   onInitialize = (): void => {
@@ -67,6 +91,7 @@ export class SearchStore {
         );
       });
       this.setSearchResultsData(response.hits);
+      this.setPage(1);
       return response.hits;
     } catch (error) {
       console.log(error);

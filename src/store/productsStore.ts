@@ -107,8 +107,8 @@ export class ProductStore {
         }
       });
 
-      if (this.rootStore.searchStore.searchResults != null) {
-        const data: any = this.rootStore.searchStore.searchResults.map(
+      if (this.rootStore.searchStore.paginatedList != null) {
+        const data: any = this.rootStore.searchStore.paginatedList.map(
           (item: any, index: number) => {
             if (item.prodId === prodId) {
               return {
@@ -120,7 +120,7 @@ export class ProductStore {
             }
           }
         );
-        this.rootStore.searchStore.setSearchResultsData(data);
+        this.rootStore.searchStore.setPaginatedList(data);
       }
 
       await this.rootStore.userStore.updateUserFavoriteList(

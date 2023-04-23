@@ -5,6 +5,7 @@ import { HiMinus, HiPlus } from 'react-icons/hi';
 import useStore from '../../../hooks/useStore';
 import { useMediaQuery } from '@material-ui/core';
 import { observer } from 'mobx-react';
+import { calculateReducedPrice } from '../../../utils/priceFormatter';
 interface ICartItemProps {
   imgUrl: string;
   rating: number;
@@ -16,6 +17,7 @@ interface ICartItemProps {
   subCatId: string;
   prodId: string;
   id: string;
+  actionProcent: number;
 }
 const CartItem = observer(function CartItem(
   props: ICartItemProps
@@ -31,7 +33,8 @@ const CartItem = observer(function CartItem(
     totalPrice,
     subCatId,
     prodId,
-    id
+    id,
+    actionProcent
   } = props;
   const {
     cartStore: { checkItemAvailability, removeFromCart, decreaseQuantity }
@@ -99,7 +102,10 @@ const CartItem = observer(function CartItem(
         </div>
         <div className='cart--item-prod-price'>
           <p className='cart--price'>
-            {formatPriceNum(price)} <span>{currency}</span>
+            {actionProcent > 0
+              ? calculateReducedPrice(price, actionProcent)
+              : formatPriceNum(price)}
+            <span>{currency}</span>
           </p>
         </div>
         <div className='cart--item-total-price'>

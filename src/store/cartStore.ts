@@ -80,7 +80,11 @@ export class CartStore {
     const existingItemIndex = this.cart.findIndex((i: any) => i.id === item.id);
     if (existingItemIndex === -1) {
       item.quantity = 1;
-      item.prodTotalPrice = item.price;
+      if (item.actionProcent > 0) {
+        item.prodTotalPrice = item.price * (1 - item.actionProcent / 100);
+      } else {
+        item.prodTotalPrice = item.price;
+      }
       item.prodId = id;
       this.cart.push(item);
     } else {

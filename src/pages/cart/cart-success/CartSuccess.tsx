@@ -32,13 +32,7 @@ export default observer(function CartSuccess(): React.ReactElement | null {
   const navigate = useNavigate();
   const { setIsLoading } = useLoader();
   const {
-    cartStore: {
-      savePurchaseOnUser,
-      findIfOrderAlreadyExists,
-      clearCart,
-      totalCount,
-      totalPrice
-    },
+    cartStore: { savePurchaseOnUser, findIfOrderAlreadyExists, clearCart },
     userStore: { getUserById }
   } = useStore();
 
@@ -64,8 +58,8 @@ export default observer(function CartSuccess(): React.ReactElement | null {
         );
         const data = await response.data;
         const additionalData = {
-          purchaseQuantity: totalCount,
-          purchasePrice: totalPrice
+          purchaseQuantity: 1,
+          purchasePrice: data.amount
         };
 
         // if purchase is successful, remove cart from store
@@ -107,7 +101,7 @@ export default observer(function CartSuccess(): React.ReactElement | null {
         } else {
           if (user != null && typeof user !== 'string') {
             // save purchase info
-            savePurchaseOnUser(data, data.id, additionalData);
+            await savePurchaseOnUser(data, data.id, additionalData);
           } else {
             sendOrderConfirmationEmail(emailInfo);
             navigate('/', { replace: true });

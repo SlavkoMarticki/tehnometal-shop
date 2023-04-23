@@ -49,6 +49,7 @@ export default observer(function CartPage(): React.ReactElement {
                     rating={c.rating}
                     quantity={c.quantity}
                     price={c.price}
+                    actionProcent={c.actionProcent}
                     currency={c.currency}
                     totalPrice={c.prodTotalPrice}
                     subCatId={c.subCategoryId}

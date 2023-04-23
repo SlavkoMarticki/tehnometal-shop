@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useLoader } from '../../../hooks';
 import { formatPriceNum } from '../../../utils';
 import { FavIcon } from '../../icons';
+import { calculateReducedPrice } from '../../../utils/priceFormatter';
 
 interface IProductModalProps {
   onClose?: () => void;
@@ -44,6 +45,7 @@ export default observer(function ProductModal(
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div className='products-details__modal'>
       <div className='product--m-container'>
@@ -106,10 +108,28 @@ export default observer(function ProductModal(
                       {prod.description}
                     </p>
                   </div>
-                  <div className='product--m-modal-order flex justify-spaceBetween'>
-                    <div className='product--m-modal-price'>
-                      {formatPriceNum(prod.price)} <span>{prod.currency}</span>
-                    </div>
+                  <div className='product--m-modal-order flex justify-spaceBetween gap-10 '>
+                    {Number(prod.actionProcent) > 0 ? (
+                      <div className='product--m-modal-price flex flex-column '>
+                        <div className='modal-price-action flex gap-10 align-center'>
+                          <span>{formatPriceNum(prod.price)} </span>
+                          <div className='modal-procent'>20%</div>
+                        </div>
+                        <div>
+                          {calculateReducedPrice(
+                            prod.price,
+                            Number(prod.actionProcent)
+                          )}{' '}
+                          <span>{prod.currency}</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className='product--m-modal-price '>
+                        {formatPriceNum(prod.price)}{' '}
+                        <span>{prod.currency}</span>
+                      </div>
+                    )}
+
                     <BiCartAdd
                       className='product--m-cart-icon cart__ef'
                       onClick={(e) => {

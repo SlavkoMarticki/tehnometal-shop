@@ -13,8 +13,6 @@ export default observer(function SearchResultsPage(): React.ReactElement {
   const { searchId } = useParams();
   usePageTitle(searchId!.toUpperCase() ?? 'SEARCH');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
-  const [paginatedList, setPaginatedList] = useState<any>([]);
   const { setIsLoading } = useLoader();
   const { showErrorPopup } = useNotification();
 
@@ -27,7 +25,10 @@ export default observer(function SearchResultsPage(): React.ReactElement {
       searchQuery,
       setSearchResultsData,
       setIsEmpty,
-      isEmpty
+      isEmpty,
+      page,
+      setPage,
+      paginatedList
     },
     productStore: { setActiveProdId }
   } = useStore();
@@ -43,13 +44,6 @@ export default observer(function SearchResultsPage(): React.ReactElement {
         } else {
           setIsEmpty(true);
         }
-        const startIndex = (page - 1) * 10;
-        let endIndex = startIndex + 10;
-        if (endIndex > response.length) {
-          endIndex = response.length;
-        }
-        setPaginatedList(response.slice(startIndex, endIndex));
-
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -65,15 +59,6 @@ export default observer(function SearchResultsPage(): React.ReactElement {
 
     /* eslint-disable react-hooks/exhaustive-deps */
   }, [searchId]);
-
-  useEffect(() => {
-    const startIndex = (page - 1) * 10;
-    let endIndex = startIndex + 10;
-    if (endIndex > searchResults.length) {
-      endIndex = searchResults.length;
-    }
-    setPaginatedList(searchResults.slice(startIndex, endIndex));
-  }, [page]);
 
   const handleChange = (event: any, value: number): void => {
     setPage(value);
@@ -114,6 +99,7 @@ export default observer(function SearchResultsPage(): React.ReactElement {
                     onModalToggle={() => {
                       setIsModalOpen(true);
                     }}
+                    actionProcent={prod.actionProcent}
                   />
                 </>
               );

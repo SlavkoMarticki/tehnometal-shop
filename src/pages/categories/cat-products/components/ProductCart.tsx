@@ -3,6 +3,7 @@ import useStore from '../../../../hooks/useStore';
 import { FavIcon, StarsDisplay } from '../../../../components';
 import { formatPriceNum } from '../../../../utils';
 import { BiCartAdd } from 'react-icons/bi';
+import { calculateReducedPrice } from '../../../../utils/priceFormatter';
 
 interface IProductCardProps {
   imgUrl: string;
@@ -15,6 +16,7 @@ interface IProductCardProps {
   prodId: string;
   subCatId: string;
   isFavorite: boolean;
+  actionProcent: number;
 }
 
 export const ProductCard = observer(function ProductCard(
@@ -35,7 +37,8 @@ export const ProductCard = observer(function ProductCard(
     onProductSelect,
     prodId,
     subCatId,
-    isFavorite
+    isFavorite,
+    actionProcent
   } = props;
   return (
     <div className='card--item-wrap'>
@@ -62,6 +65,11 @@ export const ProductCard = observer(function ProductCard(
                 src={imgUrl}
                 alt={`img-url${imgUrl}`}
               />
+              {actionProcent > 0 && (
+                <div className='product--procent-wrap'>
+                  <p>{actionProcent}</p> <span>%</span>
+                </div>
+              )}
             </div>
             <div className='flex flex-column product--content'>
               <h2 className='product--title'>{name}</h2>
@@ -70,9 +78,21 @@ export const ProductCard = observer(function ProductCard(
                 starsNum={numOfStars ?? 4}
               />
               <div className='flex justify-spaceBetween align-center'>
-                <p className='product--price'>
-                  {formatPriceNum(price)} <span>{currency}</span>
-                </p>
+                {actionProcent > 0 ? (
+                  <div className='flex flex-column'>
+                    <p className='product--price product--price__real'>
+                      {formatPriceNum(price)} <span>{currency}</span>
+                    </p>
+                    <p className='product--price product--price__calculated'>
+                      {calculateReducedPrice(price, actionProcent)}{' '}
+                      <span>{currency}</span>
+                    </p>
+                  </div>
+                ) : (
+                  <p className='product--price'>
+                    {formatPriceNum(price)} <span>{currency}</span>
+                  </p>
+                )}
               </div>
             </div>
           </div>

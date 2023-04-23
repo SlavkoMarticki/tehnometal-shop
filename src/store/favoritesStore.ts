@@ -1,6 +1,5 @@
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { RootStore } from './rootStore';
-import { transferObjectIntoArray } from '../utils';
 
 export class FavoritesStore {
   rootStore: RootStore;

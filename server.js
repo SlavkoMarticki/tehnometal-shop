@@ -1,9 +1,8 @@
 const express = require('express')
 const cors = require('cors')
+require('dotenv').config()
 const stripe = require('stripe')("sk_test_51KG44FAmDHS28oTWy5kLCh1sICMAQkqH91wX0VQI2EiPDbu06R2PjMwecK2pKgqZa9IvjIDj1Lbv4v6eIINSykqB00XK1RTDRs")
 const app = express()
-const bodyParser = require('body-parser');
-const uuid = require("uuid");
 
 app.use(cors())
 app.use(express.json())

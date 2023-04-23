@@ -104,6 +104,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
                       onModalToggle={() => {
                         setIsModalOpen(true);
                       }}
+                      actionProcent={prod.data.actionProcent}
                     />
                   </>
                 );

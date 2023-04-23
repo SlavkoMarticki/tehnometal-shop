@@ -2,6 +2,7 @@ import { BiCartAdd } from 'react-icons/bi';
 import { FavIcon, StarsDisplay } from '../../../../components';
 import useStore from '../../../../hooks/useStore';
 import { formatPriceNum } from '../../../../utils';
+import { calculateReducedPrice } from '../../../../utils/priceFormatter';
 
 interface IFavoriteProductItemProps {
   isFavorite: boolean;
@@ -12,6 +13,7 @@ interface IFavoriteProductItemProps {
   currency: number;
   subCatId: string;
   prodId: string;
+  actionProcent: number;
   handleCurrentFavoriteState: (item: string) => void;
   onProductSelect: () => void;
   onModalToggle: () => void;
@@ -29,6 +31,7 @@ export default function FavoriteProductItem(
     priceNum,
     currency,
     subCatId,
+    actionProcent,
     prodId,
     handleCurrentFavoriteState,
     onModalToggle,
@@ -67,6 +70,11 @@ export default function FavoriteProductItem(
                 src={imgUrl}
                 alt={`img-url${imgUrl}`}
               />
+              {actionProcent > 0 && (
+                <div className='product--procent-wrap'>
+                  <p>{actionProcent}</p> <span>%</span>
+                </div>
+              )}
             </div>
             <div className='flex flex-column product--content'>
               <h2 className='product--title'>{productTitle}</h2>
@@ -75,9 +83,21 @@ export default function FavoriteProductItem(
                 starsNum={rating ?? 4}
               />
               <div className='flex justify-spaceBetween align-center'>
-                <p className='product--price'>
-                  {formatPriceNum(priceNum)} <span>{currency}</span>
-                </p>
+                {actionProcent > 0 ? (
+                  <div className='flex flex-column'>
+                    <p className='product--price product--price__real'>
+                      {formatPriceNum(priceNum)} <span>{currency}</span>
+                    </p>
+                    <p className='product--price product--price__calculated'>
+                      {calculateReducedPrice(priceNum, actionProcent)}{' '}
+                      <span>{currency}</span>
+                    </p>
+                  </div>
+                ) : (
+                  <p className='product--price'>
+                    {formatPriceNum(priceNum)} <span>{currency}</span>
+                  </p>
+                )}
               </div>
             </div>
           </div>

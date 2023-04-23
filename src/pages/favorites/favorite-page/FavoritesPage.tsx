@@ -100,6 +100,7 @@ export default observer(function FavoritesPage(): React.ReactElement {
                   rating={item.rating}
                   subCatId={item.subCategoryId}
                   prodId={item.prodId}
+                  actionProcent={item.actionProcent}
                   handleCurrentFavoriteState={handleCurrentFavoriteState}
                   onProductSelect={() => {
                     setActiveProdId(item.prodId);
