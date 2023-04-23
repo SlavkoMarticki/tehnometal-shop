@@ -14,13 +14,13 @@ export const newsData = [
   {
     src: 'https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
     title: 'Pliers Discount! ',
-    text: 'Grab your discount for STIHL chainsaws till 5th April!',
+    text: 'In next 10 days discount of 10% for all pliers',
     date: '22.03.2023- 05.04.2023.'
   },
   {
     src: 'https://images.unsplash.com/photo-1515433868209-994b50c7e2f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
     title: 'Chainsaw Discount!! ',
-    text: 'In next 10 days discount of 10% for all pliers',
+    text: 'Grab your discount for STIHL chainsaws till 5th April!',
     date: '22.03.2023- 04.04.2023.'
   },
   {
@@ -49,8 +49,8 @@ export const newsData = [
   },
   {
     src: 'https://images.thdstatic.com/productImages/10bfba99-4099-48cd-8911-a5889fd4eab9/svn/white-vissani-chest-freezers-mdcf7wh-a0_600.jpg',
-    title: 'Temperatures may be rising, but our prices are stil falling.',
-    text: 'All BEKO freezers on discount up to 15%',
+    title: "Don't miss this amaizing offer!!!",
+    text: 'Temperatures may be rising, but our prices are stil falling. All BEKO freezers on discount up to 15%',
     date: '28.04.2023. - 07.05.2023.'
   },
   {

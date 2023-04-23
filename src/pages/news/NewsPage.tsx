@@ -41,7 +41,9 @@ export default function NewsPage(): React.ReactElement {
                     src={n.src}
                     alt='img'
                   />
-                  <h1 className='news--content-title'>{n.title}</h1>
+                  <div className='news--title-container'>
+                    <h1 className='news--content-title'>{n.title}</h1>
+                  </div>
                   <div className='news--content'>
                     <div className='news--middle'>
                       <div className='news--middle-txt'>{n.text}</div>
