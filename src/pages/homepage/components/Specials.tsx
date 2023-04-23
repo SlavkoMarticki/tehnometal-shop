@@ -6,10 +6,11 @@ import { useMediaQuery } from '../../../hooks';
 import classNames from 'classnames';
 import './styles/specials.css';
 import { Fade } from 'react-reveal';
+import { useNavigate } from 'react-router-dom';
 
 export default function Specials(): React.ReactElement {
   const isTabletViewActive = useMediaQuery('(min-width: 1424px)');
-
+  const navigate = useNavigate();
   const specialsVerticalClassNames = classNames('flex specials--card-item', {
     'flex-column': !isTabletViewActive
   });
@@ -27,7 +28,14 @@ export default function Specials(): React.ReactElement {
           delay={500}
           duration={1000}
         >
-          <div className='specials--card specials--item-one'>
+          <div
+            className='specials--card specials--item-one'
+            onClick={() => {
+              navigate('/categories/-NSCE2HTSHLGGkC-OMQX', {
+                state: 'Tools'
+              });
+            }}
+          >
             <div className='specials--vector-up'></div>
             <div className='flex flex-column specials--card-item'>
               <div className='specials--item-img'>
@@ -50,7 +58,14 @@ export default function Specials(): React.ReactElement {
           delay={500}
           duration={1000}
         >
-          <div className='specials--card specials--item-two'>
+          <div
+            className='specials--card specials--item-two'
+            onClick={() => {
+              navigate('/categories/-NSCE1hOhWyRWUvmSk7O', {
+                state: 'Construction Equipment'
+              });
+            }}
+          >
             <div className='specials--vector-down'></div>
             <div className={specialsVerticalClassNames}>
               <div className='specials--item-content'>
@@ -73,7 +88,14 @@ export default function Specials(): React.ReactElement {
           duration={1000}
           delay={500}
         >
-          <div className='specials--card specials--item-three'>
+          <div
+            className='specials--card specials--item-three'
+            onClick={() => {
+              navigate('/categories/-NSCE12-HLJY6C-fKziU', {
+                state: 'appliances'
+              });
+            }}
+          >
             <div className='specials--vector-up'></div>
             <div className='flex flex-column specials--card-item'>
               <div className='specials--item-img'>
@@ -93,7 +115,14 @@ export default function Specials(): React.ReactElement {
           delay={500}
           duration={1000}
         >
-          <div className='specials--card specials--item-four'>
+          <div
+            className='specials--card specials--item-four'
+            onClick={() => {
+              navigate('/categories/-NSCE2HTSHLGGkC-OMQX', {
+                state: 'Tools'
+              });
+            }}
+          >
             <div className='specials--vector-down'></div>
             <div className={specialsVerticalClassNames}>
               <div className='specials--item-content'>

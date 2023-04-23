@@ -2,8 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { Button } from '../../../components';
 import { CiPercent } from 'react-icons/ci';
-import "./styles/slideshow.css";
-import { images } from "../../../common"
+import './styles/slideshow.css';
+import { images } from '../../../common';
 
 function Slideshow(): React.ReactElement {
   const [index, setIndex] = React.useState(0);
@@ -59,7 +59,9 @@ function Slideshow(): React.ReactElement {
         <Button
           className='btn btn--slideshow'
           onClick={() => {
-            navigate('/products');
+            navigate('/categories/-NSCE12-HLJY6C-fKziU', {
+              state: 'appliances'
+            });
           }}
         >
           See details...
@@ -69,8 +71,9 @@ function Slideshow(): React.ReactElement {
         {images.map((_, idx) => (
           <div
             key={idx}
-            className={`slideshow--dot${index === idx ? ' slideshow--dot-active' : ''
-              }`}
+            className={`slideshow--dot${
+              index === idx ? ' slideshow--dot-active' : ''
+            }`}
             onClick={() => {
               setIndex(idx);
             }}
