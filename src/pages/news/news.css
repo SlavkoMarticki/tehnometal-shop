@@ -87,6 +87,7 @@
   font-weight: 500;
   letter-spacing: 0.6px;
   padding: 5px;
+  padding-right: 10px;
 }
 
 .news--card.news--content-title:hover {
