@@ -18,13 +18,17 @@ const Map = ({ className }: { className?: string }): React.ReactElement => {
       'https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZHJhZ2FuNyIsImEiOiJjbGc4Zmg5cWIwZXg5M210Mzl1bm9ydG84In0.9Dv9ooQFfLuYuVzWiaAzRA'
     ).addTo(map);
 
-    const myIcon = L.icon({
-      iconUrl: Marker
-      // ...
+    // Add marker on the map
+    // L.marker(center /* { icon: myIcon, bubblingMouseEvents: true } */).addTo(
+    //   map
+    // );
+    var myIcon = L.icon({
+      iconUrl: Marker,
+      iconSize: [30, 41],
+      iconAnchor: [12, 41]
     });
 
-    // Add marker on the map
-    L.marker(center, { icon: myIcon, bubblingMouseEvents: true }).addTo(map);
+    L.marker(center, { icon: myIcon }).addTo(map);
 
     return () => {
       map.remove();
