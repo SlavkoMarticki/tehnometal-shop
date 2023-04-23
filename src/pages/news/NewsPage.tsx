@@ -1,19 +1,36 @@
+import { useState, useEffect } from 'react';
 import { usePageTitle } from '../../hooks';
 import './news.css';
 import { newsData } from '../../common/constants/newsData';
+import { Pager } from '../../components';
 
 export default function NewsPage(): React.ReactElement {
   usePageTitle('News');
+  const [paginatedList, setPaginatedList] = useState<any[]>([]);
+  const [page, setPage] = useState<number>(1);
+
+  useEffect(() => {
+    const startIndex = (page - 1) * 6;
+    let endIndex = startIndex + 6;
+    if (endIndex > newsData.length) {
+      endIndex = newsData.length;
+    }
+    setPaginatedList(newsData.slice(startIndex, endIndex));
+  }, [page]);
+
+  const handlePageChange = (e: any, value: number): void => {
+    setPage(value);
+  };
 
   return (
     <div className='categories full'>
       <div className='vector--top-right-bg'></div>
       <div className='vector--btm-left-bg'></div>
       <div className='categories--container'>
-        <div className='flex flex-column categories-wrap'>
+        <div className='flex flex-column categories-wrap remove-gap'>
           <h1 className='news--title'>News</h1>
           <div className='card--group'>
-            {newsData.map((n) => {
+            {paginatedList.map((n) => {
               return (
                 <div
                   key={n.src}
@@ -37,6 +54,13 @@ export default function NewsPage(): React.ReactElement {
                 </div>
               );
             })}
+          </div>
+          <div className='flex justify-center'>
+            <Pager
+              count={Math.ceil(newsData.length / 6)}
+              page={page}
+              handleChange={handlePageChange}
+            />
           </div>
         </div>
       </div>

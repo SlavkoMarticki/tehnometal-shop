@@ -24,6 +24,10 @@
   display: flex;
 }
 
+.slider--img.card--item-img.news--img {
+  opacity: 0.5;
+}
+
 .news--txt-date {
   position: absolute;
   bottom: 0.3rem;
@@ -88,6 +92,10 @@
   letter-spacing: 0.6px;
   padding: 5px;
   padding-right: 10px;
+}
+
+.categories-wrap.remove-gap {
+  gap: unset;
 }
 
 .news--card.news--content-title:hover {
