@@ -102,10 +102,8 @@ const CartItem = observer(function CartItem(
         </div>
         <div className='cart--item-prod-price'>
           <p className='cart--price'>
-            {actionProcent > 0
-              ? calculateReducedPrice(price, actionProcent)
-              : formatPriceNum(price)}
-            <span>{currency}</span>
+            {formatPriceNum(price)}
+            <span> {currency}</span>
           </p>
         </div>
         <div className='cart--item-total-price'>

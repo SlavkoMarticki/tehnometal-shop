@@ -80,11 +80,7 @@ export class CartStore {
     const existingItemIndex = this.cart.findIndex((i: any) => i.id === item.id);
     if (existingItemIndex === -1) {
       item.quantity = 1;
-      if (item.actionProcent > 0) {
-        item.prodTotalPrice = item.price * (1 - item.actionProcent / 100);
-      } else {
-        item.prodTotalPrice = item.price;
-      }
+      item.prodTotalPrice = item.price;
       item.prodId = id;
       this.cart.push(item);
     } else {
@@ -136,7 +132,13 @@ export class CartStore {
         prodId
       );
       if (response !== null && response.stockQuantity > 1) {
-        this.addItem(response, prodId);
+        if (Number(response.actionProcent) > 0) {
+          response.price =
+            response.price * (1 - Number(response.actionProcent) / 100);
+          this.addItem(response, prodId);
+        } else {
+          this.addItem(response, prodId);
+        }
         this.rootStore.notificationStore.showSuccessPopup(
           'Item added in cart.'
         );
@@ -188,6 +190,8 @@ export class CartStore {
         );
       } else {
         currentItem.quantity -= 1;
+        currentItem.prodTotalPrice =
+          currentItem.prodTotalPrice - currentItem.price;
       }
       this.saveCart();
     }
