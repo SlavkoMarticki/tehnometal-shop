@@ -4,9 +4,25 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './cartSuccess.css';
 import { formatPriceNum } from '../../../utils';
 import { Button } from '../../../components';
-import { useAuthUser, usePageTitle } from '../../../hooks';
+import { useAuthUser, useLoader, usePageTitle } from '../../../hooks';
 import useStore from '../../../hooks/useStore';
 import { observer } from 'mobx-react';
+import { sendOrderConfirmationEmail } from '../../../common/email/emailServiceConfig';
+
+interface SendOrderConfirmationEmailParams {
+  email_reply: string;
+  userName: string;
+  totalAmount: number;
+  order_id: string;
+  shippingAddress_city: string;
+  shippingAddress_country: string;
+  shippingAddress_line1: string;
+  shippingAddress_postal: string;
+  billingAddress_city: string;
+  billingAddress_country: string;
+  billingAddress_line1: string;
+  billingAddress_postal: string;
+}
 
 export default observer(function CartSuccess(): React.ReactElement | null {
   usePageTitle('Successful Cart Details');
@@ -14,6 +30,7 @@ export default observer(function CartSuccess(): React.ReactElement | null {
   const location = useLocation();
   const { user } = useAuthUser();
   const navigate = useNavigate();
+  const { setIsLoading } = useLoader();
   const {
     cartStore: {
       savePurchaseOnUser,
@@ -39,11 +56,9 @@ export default observer(function CartSuccess(): React.ReactElement | null {
   const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
-    /* TODO: add loader  */
     const fetchData = async (): Promise<void> => {
-      // TODO: check if entry exits, if exists redirect to home with navigate replace
       try {
-        // TODO: Move this to service
+        setIsLoading(true);
         const response = await axios.get(
           `http://localhost:5000/payment-data?session_id=${sessionId}`
         );
@@ -55,33 +70,57 @@ export default observer(function CartSuccess(): React.ReactElement | null {
 
         // if purchase is successful, remove cart from store
         if (data != null) {
-          await fetch(
-            `${process.env.REACT_APP_BASE_DB_URL!}users/${user!.uid}/cart.json`,
-            {
-              method: 'DELETE'
-            }
-          );
+          if (user?.uid != null) {
+            await fetch(
+              `${process.env.REACT_APP_BASE_DB_URL!}users/${
+                user.uid
+              }/cart.json`,
+              {
+                method: 'DELETE'
+              }
+            );
+          }
           clearCart();
         }
+        const emailInfo: SendOrderConfirmationEmailParams = {
+          order_id: data.id,
+          email_reply: data.email,
+          userName: data.name,
+          totalAmount: data.amount,
+          shippingAddress_city: data.shippingAddress.city,
+          shippingAddress_country: data.shippingAddress.country,
+          shippingAddress_line1: data.shippingAddress.line1,
+          shippingAddress_postal: data.shippingAddress.postal_code,
+          billingAddress_city: data.billingAddress.city,
+          billingAddress_country: data.billingAddress.country,
+          billingAddress_line1: data.billingAddress.line1,
+          billingAddress_postal: data.billingAddress.postal_code
+        };
 
         const isOrderAlreadyPlaced = await findIfOrderAlreadyExists(data.id);
 
         await getUserById();
         // if order already exists in db, redirect to home page
-        if (isOrderAlreadyPlaced.success) {
+
+        if (isOrderAlreadyPlaced?.success) {
           navigate('/', { replace: true });
         } else {
-          if (user !== null) {
+          if (user != null && typeof user !== 'string') {
             // save purchase info
             savePurchaseOnUser(data, data.id, additionalData);
+          } else {
+            sendOrderConfirmationEmail(emailInfo);
+            navigate('/', { replace: true });
           }
         }
+        sendOrderConfirmationEmail(emailInfo);
 
         // save order on user if user is signed in
 
         setPaymentInfo(data);
+        setIsLoading(false);
       } catch (error) {
-        /* TODO: add error handling */
+        setIsLoading(false);
         console.log(error);
         navigate('/cart');
       }
@@ -92,7 +131,7 @@ export default observer(function CartSuccess(): React.ReactElement | null {
   }, []);
 
   if (paymentInfo == null) {
-    return null;
+    return <div className='full'></div>;
   }
 
   const date = new Date(paymentInfo.date);

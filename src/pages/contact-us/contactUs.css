@@ -23,15 +23,14 @@
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  height: 400px;
 }
-
-.contact-us--label {
+contact--us-btn .contact-us--label {
   flex: 0 0 50%;
 }
 
 .contact-us--form {
   flex: 0 0 50%;
+  z-index: 10;
 }
 
 .contact-us--label-wrap {
@@ -64,7 +63,6 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  height: 100%;
 }
 
 .form--input--textarea {
@@ -105,6 +103,10 @@
   border: none;
   cursor: pointer;
   text-transform: uppercase;
+}
+
+.btn-contact-submit {
+  display: flex;
 }
 
 @media screen and (max-width: 840px) {

@@ -1,13 +1,27 @@
 import React from 'react';
 import './contactUs.css';
-import { usePageTitle } from '../../hooks';
+import { useNotification, usePageTitle } from '../../hooks';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormInputField, TextAreaField } from '../../components/inputs';
 import { Button } from '../../components';
+import { sendSupportEmail } from '../../common/email/emailServiceConfig';
 
 export default function ContactUsPage(): React.ReactElement {
   usePageTitle('Contact Us');
-  const methods = useForm({ mode: 'onChange' });
+  const methods = useForm<any>({ mode: 'onChange' });
+
+  const { handleSubmit, reset } = methods;
+
+  const { showSuccessPopup } = useNotification();
+
+  const handleSubmitData = (data: any): void => {
+    sendSupportEmail('#contact-form');
+    reset();
+    showSuccessPopup(
+      "Your message is sent to our support team. We'll be back with you soon."
+    );
+  };
+
   return (
     <div className='full'>
       <div className='vector--top-right-bg'></div>
@@ -27,24 +41,38 @@ export default function ContactUsPage(): React.ReactElement {
           </div>
           <div className='contact-us--form'>
             <FormProvider {...methods}>
-              <FormInputField
-                className='form--input--about '
-                placeholder='EMAIL'
-                name='email'
-              />
-              <TextAreaField
-                className='form--input--textarea'
-                name='message'
-                placeholder='MESSAGE'
-                cols={20}
-                rows={10}
-              />
-              <Button
-                className='contact--us-btn'
-                type='submit'
+              <form
+                onSubmit={handleSubmit(handleSubmitData)}
+                id='contact-form'
+                className='flex flex-column gap-20'
               >
-                Send
-              </Button>
+                <FormInputField
+                  className='form--input--about place'
+                  placeholder='Username'
+                  name='name'
+                />
+                <FormInputField
+                  className='form--input--about place'
+                  placeholder='Your email'
+                  name='send_to'
+                  type='email'
+                />
+                <TextAreaField
+                  className='form--input--textarea'
+                  name='message'
+                  placeholder='MESSAGE'
+                  cols={20}
+                  rows={10}
+                />
+                <div className='btn-contact-submit'>
+                  <Button
+                    className='contact--us-btn'
+                    type='submit'
+                  >
+                    Send
+                  </Button>
+                </div>
+              </form>
             </FormProvider>
           </div>
         </div>

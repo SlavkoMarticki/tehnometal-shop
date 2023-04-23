@@ -55,6 +55,20 @@
   background-color: white;
 }
 
+.checkout-btn {
+  background-color: rgb(61, 241, 121);
+  padding: 10px;
+  border: none;
+  transition: 0.5s ease-out;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.checkout-btn:hover {
+  background-color: rgb(5, 221, 77);
+  transition: 0.5s ease-in;
+}
+
 .finish--cart-details {
   padding: 1rem;
   width: 100%;

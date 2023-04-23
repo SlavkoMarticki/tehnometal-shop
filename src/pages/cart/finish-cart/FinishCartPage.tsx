@@ -1,6 +1,6 @@
 import React from 'react';
 import './finishCart.css';
-import { useAuthUser, usePageTitle } from '../../../hooks';
+import { useAuthUser, useLoader, usePageTitle } from '../../../hooks';
 import { observer } from 'mobx-react';
 import useStore from '../../../hooks/useStore';
 import { formatPriceNum } from '../../../utils';
@@ -8,8 +8,10 @@ import { Button } from '../../../components';
 import { useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
+
 export default observer(function FinishCartPage(): React.ReactElement {
   usePageTitle('Finish Cart');
+  const { setIsLoading } = useLoader();
   const {
     cartStore: { cart, totalPrice }
   } = useStore();
@@ -19,6 +21,7 @@ export default observer(function FinishCartPage(): React.ReactElement {
   );
 
   const handleCheckout = async (): Promise<void> => {
+    setIsLoading(true);
     const lineItems = cart.map((item: any): any => {
       return {
         price_data: {
@@ -49,6 +52,7 @@ export default observer(function FinishCartPage(): React.ReactElement {
 
     const stripe = await stripePromise;
     await stripe!.redirectToCheckout({ sessionId: data.id });
+    setIsLoading(false);
   };
 
   return (
@@ -138,12 +142,12 @@ const SignInOrContinueOrder = ({
           Go order some more!!
         </Button>
         <span className='color-w uppercase'>or</span>
-        <p
-          className='uppercase  cursor-pointer color-w'
+        <Button
+          className='uppercase checkout-btn cursor-pointer color-w'
           onClick={handleCheckout}
         >
           Continue to payment
-        </p>
+        </Button>
       </div>
     );
   }
@@ -162,7 +166,7 @@ const SignInOrContinueOrder = ({
       </Button>
       <span className='color-w uppercase'>Or</span>
       <p
-        className='uppercase color-w'
+        className='uppercase checkout-btn cursor-pointer color-w'
         onClick={handleCheckout}
       >
         Continue without account{' '}

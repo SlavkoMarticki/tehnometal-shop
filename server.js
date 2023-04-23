@@ -37,7 +37,6 @@ app.get('/payment-data', async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
     const paymentIntent = await stripe.paymentIntents.retrieve(session.payment_intent);
-
     const paymentData = {
       amount: paymentIntent.amount / 100, // convert amount from cents to dollars
       date: new Date(paymentIntent.created * 1000), // convert unix timestamp to date
@@ -46,7 +45,8 @@ app.get('/payment-data', async (req, res) => {
       shippingAddress: session.shipping_details.address,
       name: session.shipping_details.name,
       billingAddress: paymentIntent.shipping.address,
-      id: paymentIntent.id
+      id: paymentIntent.id,
+      email: session.customer_details.email
     };
 
     return res.status(200).json(paymentData);
