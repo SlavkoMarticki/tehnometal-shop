@@ -54,7 +54,7 @@ export default observer(function CartSuccess(): React.ReactElement | null {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `http://localhost:5000/payment-data?session_id=${sessionId}`
+          `https://644675f1b39df41ecbcd61ff--tranquil-khapse-27d818.netlify.app/payment-data?session_id=${sessionId}`
         );
         const data = await response.data;
         const additionalData = {
