@@ -1,6 +1,6 @@
 {
   "name": "tehnometal-shop",
-  "version": "1.1.1",
+  "version": "2.0.1",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.4",
