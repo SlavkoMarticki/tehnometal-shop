@@ -35,6 +35,29 @@ app.post('/checkout', async (req, res) => {
     console.log(error)
     return res.status(500).json(error)
   }
+
+
+});
+app.post('/webhooks/stripe', (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  const event = stripe.webhooks.constructEvent(req.body, sig, 'whsec_aFwIdCINi1FU9VBNhXPkMpd82FypxoZJ');
+
+  if (event.type === 'checkout.session.completed') {
+    axios.post('https://6446d68498702c008db11af0--tranquil-khapse-27d818.netlify.app/cart/successful?session_id={CHECKOUT_SESSION_ID}', {
+      message: 'Payment successful'
+    }, {
+      headers: {
+        'Stripe-Signature': sig
+      }
+    }).then(() => {
+      res.status(200).send('OK');
+    }).catch((err) => {
+      console.error(err);
+      res.status(500).send('Error');
+    });
+  } else {
+    res.status(400).send('Invalid event type');
+  }
 });
 
 app.get('/payment-data', async (req, res) => {
