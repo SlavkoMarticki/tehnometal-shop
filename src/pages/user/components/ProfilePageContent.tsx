@@ -18,9 +18,16 @@ export default observer(function ProfilePageContent(
   const [currentList, setCurrentList] = useState<any>([]);
 
   useEffect(() => {
-    const startIndex = (page - 1) * 3;
-    const endIndex = startIndex + 3;
-    setCurrentList(user.orders.slice(startIndex, endIndex));
+    if (user?.orders != null) {
+      const startIndex = (page - 1) * 3;
+      const endIndex = startIndex + 3;
+      setCurrentList(user.orders.slice(startIndex, endIndex));
+    } else {
+      setCurrentList([]);
+    }
+    return () => {
+      setCurrentList([]);
+    };
     /* eslint-disable react-hooks/exhaustive-deps */
   }, [page]);
 
@@ -38,7 +45,7 @@ export default observer(function ProfilePageContent(
                 className='profile--user-pic'
                 src={
                   imageUrl.length === 0
-                    ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'
+                    ? 'https://spraycoatings.co.uk/wp-content/uploads/2019/04/placeholder-profile-pic.png'
                     : imageUrl
                 }
                 alt='profile img'
@@ -66,11 +73,17 @@ export default observer(function ProfilePageContent(
               <div className='profile--user__purchase-info'>
                 <div className='flex gap-20 justify-spaceBetween'>
                   <p className='profile--label'>Money spent: </p>
-                  <h3 className='profile--value'>{user.moneySpent}</h3>
+                  <h3 className='profile--value'>
+                    {user.moneySpent != null ? user.moneySpent : '--'}
+                  </h3>
                 </div>
                 <div className='flex gap-20 justify-spaceBetween'>
                   <p className='profile--label'>Average bill price: </p>
-                  <h3 className='profile--value'>{user.averageBillPrice}</h3>
+                  <h3 className='profile--value'>
+                    {user.averageBillPrice != null
+                      ? user.averageBillPrice
+                      : '--'}
+                  </h3>
                 </div>
               </div>
             </div>
@@ -78,7 +91,7 @@ export default observer(function ProfilePageContent(
           </div>
           <div className='profile--group-item profile--group__purchases'>
             <h1 className='profile--purchase-title'>Previous purchases</h1>
-            {currentList == null ? (
+            {currentList == null || currentList.length === 0 ? (
               <h1 className='flex justify-center align-center no-prev-purchases'>
                 There is no previous purchases
               </h1>
@@ -86,7 +99,6 @@ export default observer(function ProfilePageContent(
               <div className='profile--purchases-wrap'>
                 <div className='profile--purchases-labels'>
                   <h3 className='profile--purchases-label'>Purchase Num</h3>
-                  <h3 className='profile--purchases-label'>Articals Num</h3>
                   <h3 className='profile--purchases-label'>Price</h3>
                   <h3 className='profile--purchases-label'>Info</h3>
                 </div>
@@ -97,15 +109,16 @@ export default observer(function ProfilePageContent(
                         key={order.id}
                         purchaseNum={order.data.id}
                         purchasePrice={order.data.amount}
-                        purchaseQuantity={order.data.purchaseQuantity}
                       />
                     );
                   })}
-                  <Pager
-                    page={1}
-                    count={Math.ceil(user.orders.length / 3)}
-                    handleChange={handlePageChange}
-                  />
+                  {user.orders != null && (
+                    <Pager
+                      page={page}
+                      count={Math.ceil(user.orders.length / 3)}
+                      handleChange={handlePageChange}
+                    />
+                  )}
                 </div>
               </div>
             )}

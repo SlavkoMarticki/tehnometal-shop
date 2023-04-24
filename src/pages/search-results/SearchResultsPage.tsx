@@ -82,26 +82,24 @@ export default observer(function SearchResultsPage(): React.ReactElement {
           <div className='card--group product--group products--grid'>
             {paginatedList.map((prod: any) => {
               return (
-                <>
-                  <ProductCard
-                    key={prod.id}
-                    imgUrl={prod.images[0]}
-                    name={prod.productName}
-                    currency={prod.currency}
-                    price={prod.price}
-                    prodId={prod.prodId}
-                    subCatId={prod.subCategoryId}
-                    onProductSelect={() => {
-                      setActiveProdId(prod.prodId);
-                      setActiveProd(prod);
-                    }}
-                    isFavorite={prod.isFavorite}
-                    onModalToggle={() => {
-                      setIsModalOpen(true);
-                    }}
-                    actionProcent={prod.actionProcent}
-                  />
-                </>
+                <ProductCard
+                  key={prod.id}
+                  imgUrl={prod.images[0]}
+                  name={prod.productName}
+                  currency={prod.currency}
+                  price={prod.price}
+                  prodId={prod.prodId}
+                  subCatId={prod.subCategoryId}
+                  onProductSelect={() => {
+                    setActiveProdId(prod.prodId);
+                    setActiveProd(prod);
+                  }}
+                  isFavorite={prod.isFavorite}
+                  onModalToggle={() => {
+                    setIsModalOpen(true);
+                  }}
+                  actionProcent={prod.actionProcent}
+                />
               );
             })}
           </div>

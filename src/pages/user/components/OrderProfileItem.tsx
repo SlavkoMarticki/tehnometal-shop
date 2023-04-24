@@ -6,19 +6,17 @@ import { ProfileInfoModal } from './ProfileInfoModal';
 
 interface IOrderProfileItemProps {
   purchaseNum: string;
-  purchaseQuantity: number;
   purchasePrice: number;
 }
 
 export const OrderProfileItem = (
   props: IOrderProfileItemProps
 ): React.ReactElement => {
-  const { purchaseNum, purchaseQuantity, purchasePrice } = props;
+  const { purchaseNum, purchasePrice } = props;
   const [isInfoModalOpen, setIsInfoModalOpen] = useState<boolean>(false);
   return (
     <div className='profile--purchases-item'>
       <p className='purchase--num'>{purchaseNum}</p>
-      <p className='purchase--articals-num'>{purchaseQuantity}</p>
       <p className='purchase--articals-price'>
         {formatPriceNum(purchasePrice)} <span>RSD</span>
       </p>

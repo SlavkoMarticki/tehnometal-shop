@@ -3,6 +3,7 @@ interface IData {
   name: string;
   status: string;
   amount: number;
+  date: string;
   paymentMethod: string[];
   billingAddress: IDetails;
   shippingAddress: IDetails;
@@ -24,6 +25,12 @@ export default function ProfileComponent(
   props: IProfileComponentProps
 ): React.ReactElement {
   const { data } = props;
+
+  const date = new Date(data.date);
+  const dateString = `${date.getDate()}/${
+    date.getMonth() + 1
+  }/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+
   return (
     <div className='info--modal'>
       <h1 className='cart--success-title-main uppercase'>
@@ -47,7 +54,7 @@ export default function ProfileComponent(
       </div>
       <div className='cart--success-item flex'>
         <p className='cart--success-label'>Transaction Date: </p>
-        {/*   <p className='cart--success-info'>{dateString}</p> */}
+        <p className='cart--success-info'>{dateString}</p>
       </div>
       <div className='cart--success-item p-1 flex flex-column'>
         <p className='cart--success-label'>Billing Address: </p>

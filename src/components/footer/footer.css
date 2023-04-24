@@ -74,6 +74,41 @@
   color: #a6c3dc;
 }
 
+@media screen and (min-width: 841px) {
+  .footer--data {
+    letter-spacing: 0.6px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+    text-align: center;
+  }
+
+  .footer--data div:first-child {
+    text-align: left;
+  }
+
+  .footer--data div:last-child {
+    text-align: right;
+  }
+
+  .footer--data-item {
+    font-style: normal;
+    font-weight: 500;
+    font-size: clamp(0.75rem, 0.5rem + 0.7143vw, 0.875rem);
+    line-height: 19px;
+    color: #6087a8;
+    padding: 0 10px 10px 0;
+  }
+
+  .footer--data-icons {
+    display: flex;
+    gap: 1rem;
+    justify-content: end;
+  }
+}
 @media screen and (max-width: 840px) {
   .footer--data {
     grid-template-columns: repeat(2, 1fr);

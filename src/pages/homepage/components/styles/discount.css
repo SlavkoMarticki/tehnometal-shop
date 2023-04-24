@@ -15,6 +15,11 @@
   background-repeat: no-repeat;
 }
 
+.discount-home {
+  margin-top: 2rem;
+  border-top-left-radius: 0px !important;
+}
+
 .widget--content {
   position: relative;
   color: white;

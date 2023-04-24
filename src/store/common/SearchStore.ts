@@ -49,6 +49,7 @@ export class SearchStore {
     if (endIndex > this.searchResults.length) {
       endIndex = this.searchResults.length;
     }
+    this.page = page;
     const paginatedList = this.searchResults.slice(startIndex, endIndex);
     this.setPaginatedList(paginatedList);
   };

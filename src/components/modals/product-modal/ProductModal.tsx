@@ -4,7 +4,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { BiCartAdd } from 'react-icons/bi';
 import { observer } from 'mobx-react';
 import useStore from '../../../hooks/useStore';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useLoader } from '../../../hooks';
 import { formatPriceNum } from '../../../utils';
 import { FavIcon } from '../../icons';
@@ -51,7 +51,7 @@ export default observer(function ProductModal(
       <div className='product--m-container'>
         {product.map((prod) => {
           return (
-            <>
+            <Fragment key={activeProdId}>
               <AiOutlineCloseCircle
                 className='exit--modal'
                 onClick={onClose}
@@ -113,7 +113,9 @@ export default observer(function ProductModal(
                       <div className='product--m-modal-price flex flex-column '>
                         <div className='modal-price-action flex gap-10 align-center'>
                           <span>{formatPriceNum(prod.price)} </span>
-                          <div className='modal-procent'>20%</div>
+                          <div className='modal-procent'>
+                            {prod.actionProcent}%
+                          </div>
                         </div>
                         <div>
                           {calculateReducedPrice(
@@ -140,7 +142,7 @@ export default observer(function ProductModal(
                   </div>
                 </div>
               </div>
-            </>
+            </Fragment>
           );
         })}
       </div>

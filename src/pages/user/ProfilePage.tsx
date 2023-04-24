@@ -5,12 +5,12 @@ import { observer } from 'mobx-react';
 import { storage } from '../../common';
 import { listAll, ref, getDownloadURL } from 'firebase/storage';
 import ProfilePageContent from './components/ProfilePageContent';
-import { useLoader } from '../../hooks';
+import { useLoader, usePageTitle } from '../../hooks';
 
 export default observer(function ProfilePage(): React.ReactElement | null {
   const [user, setUser] = useState<any | null>(null);
   const { userStore } = useStore();
-
+  usePageTitle('Profile');
   const [imageUrl, setImageUrl] = useState<string>('');
   const {
     userStore: { getUserById }
@@ -28,7 +28,10 @@ export default observer(function ProfilePage(): React.ReactElement | null {
         const response = await getUserById();
         if (response.success) {
           const date = new Date(response.data.dateOfBirth);
-
+          const imagesListRef = ref(
+            storage,
+            `tehnometal-shop/profile/${response.data.email}`
+          );
           listAll(imagesListRef).then((res: any) => {
             res.items.forEach((item: any) => {
               getDownloadURL(item).then((url: any) => {
@@ -53,6 +56,7 @@ export default observer(function ProfilePage(): React.ReactElement | null {
 
     return () => {
       setUser(null);
+      setImageUrl('');
     };
 
     /* eslint-disable react-hooks/exhaustive-deps */

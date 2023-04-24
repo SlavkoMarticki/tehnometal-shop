@@ -98,6 +98,7 @@
   font-size: clamp(1.25rem, -0.9375rem + 3.5vw, 2.125rem);
   line-height: 25px;
   color: #ffffff;
+  padding: 0 0 2rem 0;
 }
 
 .product--m-content-favorite {
@@ -187,6 +188,7 @@
   }
   .product--m-content-title {
     font-size: 30px;
+    padding: 10px 0 2rem 0;
   }
 
   .product--m-content-group {

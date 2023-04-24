@@ -25,6 +25,9 @@
 
 .card--img {
   width: 100%;
+  max-width: 250px;
+  object-fit: cover;
+  aspect-ratio: 1;
 }
 
 .card--item-img {

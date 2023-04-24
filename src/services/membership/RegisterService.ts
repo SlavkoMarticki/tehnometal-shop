@@ -32,6 +32,11 @@ class RegisterService {
       return new ApiResponse(res.user);
     } catch (error: any) {
       switch (error.code) {
+        case 'auth/email-already-in-use':
+          throw new ErrorResponse({
+            message:
+              'The provided email is already in use by an existing user. Each user must have a unique email.'
+          });
         case 'auth/email-already-exists':
           throw new ErrorResponse({
             message:

@@ -5,7 +5,7 @@ import { User } from '@firebase/auth';
 
 export const AuthContextProvider = ({ children }: any): React.ReactElement => {
   const userFromLS = localStorage.getItem('loginUser');
-  let lsUser = '';
+  let lsUser = null;
   if (typeof userFromLS === 'string') {
     lsUser = JSON.parse(userFromLS);
   }

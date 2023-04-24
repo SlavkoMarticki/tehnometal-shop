@@ -60,21 +60,31 @@ export class UserStore {
 
   doSignOut = async (): Promise<void> => {
     // first save all changes to user object in db
+    try {
+      this.rootStore.loadingStore.setIsLoading(true);
+      const { uid } = this.user;
+      await fetch(
+        `${process.env.REACT_APP_BASE_DB_URL!}users/${uid}/cart.json`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.rootStore.cartStore.cart)
+        }
+      );
 
-    const { uid } = this.user;
-    await fetch(`${process.env.REACT_APP_BASE_DB_URL!}users/${uid}/cart.json`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.rootStore.cartStore.cart)
-    });
-
-    // then sign out user
-    await signInServiceInstance.signOut();
-    this.setUser(null);
-    this.rootStore.favoritesStore.setFavorites([]);
-    this.rootStore.cartStore.clearCart();
+      // then sign out user
+      await signInServiceInstance.signOut();
+      this.setUser(null);
+      this.rootStore.favoritesStore.setFavorites([]);
+      this.rootStore.cartStore.clearCart();
+      this.rootStore.loadingStore.setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      this.rootStore.loadingStore.setIsLoading(false);
+      this.rootStore.notificationStore.showErrorPopup('Something went wrong.');
+    }
   };
 
   // TODO: add types
@@ -82,7 +92,6 @@ export class UserStore {
     const response = await signInServiceInstance.login(data);
     /* eslint-disable-next-line */
     const user = await this.getUserById(response.user.uid);
-    console.log(user);
     if (this.rootStore.cartStore.cart.length === 0 && user.data.cart != null) {
       this.rootStore.cartStore.setCart(user.data.cart);
       sessionStorage.setItem('cart', JSON.stringify(user.data.cart));
@@ -113,27 +122,22 @@ export class UserStore {
 
   // TODO: add types
   register = async (data: any): Promise<any> => {
-    try {
-      const response = await registerServiceInstance.registerUser(data);
-      if (this.rootStore.cartStore.cart.length !== 0) {
-        await fetch(
-          `${process.env.REACT_APP_BASE_DB_URL!}users/${
-            response.data.uid
-          }/cart.json`,
-          {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.rootStore.cartStore.cart)
-          }
-        );
-      }
-      return new ApiResponse(response);
-    } catch (error) {
-      // TODO: add err handling
-      console.log(error);
+    const response = await registerServiceInstance.registerUser(data);
+    if (this.rootStore.cartStore.cart.length !== 0) {
+      await fetch(
+        `${process.env.REACT_APP_BASE_DB_URL!}users/${
+          response.data.uid
+        }/cart.json`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.rootStore.cartStore.cart)
+        }
+      );
     }
+    return new ApiResponse(response);
   };
 
   /* TODO: add types  */

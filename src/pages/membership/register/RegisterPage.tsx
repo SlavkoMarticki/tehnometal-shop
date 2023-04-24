@@ -24,12 +24,11 @@ export default function RegisterPage(): React.ReactElement {
   const methods = useForm<ISignUpFormData>({ mode: 'onChange' });
   const { handleSubmit, watch, reset, control } = methods;
   const navigate = useNavigate();
-  const { showErrorPopup } = useNotification();
+  const { showErrorPopup, showSuccessPopup } = useNotification();
   const { setUser } = useAuthUser();
 
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 16);
-
   const password = useRef({});
   const email = useRef({});
   password.current = watch('password', '');
@@ -44,8 +43,6 @@ export default function RegisterPage(): React.ReactElement {
       'image/*': []
     },
     onDrop: (acceptedFiles) => {
-      console.log('d', acceptedFiles);
-
       setImage(acceptedFiles[0]);
       setImageUpload(
         acceptedFiles.map((file) =>
@@ -89,6 +86,7 @@ export default function RegisterPage(): React.ReactElement {
         uploadFile(res.data.data.email);
         setUser(res.data);
         navigate('/');
+        showSuccessPopup('User successfully created!');
       }
     } catch (error: any) {
       reset();
@@ -149,6 +147,7 @@ export default function RegisterPage(): React.ReactElement {
               placeholder='DATE OF BIRTH'
               icon='form--icon calendar-icon'
               maxDate={maxDate}
+              infoMessage={"User can't be younger than 16."}
             />
             <FormInputField
               name='email'

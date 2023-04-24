@@ -22,7 +22,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 240px;
-  height: calc(342px + 2rem);
+  min-height: calc(342px + 2rem);
   background: #0a2339;
   border-radius: 10px;
   transition: 1s ease;
@@ -36,11 +36,9 @@
 }
 .card--img-wrap {
   width: 85%;
-  height: 100%;
-  max-height: 150px;
   margin: 0 auto;
   margin-top: 2rem;
-  max-width: 200px;
+  max-width: 190px;
 }
 
 .card--favorite {
@@ -58,11 +56,14 @@
   padding: 5px;
 }
 .card--title {
-  width: 100%;
   font-weight: 600;
   font-size: 24px;
   line-height: 29px;
   color: #ffffff;
+  width: 130px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }
 
 .card--stars-wrap {

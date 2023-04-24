@@ -9,7 +9,6 @@ import {
   Specials
 } from './components';
 import './homepage.css';
-import { cardsData } from '../../common';
 import { Fade } from 'react-reveal';
 
 export default function HomePage(): React.ReactElement {
@@ -40,10 +39,7 @@ export default function HomePage(): React.ReactElement {
         <h2 className='slider--title sml--title'>
           Our recommendation for you...
         </h2>
-        <CardsContainer
-          cardsData={cardsData}
-          cardClassName='card--wrap'
-        />
+        <CardsContainer cardClassName='card--wrap' />
       </section>
       <DiscountWidget />
       <section className='homepage--find-us'>
