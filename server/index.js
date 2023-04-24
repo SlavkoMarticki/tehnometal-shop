@@ -27,7 +27,7 @@ app.post('/checkout', async (req, res) => {
         "enabled": true
       },
       success_url: 'https://6446d68498702c008db11af0--tranquil-khapse-27d818.netlify.app/cart/successful?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'https://6446d68498702c008db11af0--tranquil-khapse-27d818.netlify.app/',
+      cancel_url: 'https://6446d68498702c008db11af0--tranquil-khapse-27d818.netlify.app/declined',
     })
 
     return res.status(201).json(session)
