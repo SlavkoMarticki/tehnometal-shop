@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pagination } from '@material-ui/lab';
+import Pagination from '@mui/material/Pagination';
 
 interface IPagerProps {
   count?: number;

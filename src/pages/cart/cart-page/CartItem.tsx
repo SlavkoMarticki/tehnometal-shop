@@ -3,7 +3,7 @@ import { Button, StarsDisplay } from '../../../components';
 import { formatPriceNum } from '../../../utils';
 import { HiMinus, HiPlus } from 'react-icons/hi';
 import useStore from '../../../hooks/useStore';
-import { useMediaQuery } from '@material-ui/core';
+import { useMediaQuery } from '@mui/material';
 import { observer } from 'mobx-react';
 import { calculateReducedPrice } from '../../../utils/priceFormatter';
 interface ICartItemProps {
