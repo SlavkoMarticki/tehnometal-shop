@@ -11,5 +11,16 @@
       "src": "/api/(.*)",
       "dest": "index.js"
     }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://your-react-app-domain.com"
+        }
+      ]
+    }
   ]
 }

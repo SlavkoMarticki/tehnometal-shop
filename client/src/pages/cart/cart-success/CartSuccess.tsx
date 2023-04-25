@@ -54,7 +54,7 @@ export default observer(function CartSuccess(): React.ReactElement | null {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `https://tehnometal-shop-im7d.vercel.app/payment-data?session_id=${sessionId}`
+          `https://tehnometal-shop.vercel.app/api/payment-data?session_id=${sessionId}`
         );
         const data = await response.data;
         const additionalData = {

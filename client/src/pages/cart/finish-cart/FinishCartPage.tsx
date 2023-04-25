@@ -47,7 +47,7 @@ export default observer(function FinishCartPage(): React.ReactElement {
       quantity: 1
     });
     const { data } = await axios.post(
-      'https://tehnometal-shop-im7d.vercel.app/checkout',
+      'https://tehnometal-shop.vercel.app/api/checkout',
       {
         lineItems
       }
