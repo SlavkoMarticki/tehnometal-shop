@@ -1,21 +1,9 @@
 {
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "https://tranquil-khapse-27d818.netlify.app/$1",
-      "headers": {
-        "Cache-Control": "s-maxage=0"
-      },
-      "methods": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE",
-        "OPTIONS"
-      ]
-    }
-  ],
   "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "https://tranquil-khapse-27d818.netlify.app/:splat"
+    },
     {
       "source": "/cart/successful",
       "destination": "/cart/successful?session_id=:session_id"
