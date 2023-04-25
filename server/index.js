@@ -38,7 +38,7 @@ app.post('/checkout', async (req, res) => {
 
 
 });
-app.post('/webhooks/stripe', (req, res) => {
+/* app.post('/webhooks/stripe', (req, res) => {
   const sig = req.headers['stripe-signature'];
   const event = stripe.webhooks.constructEvent(req.body, sig, 'whsec_aFwIdCINi1FU9VBNhXPkMpd82FypxoZJ');
 
@@ -59,7 +59,7 @@ app.post('/webhooks/stripe', (req, res) => {
     res.status(400).send('Invalid event type');
   }
 });
-
+ */
 app.get('/payment-data', async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
