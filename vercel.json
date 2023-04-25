@@ -7,14 +7,7 @@
     },
     {
       "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "build": {
-          "src": "client",
-          "command": "npm run build",
-          "output": "build"
-        }
-      }
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
@@ -24,7 +17,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/client/build/$1"
+      "dest": "client/$1"
     }
   ]
 }
