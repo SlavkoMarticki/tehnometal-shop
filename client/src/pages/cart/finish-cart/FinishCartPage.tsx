@@ -46,7 +46,7 @@ export default observer(function FinishCartPage(): React.ReactElement {
       },
       quantity: 1
     });
-    const { data } = await axios.post('https://tehnometal-shop-7vmq61m0m-dragansub.vercel.app/checkout', {
+    const { data } = await axios.post('api/checkout', {
       lineItems
     });
 

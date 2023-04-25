@@ -26,8 +26,8 @@ app.post('/checkout', async (req, res) => {
       phone_number_collection: {
         "enabled": true
       },
-      success_url: 'https://tranquil-khapse-27d818.netlify.app/cart/successful?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'https://tranquil-khapse-27d818.netlify.app/',
+      success_url: '/cart/successful?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: '/',
     })
 
     return res.status(201).json(session)
