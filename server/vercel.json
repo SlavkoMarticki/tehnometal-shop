@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "https://tranquil-khapse-27d818.netlify.app/:splat"
+      "destination": "https://tranquil-khapse-27d818.netlify.app/$1"
     },
     {
       "source": "/cart/successful",
