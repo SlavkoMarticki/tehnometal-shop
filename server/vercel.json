@@ -5,7 +5,13 @@
       "destination": "https://tranquil-khapse-27d818.netlify.app/$1"
     },
     {
-      "source": "/cart/successful?session_id=:session_id",
+      "source": "/cart/successful",
+      "has": [
+        {
+          "type": "query",
+          "key": "session_id"
+        }
+      ],
       "destination": "/cart/successful?session_id=:session_id"
     }
   ]
