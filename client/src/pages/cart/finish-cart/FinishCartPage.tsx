@@ -46,9 +46,12 @@ export default observer(function FinishCartPage(): React.ReactElement {
       },
       quantity: 1
     });
-    const { data } = await axios.post('api/checkout', {
-      lineItems
-    });
+    const { data } = await axios.post(
+      'https://tehnometal-shop-im7d.vercel.app/checkout',
+      {
+        lineItems
+      }
+    );
 
     const stripe = await stripePromise;
     await stripe!.redirectToCheckout({ sessionId: data.id });
