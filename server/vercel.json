@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "https://tranquil-khapse-27d818.netlify.app/$1"
+      "destination": "https://tehnometal-shop-7vmq61m0m-dragansub.vercel.app/$1"
     },
     {
       "source": "/cart/successful",
@@ -12,7 +12,7 @@
           "key": "session_id"
         }
       ],
-      "destination": "/cart/successful?session_id=:session_id"
+      "destination": "https://tranquil-khapse-27d818.netlify.app/cart/successful?session_id=:session_id"
     }
   ]
 }
