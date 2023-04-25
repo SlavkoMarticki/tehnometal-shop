@@ -8,7 +8,6 @@ import { observer } from 'mobx-react';
 import { Modal } from '../../../portals';
 import { IoMdArrowBack } from 'react-icons/io';
 import { ProductCard } from './components';
-import { toJS } from 'mobx';
 
 export default observer(function CategoryProductsPage(): React.ReactElement {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -45,6 +44,7 @@ export default observer(function CategoryProductsPage(): React.ReactElement {
     return () => {
       unmountPaginationOnUnload();
     }; // clean data
+    /* eslint-disable-next-line */
   }, []);
 
   useEffect(() => {

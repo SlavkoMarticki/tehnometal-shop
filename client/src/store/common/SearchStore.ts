@@ -82,6 +82,7 @@ export class SearchStore {
       const response: any = await searchIndex.search(this.searchQuery, {
         hitsPerPage: 1000
       });
+      /* eslint-disable-next-line */
       response.hits.map((item: any, index: number) => {
         this.rootStore.favoritesStore.favorites.forEach(
           (i: any, inx: number) => {

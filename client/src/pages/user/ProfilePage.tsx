@@ -9,16 +9,12 @@ import { useLoader, usePageTitle } from '../../hooks';
 
 export default observer(function ProfilePage(): React.ReactElement | null {
   const [user, setUser] = useState<any | null>(null);
-  const { userStore } = useStore();
   usePageTitle('Profile');
   const [imageUrl, setImageUrl] = useState<string>('');
   const {
     userStore: { getUserById }
   } = useStore();
-  const imagesListRef = ref(
-    storage,
-    `tehnometal-shop/profile/${userStore.user?.email}`
-  );
+
   const { setIsLoading } = useLoader();
 
   useEffect(() => {

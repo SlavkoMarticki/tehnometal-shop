@@ -9,8 +9,6 @@ import { Modal } from '../../../portals';
 import useStore from '../../../hooks/useStore';
 import { observer } from 'mobx-react';
 import { calculateReducedPrice } from '../../../utils/priceFormatter';
-import { useSpring } from 'react-spring';
-import { useIntersectionObserver } from '../../../hooks/useIntersection';
 
 interface CardsContainerProps {
   cardClassName?: string;
@@ -47,6 +45,8 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
     return () => {
       setProducts([]);
     };
+
+    /* eslint-disable-next-line */
   }, []);
 
   return (

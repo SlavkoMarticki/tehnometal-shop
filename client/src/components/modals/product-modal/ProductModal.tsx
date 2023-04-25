@@ -24,8 +24,7 @@ export default observer(function ProductModal(
   const { setIsLoading } = useLoader();
   const {
     productStore: { product, getProductById, setProduct, activeProdId },
-    cartStore: { checkItemAvailability },
-    favoritesStore: { favorites }
+    cartStore: { checkItemAvailability }
   } = useStore();
 
   useEffect(() => {

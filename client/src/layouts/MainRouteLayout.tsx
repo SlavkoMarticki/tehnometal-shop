@@ -15,7 +15,7 @@ import {
   CartSuccess
 } from '../pages';
 import { ProfilePage } from '../pages/user';
-import { Loader, ErrorPage, NotFound, ErrorBoundary } from '../components';
+import { Loader, NotFound, ErrorBoundary } from '../components';
 import { PrivateRoute } from '../components/routes';
 
 export default function MainRouteLayout(): React.ReactElement {

@@ -155,7 +155,7 @@
 }
 
 .product--m-modal-order {
-  align-items: end;
+  align-items: flex-end;
 }
 
 .exit--modal {

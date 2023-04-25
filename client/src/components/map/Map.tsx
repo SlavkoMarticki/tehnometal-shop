@@ -22,7 +22,7 @@ const Map = ({ className }: { className?: string }): React.ReactElement => {
     // L.marker(center /* { icon: myIcon, bubblingMouseEvents: true } */).addTo(
     //   map
     // );
-    var myIcon = L.icon({
+    const myIcon = L.icon({
       iconUrl: Marker,
       iconSize: [30, 41],
       iconAnchor: [12, 41]

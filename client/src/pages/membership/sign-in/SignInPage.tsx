@@ -9,7 +9,7 @@ import { ISignInFormData } from '../../../types';
 import { signInServiceInstance } from '../../../services';
 import { useAuthUser, usePageTitle, useNotification } from '../../../hooks';
 import { emailFieldPatternValidationInfo } from '../../../common';
-import { isNullOrWhitespace, validatePassword } from '../../../utils/validate';
+import { isNullOrWhitespace } from '../../../utils/validate';
 import useStore from '../../../hooks/useStore';
 
 export default function SignInPage(): React.ReactElement {

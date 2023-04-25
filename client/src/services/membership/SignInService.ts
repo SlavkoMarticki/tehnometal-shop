@@ -1,7 +1,7 @@
 import { signOut, signInWithEmailAndPassword } from '@firebase/auth';
 import { auth, GoogleAuthProvider, signInWithPopup } from '../../common';
 import { ISignInFormData } from '../../types';
-import { ApiResponse, ErrorResponse } from '../../utils';
+import { ErrorResponse } from '../../utils';
 
 class SignInService {
   googleProvider;
