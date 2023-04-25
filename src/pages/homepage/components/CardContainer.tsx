@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Card from '../../../components/card/Card';
-import { AiOutlineHeart } from 'react-icons/ai';
 import { BiCartAdd } from 'react-icons/bi';
 import { formatPriceNum } from '../../../utils';
 import './styles/homeCards.css';
-import { useAuthUser, useLoader } from '../../../hooks';
+import { useLoader } from '../../../hooks';
 import { FavIcon, ProductModal, StarsDisplay } from '../../../components';
 import { Modal } from '../../../portals';
-import { Fade } from 'react-reveal';
 import useStore from '../../../hooks/useStore';
 import { observer } from 'mobx-react';
 import { calculateReducedPrice } from '../../../utils/priceFormatter';
-
-interface ICardData {
-  id: number;
-  title: string;
-  imgUrl: string;
-  stars: number;
-  price: number;
-}
+import { useSpring } from 'react-spring';
+import { useIntersectionObserver } from '../../../hooks/useIntersection';
 
 interface CardsContainerProps {
   cardClassName?: string;
@@ -29,9 +21,16 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { setIsLoading } = useLoader();
   const {
-    productStore: { getAllProducts, products, activeProdId, setActiveProdId },
+    productStore: {
+      getAllProducts,
+      products,
+      activeProdId,
+      setActiveProdId,
+      setProducts
+    },
     cartStore: { checkItemAvailability }
   } = useStore();
+
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
@@ -44,16 +43,16 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
     };
 
     fetchData();
+
+    return () => {
+      setProducts([]);
+    };
   }, []);
+
   return (
     <div className='card--container'>
       {products.map((cardItem: any, index: number) => (
-        <Fade
-          bottom
-          delay={500}
-          duration={1000}
-          key={cardItem.id}
-        >
+        <FadeInSection key={cardItem.id}>
           <div className='card--item-wrap'>
             <div className='product--favorite cart__ef'>
               <FavIcon
@@ -87,7 +86,6 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
               </div>
               <StarsDisplay starsNum={cardItem.data.rating} />
               <p className='card--price'>
-                {/*  {formatPriceNum(cardItem.data.price)} <span>RSD</span> */}
                 {cardItem.data.actionProcent > 0 ? (
                   <div className='flex flex-column'>
                     <p className='product--price product--price__real'>
@@ -122,8 +120,9 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
               </div>
             </Card>
           </div>
-        </Fade>
+        </FadeInSection>
       ))}
+
       <Modal
         isOpen={isModalOpen}
         onClose={() => {
@@ -145,3 +144,23 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
 };
 
 export default observer(CardsContainer);
+
+function FadeInSection(props: any): any {
+  const [isVisible, setVisible] = useState(false);
+  const domRef = useRef<any>();
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => setVisible(entry.isIntersecting));
+    });
+    observer.observe(domRef.current);
+  }, []);
+
+  return (
+    <div
+      className={`fade-in-section ${isVisible ? 'is-visible' : ''}`}
+      ref={domRef}
+    >
+      {props.children}
+    </div>
+  );
+}

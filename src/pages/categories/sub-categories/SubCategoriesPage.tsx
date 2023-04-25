@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLoader, usePageTitle } from '../../../hooks';
 import './subCategories.css';
 import useStore from '../../../hooks/useStore';
 import { observer } from 'mobx-react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { IoMdArrowBack } from 'react-icons/io';
-import { Zoom } from 'react-reveal';
+import { Zoom } from '@mui/material';
 
 export default observer(function SubCategoriesPage(): React.ReactElement {
   const { state } = useLocation();
@@ -88,8 +88,8 @@ const SubCategoryCard = observer(function SubCategoryCard(
 ): React.ReactElement {
   const { imgUrl, id, name, catId } = props;
   return (
-    <Zoom bottom>
-      <div className='card--item'>
+    <div className='card--item'>
+      <FadeInSection>
         <Link
           to={`/categories/${catId}/${id}`}
           state={name}
@@ -103,7 +103,32 @@ const SubCategoryCard = observer(function SubCategoryCard(
             <div className='slider--middle-txt'>{name}</div>
           </div>
         </Link>
+      </FadeInSection>
+    </div>
+  );
+});
+
+function FadeInSection(props: any): any {
+  const [isVisible, setVisible] = useState(false);
+  const domRef = useRef<any>();
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => setVisible(entry.isIntersecting));
+    });
+    observer.observe(domRef.current);
+  }, []);
+
+  return (
+    <Zoom
+      in={isVisible}
+      style={{ transitionDelay: isVisible ? '500ms' : '0ms' }}
+    >
+      <div
+        /* className={`fade-in-section ${isVisible ? 'is-visible' : ''}`} */
+        ref={domRef}
+      >
+        {props.children}
       </div>
     </Zoom>
   );
-});
+}

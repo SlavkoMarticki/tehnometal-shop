@@ -1,10 +1,7 @@
 import React, { useRef } from 'react';
-import { Snackbar, IconButton } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import { Snackbar, IconButton, Alert } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import { unstable_createMuiStrictModeTheme } from '@material-ui/core/styles';
-
-import { ThemeProvider } from '@material-ui/styles';
+import { unstable_createMuiStrictModeTheme ,ThemeProvider} from '@mui/material/styles';
 import { ISnackbarProps } from '../../types';
 
 const theme = unstable_createMuiStrictModeTheme();
