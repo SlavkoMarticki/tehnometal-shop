@@ -26,8 +26,8 @@ app.post('/checkout', async (req, res) => {
       phone_number_collection: {
         "enabled": true
       },
-      success_url: 'https://tehnometal-shop-7vmq61m0m-dragansub.vercel.app/cart/successful?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'https://tehnometal-shop-7vmq61m0m-dragansub.vercel.app/',
+      success_url: 'https://tranquil-khapse-27d818.netlify.app/cart/successful?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'https://tranquil-khapse-27d818.netlify.app/',
     })
 
     return res.status(201).json(session)
