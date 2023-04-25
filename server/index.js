@@ -14,6 +14,7 @@ app.use((req, res, next) => {
 })
 
 app.post('/checkout', async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   try {
     const session = await stripe.checkout.sessions.create({
       line_items: req.body.lineItems,
@@ -35,8 +36,6 @@ app.post('/checkout', async (req, res) => {
     console.log(error)
     return res.status(500).json(error)
   }
-
-
 });
 /* app.post('/webhooks/stripe', (req, res) => {
   const sig = req.headers['stripe-signature'];
@@ -61,6 +60,7 @@ app.post('/checkout', async (req, res) => {
 });
  */
 app.get('/payment-data', async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   try {
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
     const paymentIntent = await stripe.paymentIntents.retrieve(session.payment_intent);
