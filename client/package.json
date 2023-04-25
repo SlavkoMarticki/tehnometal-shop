@@ -46,7 +46,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "node ../server/api/index.js",
+    "server": "node ../server/index.js",
     "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
