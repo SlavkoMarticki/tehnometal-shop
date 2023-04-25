@@ -27,8 +27,8 @@ app.post('/checkout', async (req, res) => {
       phone_number_collection: {
         "enabled": true
       },
-      success_url: 'https://tehnometal-shop-oo3o.vercel.app//cart/successful?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'https://tehnometal-shop-oo3o.vercel.app/',
+      success_url: 'https://tehnometal-shop-9jlh.vercel.app/cart/successful?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'https://tehnometal-shop-9jlh.vercel.app/',
     })
 
     return res.status(201).json(session)
