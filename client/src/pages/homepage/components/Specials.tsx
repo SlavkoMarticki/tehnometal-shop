@@ -67,8 +67,8 @@ export default function Specials(): React.ReactElement {
           className='specials--card specials--item-one'
           style={specialsStyle}
           onClick={() => {
-            navigate('/categories/-NSCE2HTSHLGGkC-OMQX', {
-              state: 'Tools'
+            navigate('/categories/-NSCE22ejmk_NVdGheil/-NSvH8qZhqdHT6Rw8X0m', {
+              state: 'Can of Paint'
             });
           }}
         >
@@ -83,8 +83,8 @@ export default function Specials(): React.ReactElement {
 
             <div className='specials--item-content'>
               <p>
-                Buy this Pickhead Fire Axe and you will get three axe holders
-                for free!!
+                Our Jupol Gold Edition will leave you speechless! Let your house
+                shine.
               </p>
             </div>
           </div>
@@ -93,8 +93,8 @@ export default function Specials(): React.ReactElement {
         <animated.div
           className='specials--card specials--item-two'
           onClick={() => {
-            navigate('/categories/-NSCE1hOhWyRWUvmSk7O', {
-              state: 'Construction Equipment'
+            navigate('/categories/-NSCE1hOhWyRWUvmSk7O/-NSusWZyFbroCGoGW7qv', {
+              state: 'Cement'
             });
           }}
           style={specialsTop}
@@ -118,8 +118,8 @@ export default function Specials(): React.ReactElement {
         <animated.div
           className='specials--card specials--item-three'
           onClick={() => {
-            navigate('/categories/-NSCE12-HLJY6C-fKziU', {
-              state: 'appliances'
+            navigate('/categories/-NSCE12-HLJY6C-fKziU/-NSvA1c_8Km1jpnU9eJI', {
+              state: 'washing machines'
             });
           }}
           style={specialsRight}

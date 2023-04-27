@@ -5,12 +5,7 @@ import { transferObjectIntoArray } from '../../../utils';
 
 import useStore from '../../../hooks/useStore';
 import { observer } from 'mobx-react';
-import {
-  useAuthUser,
-  useLoader,
-  useNotification,
-  usePageTitle
-} from '../../../hooks';
+import { useLoader, useNotification, usePageTitle } from '../../../hooks';
 import { Modal } from '../../../portals';
 import { FavoriteProductItem, EmptyFavoritePage } from './components';
 
@@ -20,7 +15,6 @@ export default observer(function FavoritesPage(): React.ReactElement {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [activeSubCatId, setActiveSubCatId] = useState<string>('');
 
-  const { user } = useAuthUser();
   const {
     productStore: {
       getFavoriteProductsByIds,
@@ -39,11 +33,16 @@ export default observer(function FavoritesPage(): React.ReactElement {
       try {
         // fetch favorites by user first
         setIsLoading(true);
-        const favoritesResponse = await getFavoriteProductsByUser(user!.uid);
+        const userFromLs = localStorage.getItem('loginUser');
+        let user;
+        if (userFromLs != null) {
+          user = JSON.parse(userFromLs);
+        }
+        const favoriteResponse = await getFavoriteProductsByUser(user.uid);
 
-        if (favoritesResponse != null) {
+        if (favoriteResponse != null) {
           const response = await getFavoriteProductsByIds(
-            transferObjectIntoArray(favoritesResponse)
+            transferObjectIntoArray(favoriteResponse)
           );
           if (response.success) {
             setFavoritesList(response.data);

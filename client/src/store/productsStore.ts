@@ -73,6 +73,63 @@ export class ProductStore {
     }
   };
 
+  getRecommendedProductForHomePage = async (): Promise<any> => {
+    let params;
+
+    params = {
+      orderBy: '"$key"',
+      limitToFirst: 5
+    };
+    try {
+      const productData =
+        await productServiceInstance.getAllProductsBySubCategory(
+          '-NSvA1c_8Km1jpnU9eJI',
+          params
+        );
+      const productTwoData =
+        await productServiceInstance.getAllProductsBySubCategory(
+          '-NSuuooKgyeysR5aBstu',
+          params
+        );
+
+      const productThreeData =
+        await productServiceInstance.getAllProductsBySubCategory(
+          '-NSuwx6tPnILuh0xuVjH',
+          params
+        );
+
+      const productFourData =
+        await productServiceInstance.getAllProductsBySubCategory(
+          '-NTiZEmbS4zKDJpdScwL',
+          params
+        );
+      const data = [
+        ...transferObjectIntoArray(productData),
+        ...transferObjectIntoArray(productTwoData),
+        ...transferObjectIntoArray(productThreeData),
+        ...transferObjectIntoArray(productFourData)
+      ];
+
+      if (this.rootStore.favoritesStore.favorites != null) {
+        data.forEach((item: any, index: number) => {
+          this.rootStore.favoritesStore.favorites.forEach(
+            (f: any, i: number) => {
+              if (f[item.id]?.prodId === item.id) {
+                data[index].data.isFavorite = true;
+              }
+            }
+          );
+        });
+      }
+
+      this.setProducts(data);
+    } catch (error) {
+      this.rootStore.loadingStore.setIsLoading(false);
+      console.log(error);
+      throw new Error();
+    }
+  };
+
   getAllShallowProducts = async (subCatId: string): Promise<void> => {
     try {
       const shallowProductsData =
@@ -123,12 +180,16 @@ export class ProductStore {
         this.rootStore.searchStore.setPaginatedList(data);
       }
 
-      await this.rootStore.userStore.updateUserFavoriteList(
-        this.rootStore.userStore.user.uid,
-        subCatId,
-        prodId,
-        favoriteState
-      );
+      const userFromLs = localStorage.getItem('loginUser');
+      if (userFromLs != null) {
+        const { uid } = JSON.parse(userFromLs);
+        await this.rootStore.userStore.updateUserFavoriteList(
+          uid,
+          subCatId,
+          prodId,
+          favoriteState
+        );
+      }
       if (this.product.length !== 0) {
         runInAction(() => {
           this.product[0].isFavorite = favoriteState;
@@ -154,7 +215,6 @@ export class ProductStore {
         data.forEach((item: any, index: number) => {
           this.rootStore.favoritesStore.favorites.forEach(
             (f: any, i: number) => {
-              console.log(item);
               if (f[subCatId!]?.prodId === subCatId) {
                 item.isFavorite = true;
               }

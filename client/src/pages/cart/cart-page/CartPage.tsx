@@ -1,5 +1,5 @@
 import { Button } from '../../../components';
-import { usePageTitle } from '../../../hooks';
+import { useNotification, usePageTitle } from '../../../hooks';
 import './cart.css';
 import { observer } from 'mobx-react';
 import useStore from '../../../hooks/useStore';
@@ -11,6 +11,7 @@ import { BsCartX } from 'react-icons/bs';
 export default observer(function CartPage(): React.ReactElement {
   usePageTitle('Cart');
 
+  const { showWarningPopup } = useNotification();
   const {
     cartStore: { cart, totalPrice }
   } = useStore();
@@ -72,7 +73,11 @@ export default observer(function CartPage(): React.ReactElement {
             <Button
               className='cart--finish-btn'
               onClick={() => {
-                navigate('/cart/finish-cart');
+                if (cart.length === 0) {
+                  showWarningPopup('Your cart is empty');
+                } else {
+                  navigate('/cart/finish-cart');
+                }
               }}
             >
               FINISH PURCHASE

@@ -1,6 +1,6 @@
 {
   "name": "tehnometal-shop",
-  "version": "2.0.1",
+  "version": "2.1.2",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",

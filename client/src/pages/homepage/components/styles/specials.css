@@ -28,6 +28,10 @@
   visibility: visible;
 }
 
+.specials--item-img img {
+  max-width: 300px;
+}
+
 .specials--item-one {
   grid-area: a;
 }

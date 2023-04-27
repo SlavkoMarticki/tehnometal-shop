@@ -76,7 +76,7 @@ export default function MobileNavItems(
             />
           </li>
         </ul>
-        <ul className='nav--list flex flex-column'>
+        <ul className='nav--list top-20 flex flex-column'>
           <li
             className='nav--item'
             onClick={() => {
@@ -159,7 +159,7 @@ export default function MobileNavItems(
             </NonAuthNavItem>
           </li>
         </ul>
-        <ul className='nav--list flex flex-column'>
+        <ul className='nav--list top-20  flex flex-column'>
           <li className='nav--item nav--item__i'>
             <AuthNavItem>
               <FaSignOutAlt

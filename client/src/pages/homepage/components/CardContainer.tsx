@@ -20,7 +20,7 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
   const { setIsLoading } = useLoader();
   const {
     productStore: {
-      getAllProducts,
+      getRecommendedProductForHomePage,
       products,
       activeProdId,
       setActiveProdId,
@@ -33,7 +33,7 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
     const fetchData = async (): Promise<void> => {
       try {
         setIsLoading(true);
-        await getAllProducts('-NSvA1c_8Km1jpnU9eJI', 20);
+        await getRecommendedProductForHomePage();
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -49,6 +49,14 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
     /* eslint-disable-next-line */
   }, []);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isModalOpen]);
+
   return (
     <div className='card--container'>
       {products.map((cardItem: any, index: number) => (
@@ -58,7 +66,7 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
               <FavIcon
                 isFavorite={cardItem.data.isFavorite}
                 prodId={cardItem.id}
-                subCatId={'-NSvA1c_8Km1jpnU9eJI'}
+                subCatId={cardItem.data.subCategoryId}
               />
             </div>
 

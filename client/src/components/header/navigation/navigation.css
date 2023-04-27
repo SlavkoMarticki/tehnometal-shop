@@ -239,6 +239,25 @@
   }
 }
 
+.top-20{
+  position: relative;
+  top: 20px;
+}
+
+@media screen and (max-device-height:600px) and (orientation : landscape) {
+  .nav--item{
+    margin: 0 auto;
+    font-size: 14px;
+    padding: 3px 10px;
+  }
+
+  .nav--item__i{
+    font-size: 18px;
+  }
+
+
+}
+
 .nav-h-ef,
 .nav-h-ef a {
   --b: 0.2em; /* the thickness of the line */

@@ -39,10 +39,11 @@
 
 .profile--user-email {
   color: white;
-  padding: 0 10px;
+  padding: 0 20px;
   font-size: 18px;
   letter-spacing: 0.8px;
   font-weight: 500;
+  word-break: break-all;
 }
 
 .profile--group__info {
@@ -231,6 +232,7 @@
 
   .profile--value {
     padding-right: 2rem;
+    word-break: break-all;
   }
 }
 
@@ -262,6 +264,7 @@
   .profile--value,
   .profile--purchases-label {
     font-size: 14px;
+    word-break: break-all;
   }
 
   .profile--group-item {

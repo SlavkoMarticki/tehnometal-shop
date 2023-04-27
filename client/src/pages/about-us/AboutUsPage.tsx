@@ -35,14 +35,14 @@ const AboutUsDesktopView = (): React.ReactElement => {
             <div className='about-us--content-txt'>
               <h1 className='about-us--title-main'>ABOUT US</h1>
               <h3 className='about-us--title-secondary'>
-                we are a small family business that tries to provide you with
-                the most affordable purchase and the safest delivery
+                We are a small family business that tries to provide you with
+                the most affordable purchase and the safest delivery.
               </h3>
               <p className='about-us--content-block'>
-                our story begins in 2016 in Belgrade and since then we have been
+                Our story begins in 2016 in Čurug and since then we have been
                 selling construction materials and more recently appliances and
                 other electrical appliances. Our success lies in sacrifice and
-                work
+                work.
               </p>
             </div>
           </div>
@@ -78,13 +78,13 @@ const AboutUsMobileView = (): React.ReactElement => {
         <div className='about-us--content-txt flex flex-column'>
           <h1 className='about-us--title-main'>ABOUT US</h1>
           <h3 className='about-us--title-secondary'>
-            we are a small family business that tries to provide you with the
-            most affordable purchase and the safest delivery
+            We are a small family business that tries to provide you with the
+            most affordable purchase and the safest delivery.
           </h3>
           <p className='about-us--content-block'>
-            our story begins in 2016 in Belgrade and since then we have been
+            Our story begins in 2016 in Čurug and since then we have been
             selling construction materials and more recently appliances and
-            other electrical appliances. Our success lies in sacrifice and work
+            other electrical appliances. Our success lies in sacrifice and work.
           </p>
         </div>
         <div className='about-us--location-img'>

@@ -33,6 +33,7 @@ export default observer(function ProfilePageContent(
 
   const handlePageChange = (event: any, value: number): void => {
     setPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
