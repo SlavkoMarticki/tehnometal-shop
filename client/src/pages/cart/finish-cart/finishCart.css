@@ -180,6 +180,19 @@
   .finish--cart-input {
     text-indent: 2px;
   }
+  .finish--cart-name {
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+  }
+
+  .finish--cart-price {
+    /*   white-space: nowrap;
+    overflow: hidden !important; */
+    text-overflow: ellipsis;
+    line-break: anywhere;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -187,10 +200,25 @@
     width: 100%;
     text-indent: 2px;
   }
+
+  .finish--cart-quantity {
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+  }
+
   .finish--cart-labels > h1 {
     font-size: 14px;
   }
   .finish--cart-item > p {
     font-size: 13px;
+  }
+
+  .finish--cart-total-price {
+    font-size: 0.8rem;
+  }
+  .finish--cart-total-price > span {
+    font-size: 0.5rem;
   }
 }

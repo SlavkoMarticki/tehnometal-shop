@@ -66,7 +66,7 @@ export default observer(function FinishCartPage(): React.ReactElement {
           <div className='finish--cart-details'>
             <div className='finish--cart-labels'>
               <h1>Product</h1>
-              <h1>Quantity</h1>
+              <h1 className='finish--cart-quantity'>Quantity</h1>
               <h1>Total</h1>
             </div>
             <div className='finish--cart-items'>
@@ -85,7 +85,7 @@ export default observer(function FinishCartPage(): React.ReactElement {
             <div className='finish--cart-total'>
               <div className='flex justify-spaceBetween align-center'>
                 <p className='finish--cart-total-label'>TOTAL : </p>
-                <p className='finish--cart-total-price'>
+                <p className='finish--cart-total-price '>
                   {formatPriceNum(totalPrice)}
                   <span>RSD</span>
                 </p>
@@ -114,9 +114,9 @@ const CartItem = (props: ICartItemProps): React.ReactElement => {
 
   return (
     <div className='finish--cart-item'>
-      <p>{name}</p>
-      <p>{quantity}</p>
-      <p>
+      <p className='finish--cart-name'>{name}</p>
+      <p className='finish--cart-quantity'>{quantity}</p>
+      <p className='finish--cart-price'>
         {formatPriceNum(total)}
         <em>{currency}</em>
       </p>

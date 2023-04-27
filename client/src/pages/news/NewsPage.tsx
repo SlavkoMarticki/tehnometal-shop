@@ -20,6 +20,7 @@ export default function NewsPage(): React.ReactElement {
 
   const handlePageChange = (e: any, value: number): void => {
     setPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

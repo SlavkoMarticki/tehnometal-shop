@@ -109,6 +109,10 @@ contact--us-btn .contact-us--label {
   display: flex;
 }
 
+.css-1v2lvtn-MuiPaginationItem-root {
+  color: white !important;
+}
+
 @media screen and (max-width: 840px) {
   .contact-us--content {
     flex-direction: column;
