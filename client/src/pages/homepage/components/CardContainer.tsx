@@ -49,6 +49,14 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cardClassName }) => {
     /* eslint-disable-next-line */
   }, []);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isModalOpen]);
+
   return (
     <div className='card--container'>
       {products.map((cardItem: any, index: number) => (
