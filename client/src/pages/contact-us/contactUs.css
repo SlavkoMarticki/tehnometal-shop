@@ -115,6 +115,10 @@ contact--us-btn .contact-us--label {
     gap: 2rem;
   }
 
+  .contact-us--title {
+    line-height: unset;
+  }
+
   .contact-us--content {
     height: 100%;
   }
