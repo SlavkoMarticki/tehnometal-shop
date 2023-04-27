@@ -123,12 +123,16 @@ export class ProductStore {
         this.rootStore.searchStore.setPaginatedList(data);
       }
 
-      await this.rootStore.userStore.updateUserFavoriteList(
-        this.rootStore.userStore.user.uid,
-        subCatId,
-        prodId,
-        favoriteState
-      );
+      const userFromLs = localStorage.getItem('loginUser');
+      if (userFromLs != null) {
+        const { uid } = JSON.parse(userFromLs);
+        await this.rootStore.userStore.updateUserFavoriteList(
+          uid,
+          subCatId,
+          prodId,
+          favoriteState
+        );
+      }
       if (this.product.length !== 0) {
         runInAction(() => {
           this.product[0].isFavorite = favoriteState;

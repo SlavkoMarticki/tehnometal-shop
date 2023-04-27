@@ -1,5 +1,4 @@
 export function isNullOrWhitespace(value: string | null | undefined): boolean {
-  console.log(value?.trim().length);
   if (value === null || value === undefined || value.trim().length === 0) {
     return false;
   }
