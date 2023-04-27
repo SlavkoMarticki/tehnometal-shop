@@ -1,5 +1,5 @@
 import { Button } from '../../../components';
-import { usePageTitle } from '../../../hooks';
+import { useNotification, usePageTitle } from '../../../hooks';
 import './cart.css';
 import { observer } from 'mobx-react';
 import useStore from '../../../hooks/useStore';
@@ -16,6 +16,7 @@ export default observer(function CartPage(): React.ReactElement {
   } = useStore();
 
   const navigate = useNavigate();
+  const { showWarningPopup } = useNotification();
 
   return (
     <div className='cart full'>
@@ -72,7 +73,11 @@ export default observer(function CartPage(): React.ReactElement {
             <Button
               className='cart--finish-btn'
               onClick={() => {
-                navigate('/cart/finish-cart');
+                if (cart.length === 0) {
+                  showWarningPopup('Your cart is empty');
+                } else {
+                  navigate('/cart/finish-cart');
+                }
               }}
             >
               FINISH PURCHASE
