@@ -34,11 +34,11 @@ export default observer(function FavoritesPage(): React.ReactElement {
         // fetch favorites by user first
         setIsLoading(true);
         const userFromLs = localStorage.getItem('loginUser');
-        let favoriteResponse;
+        let user;
         if (userFromLs != null) {
-          const { uid } = JSON.parse(userFromLs);
-          favoriteResponse = await getFavoriteProductsByUser(uid);
+          user = JSON.parse(userFromLs);
         }
+        const favoriteResponse = await getFavoriteProductsByUser(user.uid);
 
         if (favoriteResponse != null) {
           const response = await getFavoriteProductsByIds(
