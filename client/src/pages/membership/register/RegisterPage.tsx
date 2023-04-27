@@ -55,12 +55,13 @@ export default function RegisterPage(): React.ReactElement {
   });
 
   const uploadFile = (email: string): void => {
-    if (image == null) return;
+    if (image == null || image.length === 0) return;
 
     const imageRef = ref(
       storage,
       `tehnometal-shop/profile/${email}/${image.name}`
     );
+
     uploadBytes(imageRef, image).then((snapshot: any) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setImageUpload(url);
