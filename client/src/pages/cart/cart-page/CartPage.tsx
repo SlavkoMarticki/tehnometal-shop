@@ -11,12 +11,12 @@ import { BsCartX } from 'react-icons/bs';
 export default observer(function CartPage(): React.ReactElement {
   usePageTitle('Cart');
 
+  const { showWarningPopup } = useNotification();
   const {
     cartStore: { cart, totalPrice }
   } = useStore();
 
   const navigate = useNavigate();
-  const { showWarningPopup } = useNotification();
 
   return (
     <div className='cart full'>

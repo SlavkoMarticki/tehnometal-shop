@@ -27,8 +27,10 @@ const LoaderProvider = (props: IContainerProps): React.ReactElement => {
 
     /* eslint-disable-next-line */
     loadingTimer = setTimeout(() => {
-      setIsLoadingLocal(false);
-      showErrorPopup('Something went wrong...');
+      if (isLoading) {
+        setIsLoadingLocal(false);
+        showErrorPopup('Something went wrong...');
+      }
     }, 5000);
   }, []);
 
